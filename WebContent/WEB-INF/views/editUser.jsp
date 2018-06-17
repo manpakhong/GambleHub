@@ -29,15 +29,15 @@
                 <tr>
                     <td>Name</td>
                     <td>
-                        <form:input path="name" /> <br />
-                        <form:errors path="name" cssClass="error" />
+                        <form:input path="username" /> <br />
+                        <form:errors path="username" cssClass="error" />
                     </td>
                 </tr>
                 <tr>
-                    <td>Email</td>
+                    <td>Password</td>
                     <td>
-                        <form:input path="email" /> <br />
-                        <form:errors path="email" cssClass="error" />
+                        <form:input path="password" /> <br />
+                        <form:errors path="password" cssClass="error" />
                     </td>
                 </tr>
                 <tr>
@@ -54,8 +54,8 @@
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
+                    <td>${user.username}</td>
+                    <td>${user.status}</td>
                 </tr>
             </c:forEach>
         </table>

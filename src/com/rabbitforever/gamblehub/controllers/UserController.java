@@ -19,10 +19,10 @@ public class UserController {
     @Autowired
     private UserService userService;
  
-    @GetMapping("/GambleHub")
+    @GetMapping("/")
     public String userForm(Locale locale, Model model) {
         model.addAttribute("users", userService.list());
-        return "views/editUsers";
+        return "editUser";
     }
      
     @ModelAttribute("user")
@@ -31,7 +31,7 @@ public class UserController {
     }
  
     @PostMapping("/addUser")
-    public String saveUser(@ModelAttribute("user") @Valid UserEo userEo,
+    public String saveUser(@ModelAttribute("userEo") @Valid UserEo userEo,
                             BindingResult result, Model model) {
  
         if (result.hasErrors()) {
