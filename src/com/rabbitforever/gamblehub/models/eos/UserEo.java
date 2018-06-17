@@ -1,11 +1,25 @@
 package com.rabbitforever.gamblehub.models.eos;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+
 @Entity
 @Table(name = "gbl_user")
 public class UserEo {
@@ -19,8 +33,11 @@ public class UserEo {
 	protected String updatedBy;
 	protected String createdBy;
 	protected String remarks;
+
+
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", nullable = false, columnDefinition = "INT(11) UNSIGNED")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
@@ -63,7 +80,9 @@ public class UserEo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	@Column(name = "update_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="update_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
+//	 @Generated(GenerationTime.ALWAYS)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -71,7 +90,9 @@ public class UserEo {
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	@Column(name = "create_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
+//	 @Generated(GenerationTime.ALWAYS)
 	public Date getCreateDate() {
 		return createDate;
 	}

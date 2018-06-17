@@ -3,7 +3,13 @@ package com.rabbitforever.gamblehub.models.eos;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 public class AuthoritiesEo {
 	protected Integer id;
@@ -14,8 +20,10 @@ public class AuthoritiesEo {
 	protected String updatedBy;
 	protected String createdBy;
 	protected String remarks;
+
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public Integer getId() {
 		return id;
 	}
@@ -37,6 +45,7 @@ public class AuthoritiesEo {
 		this.roleId = roleId;
 	}
 	@Column(name = "update_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -44,6 +53,7 @@ public class AuthoritiesEo {
 		this.updateDate = updateDate;
 	}
 	@Column(name = "create_date", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -71,5 +81,6 @@ public class AuthoritiesEo {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+
 
 }
