@@ -1,7 +1,9 @@
 package com.rabbitforever.gamblehub.services;
 
+import java.util.List;
+
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
 public interface GambleService {
-	public void save(BigSmallEo bigSmallEo);
+	public List<BigSmallEo> read(Object so) throws Exception;
 }
