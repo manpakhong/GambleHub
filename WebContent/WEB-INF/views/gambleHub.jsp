@@ -23,7 +23,29 @@
         </style>
     </head>
     <body>
-
+        <h1>Input Form</h1>
+        <form:form action="addResult" method="post" modelAttribute="bigSmallEo">
+            <table>
+                <tr>
+                    <td>Round</td>
+                    <td>
+                        <form:input path="round" /> <br />
+                        <form:errors path="round" cssClass="error" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Result</td>
+                    <td>
+                        <form:input path="result" /> <br />
+                        <form:errors path="result" cssClass="error" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+        </form:form>
+         
          
         <h2>Gamble Results</h2>
         <table>

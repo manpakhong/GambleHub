@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rabbitforever.gamblehub.daos.BigSmallDao;
-import com.rabbitforever.gamblehub.daos.DaoBase;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 @Service
 public class GambleServiceImp extends ServiceBase implements GambleService{
@@ -32,7 +31,17 @@ public class GambleServiceImp extends ServiceBase implements GambleService{
 		} // end try ... catch
 		return bigSmallEoList;
 	}
-
+	public Integer create(BigSmallEo eo) throws Exception{
+		Integer id = null;
+		try{
+			id = dao.create(eo);
+		}
+		catch (Exception e){
+			logger.error(getClassName() + ".create() - eo=" + eo, e);
+			throw e;
+		} // end try ... catch
+		return id;
+	} // end create function
 
 
 }

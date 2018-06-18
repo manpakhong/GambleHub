@@ -6,4 +6,5 @@ import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
 public interface GambleService {
 	public List<BigSmallEo> read(Object so) throws Exception;
+	public Integer create(BigSmallEo eo) throws Exception;
 }

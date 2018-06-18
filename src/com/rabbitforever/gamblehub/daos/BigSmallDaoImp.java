@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -69,7 +70,7 @@ public class BigSmallDaoImp implements BigSmallDao{
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
-				Predicate predicate = builder.equal(root.get("name"), bigSmallSo.getRound());
+				Predicate predicate = builder.equal(root.get("round"), bigSmallSo.getRound());
 				predicateList.add(predicate);
 			}
 			if (predicateList != null) {
@@ -103,8 +104,35 @@ public class BigSmallDaoImp implements BigSmallDao{
 
 	@Override
 	public Integer create(BigSmallEo eo) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Transaction trans = null;
+		Integer id = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+
+			trans = session.getTransaction();
+			trans.begin();
+
+			eo.setCreatedBy("admin");
+			eo.setCreateDate(new Date());
+			eo.setUpdatedBy("admin");
+			eo.setUpdateDate(new Date());
+			session.save(eo);
+			trans.commit();
+			id = eo.getId();
+		} catch (Exception e) {
+			logger.error(getClassName() + ".create() - eo=" + eo, e);
+			throw e;
+		} // end try ... catch
+		finally {
+
+//			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
+//				if (session != null) {
+//					session.close();
+//					session = null;
+//				}
+//			}
+		}
+		return id;
 	}
 
 	@Override
