@@ -23,28 +23,7 @@
         </style>
     </head>
     <body>
-        <h1>Input Form</h1>
-        <form:form action="addUser" method="post" modelAttribute="user">
-            <table>
-                <tr>
-                    <td>Name</td>
-                    <td>
-                        <form:input path="username" /> <br />
-                        <form:errors path="username" cssClass="error" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td>
-                        <form:input path="password" /> <br />
-                        <form:errors path="password" cssClass="error" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><button type="submit">Submit</button></td>
-                </tr>
-            </table>
-        </form:form>
+
          
         <h2>Gamble Results</h2>
         <table>
@@ -53,7 +32,7 @@
                 <td><strong>Result</strong></td>
                 <td><strong>Date</strong></td>
             </tr>
-            <c:forEach items="${bigSmallList}" var="bigSmallEo">
+            <c:forEach items="${bigSmallEoList}" var="bigSmallEo">
                 <tr>
                     <td>${bigSmallEo.round}</td>
                     <td>${bigSmallEo.result}</td>

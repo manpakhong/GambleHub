@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.eos.UserEo;
 @Configuration
 @EnableTransactionManagement
@@ -18,7 +19,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(UserEo.class);
+        factoryBean.setAnnotatedClasses(UserEo.class,BigSmallEo.class);
 
         return factoryBean;
     }

@@ -18,7 +18,7 @@ public class GambleServiceImp extends ServiceBase implements GambleService{
 	}
 
 	@Autowired
-	private DaoBase dao;
+	private BigSmallDao dao;
 	   
 	@Override
 	public List<BigSmallEo> read(Object so) throws Exception {

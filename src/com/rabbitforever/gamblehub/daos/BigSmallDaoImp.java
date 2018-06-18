@@ -2,6 +2,7 @@ package com.rabbitforever.gamblehub.daos;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,21 +22,23 @@ import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 
 @Repository
-public class BigSmallDaoImp extends DaoBase<BigSmallEo> {
+public class BigSmallDaoImp implements BigSmallDao{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	@Autowired
+	private SessionFactory sessionFactory;
+	private Session session;
 	private String getClassName(){
 		return this.getClass().getName();
 	}
-	@Autowired
-	private SessionFactory sessionFactory;
+
 
 	public BigSmallDaoImp() throws Exception{
-		
+
 	}
-	public BigSmallDaoImp(String connectionType) throws Exception {
-		super(connectionType);
-		session = sessionFactory.getCurrentSession();
-	}
+//	public BigSmallDaoImp(String connectionType) throws Exception {
+//		super(connectionType);
+//		session = sessionFactory.getCurrentSession();
+//	}
 
 	@Override
 	public List<BigSmallEo> read(Object so) throws Exception {
@@ -47,6 +50,7 @@ public class BigSmallDaoImp extends DaoBase<BigSmallEo> {
 		Query<BigSmallEo> q = null;
 		List<Predicate> predicateList = null;
 		try {
+			session = sessionFactory.getCurrentSession();
 			BigSmallSo bigSmallSo = (BigSmallSo) so;
 			trans = session.getTransaction();
 			trans.begin();
@@ -87,12 +91,12 @@ public class BigSmallDaoImp extends DaoBase<BigSmallEo> {
 				trans.commit();
 				trans = null;
 			}
-			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
-				if (session != null) {
-					session.close();
-					session = null;
-				}
-			}
+//			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
+//				if (session != null) {
+//					session.close();
+//					session = null;
+//				}
+//			}
 		}
 		return bigSmallEoList;
 	}

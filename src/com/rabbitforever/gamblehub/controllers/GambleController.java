@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,7 +29,7 @@ public class GambleController {
 	@Autowired
 	private GambleService gambleService;
 
-	@PostMapping("/gambleList")
+	@GetMapping("/gambleList")
 	public String read(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
 		List<BigSmallEo> bigSmallEoList = null;
 
@@ -43,6 +44,6 @@ public class GambleController {
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
 		}
-		return "redirect:/";
+		return "gambleHub";
 	}
 }

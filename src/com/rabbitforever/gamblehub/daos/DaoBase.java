@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
@@ -18,7 +19,7 @@ import com.rabbitforever.common.utils.MiscUtils;
 import com.rabbitforever.gamblehub.factories.DbUtilsFactory;
 import com.rabbitforever.gamblehub.utils.DbUtils;
 import com.rabbitforever.gamblehub.utils.HibernateUtils;
-
+@Repository
 public abstract class DaoBase <T>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	public final static String CONNECTION_TYPE_JDBC = "jdbc";
