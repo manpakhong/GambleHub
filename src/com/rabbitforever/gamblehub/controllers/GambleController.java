@@ -28,9 +28,10 @@ public class GambleController {
 	@Autowired
 	private GambleService gambleService;
 
-	@PostMapping("/gambleService")
+	@PostMapping("/gambleList")
 	public String read(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
 		List<BigSmallEo> bigSmallEoList = null;
+
 		try {
 			// if (result.hasErrors()) {
 			// model.addAttribute("bigSmallEoList", gambleService.read());

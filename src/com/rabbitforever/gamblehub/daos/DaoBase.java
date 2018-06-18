@@ -82,7 +82,7 @@ public abstract class DaoBase <T>{
 			} else if (this.connectionType.equals(CONNECTION_TYPE_JNDI)) {
 				Context initContext = new InitialContext();
 				Context envContext  = (Context)initContext.lookup("java:/comp/env");
-				DataSource ds = (DataSource)envContext.lookup("jdbc/MyLocalDB");
+				DataSource ds = (DataSource)envContext.lookup("jdbc/MySqlGamblingDB");
 				connection = ds.getConnection();
 			} else if (this.connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
 				SessionFactory sessionFactory = hibernateUtils.getSessionFactory();

@@ -29,6 +29,9 @@ public class BigSmallDaoImp extends DaoBase<BigSmallEo> {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	public BigSmallDaoImp() throws Exception{
+		
+	}
 	public BigSmallDaoImp(String connectionType) throws Exception {
 		super(connectionType);
 		session = sessionFactory.getCurrentSession();
