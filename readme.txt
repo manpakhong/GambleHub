@@ -18,8 +18,16 @@ config using log4j @Tomcat
 	-XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
 	(if for eclipse, stop tomcat server, double click Tomcat v8.5 Server at localhost, @Open launch configuration, click Arguments tag and append line to the argument
 	
-	remark:
+remark:
 ===========
 for some git hub client, it will have problem, solved it by:
 In Eclipse Help -> Install New Software Work with: http://download.eclipse.org/mpc/releases/1.5.1a Select the "EPP Marketplace Client" Proceed with defaults
 	
+tomcat user (optional):
+=======================
+add the following lines to tomcat-users.xml
+
+<role rolename="admin"/>
+<role rolename="admin-gui"/>
+<role rolename="manager-gui"/>
+<user username="tomcat" password="tomcat" roles="admin,admin-gui,manager-gui"/>
