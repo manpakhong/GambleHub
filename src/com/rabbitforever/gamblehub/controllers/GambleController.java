@@ -13,9 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
-import com.rabbitforever.gamblehub.models.eos.UserEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.services.GambleService;
 
@@ -30,6 +33,25 @@ public class GambleController {
 	@Autowired
 	private GambleService gambleService;
 
+	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
+	public @ResponseBody List<BigSmallEo> getBigSmallList() {
+		List<BigSmallEo> bigSmallEoList = null;
+		BigSmallSo so = null;
+		try {
+			// if (result.hasErrors()) {
+			// model.addAttribute("bigSmallEoList", gambleService.read());
+			// return "editUsers";
+			// }
+			so = new BigSmallSo();
+			bigSmallEoList = gambleService.read(so);
+
+		} catch (Exception e) {
+			logger.error(getClassName() + ".getBigSmallList() - so=" + so, e);
+		}
+		
+		return bigSmallEoList;
+	}
+	
 	@GetMapping("/")
 	public String read(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
 		List<BigSmallEo> bigSmallEoList = null;
@@ -47,6 +69,7 @@ public class GambleController {
 		}
 		return "gambleHub";
 	}
+
     @ModelAttribute("bigSmallEo")
     public BigSmallEo formBackingObject() {
         return new BigSmallEo();
