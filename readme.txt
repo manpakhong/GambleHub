@@ -8,15 +8,13 @@ config using log4j @Tomcat
 ==========================
 1. copy log4j.properties to $CATALINA_HOME\conf
 2. edit log4j.properties to specify the logging location
-	log4j.appender.file.File=/mfms.log
+	log4j.appender.file.File=/gamblehub.log
 3. @Project/extra_libs/libs, copy (original name) tomcat-extras-juli-8.5.2.jar to (replace) $CATALINA_HOME/bin/tomcat-juli.jar (target name)
 4. @Project/extra_libs/libs, copy all files including tomcat-extras-juli-adapters-8.5.2.jar to $CATALINA_HOME/lib
 
 5. add line to tomcat start script:
 	-Dlog4j.configuration="file:c:\apache-tomcat-8.5.27\conf\log4j.properties"
-	-Dlog4j.configuration="file:c:\apache-tomcat-8.5.27\conf\log4j.properties" -Djava.awt.headless=true -Dfile.encoding=UTF-8 
-	-server -Xms1536m -Xmx1536m
-	-XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
+	-Dlog4j.configuration="file:c:\apache-tomcat-8.5.27\conf\log4j.properties" -Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms1536m -Xmx1536m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
 	(if for eclipse, stop tomcat server, double click Tomcat v8.5 Server at localhost, @Open launch configuration, click Arguments tag and append line to the argument
 	
 	remark:
