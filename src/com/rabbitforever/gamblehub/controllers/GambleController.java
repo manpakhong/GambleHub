@@ -13,11 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.services.GambleService;
@@ -34,22 +34,25 @@ public class GambleController {
 	private GambleService gambleService;
 
 	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
-	public @ResponseBody List<BigSmallEo> getBigSmallList() {
+	public @ResponseBody String getBigSmallList() {
 		List<BigSmallEo> bigSmallEoList = null;
 		BigSmallSo so = null;
+		Gson gson = null;
+		String json = null;
 		try {
 			// if (result.hasErrors()) {
 			// model.addAttribute("bigSmallEoList", gambleService.read());
 			// return "editUsers";
 			// }
+			gson = new Gson();
 			so = new BigSmallSo();
 			bigSmallEoList = gambleService.read(so);
-
+			json = gson.toJson(bigSmallEoList);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".getBigSmallList() - so=" + so, e);
 		}
 		
-		return bigSmallEoList;
+		return json;
 	}
 	
 	@GetMapping("/")
