@@ -12,19 +12,21 @@ public class FindAndCountPatterns {
 		final int MINLEN = 2;
 		final int MINCNT = 2;
 
+		FindAndCountPatterns fac = new FindAndCountPatterns();
 		for (int sublen = MINLEN; sublen < s.length() / MINCNT; sublen ++) {
+//			System.out.println("\n" + sublen + "\n------");
 			for (int i = 0; i < s.length() - sublen; i++) {
-				
-				if ((sublen + 1) < s.length()) {
-					String sub = s.substring(i, sublen+ 1);
-					if (sub.length() > MINLEN) {
-						int cnt =numberOfOccurrence(s, sub);
-						if (cnt >  MINCNT && !mapCount.containsKey(sub)) {
-							mapCount.put(sub, cnt);
-						}
-					}
+//				System.out.println(i);
+
+				String sub = s.substring(i, sublen+ i);
+
+				int cnt = fac.numberOfOccurrence(s, sub);
+				System.out.println(cnt);
+				if (cnt >=  MINCNT && !mapCount.containsKey(sub)) {
+					mapCount.put(sub, cnt);
 				}
-			}
+
+			}			
 		}
 		
 		Iterator it = mapCount.entrySet().iterator();
@@ -36,7 +38,7 @@ public class FindAndCountPatterns {
 		
 	}
 
-	public static int numberOfOccurrence(String fullString, String subString) {
+	public int numberOfOccurrence(String fullString, String subString) {
 		int lastIndex = 0;
 		int count = 0;
 		while (lastIndex != -1) {
