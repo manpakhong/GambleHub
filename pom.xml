@@ -22,6 +22,16 @@
 				<version>3.0.0</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
+	           <webResources>
+	                <resource>
+	                    <directory>WebContent/css</directory>
+	                    <targetPath>css</targetPath>
+	                </resource>
+	               	<resource>
+	                    <directory>WebContent/javascript</directory>
+	                    <targetPath>javascript</targetPath>
+	                </resource>
+	           </webResources>					
 				</configuration>
 			</plugin>
 		</plugins>

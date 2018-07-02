@@ -6,13 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 <title>Big Small Gamble Result Estimation</title>
-<link href = "../css/common.css" rel = "stylesheet" />
-<link href = "../css/estimate_next.css" rel = "stylesheet" />
+<link href = '<c:url value="/css/common.css"/>' rel = "stylesheet" />
+<link href = '<c:url value="/css/estimate_next.css"/>' rel = "stylesheet" />
 
-<script type = "text/javascript" src = "../javascripts/jquery-3.3.1.js"></script> 
-<script type = "text/javascript" src = "../javascripts/estimate_next.js"></script> 
+<script type = "text/javascript" src = '<c:url value="/javascript/jquery-3.3.1.js"/>'></script> 
+<script type = "text/javascript" src = '<c:url value="/javascript/estimate_next.js"/>'></script> 
 </head>
 <body>
-
+helo
 </body>
 </html>

@@ -1,13 +1,17 @@
 package com.rabbitforever.gamblehub.spring.config;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.CacheControl;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -23,7 +27,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	      resolver.setSuffix(".jsp");
 	      return resolver;
 	   }
-	 
+	    @Override
+	    public void addResourceHandlers( ResourceHandlerRegistry registry )
+	    {
+	        // Register resource handler for CSS and JS
+//	        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/", "/css/")
+//	              .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+	        // Register resource handler for images
+	        registry.addResourceHandler("/css/**").addResourceLocations("/css/")
+	              .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+	        // Register resource handler for images
+	        registry.addResourceHandler("/javascript/**").addResourceLocations("/javascript/")
+	              .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+	    }	 
 	   @Bean
 	   public MessageSource messageSource() {
 	      ResourceBundleMessageSource source = new ResourceBundleMessageSource();

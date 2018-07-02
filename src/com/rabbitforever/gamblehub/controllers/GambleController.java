@@ -55,6 +55,25 @@ public class GambleController {
 		return json;
 	}
 	
+	@GetMapping("/estimate_next")
+	public String retrieveEstimate(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
+		List<BigSmallEo> bigSmallEoList = null;
+
+		try {
+			// if (result.hasErrors()) {
+			// model.addAttribute("bigSmallEoList", gambleService.read());
+			// return "editUsers";
+			// }
+
+			bigSmallEoList = gambleService.read(so);
+			model.addAttribute("bigSmallEoList", bigSmallEoList);
+		} catch (Exception e) {
+			logger.error(getClassName() + ".read() - so=" + so, e);
+		}
+		return "estimate_next";
+	}
+
+	
 	@GetMapping("/")
 	public String read(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
 		List<BigSmallEo> bigSmallEoList = null;
