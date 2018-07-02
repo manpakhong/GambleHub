@@ -6,8 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
 <title>Big Small Gamble Result Estimation</title>
-<link href = "../css/estimate_next.css" 
-         rel = "stylesheet" />
+<link href = "../css/common.css" rel = "stylesheet" />
+<link href = "../css/estimate_next.css" rel = "stylesheet" />
+
+<script type = "text/javascript" src = "../javascripts/jquery-3.3.1.js"></script> 
 <script type = "text/javascript" src = "../javascripts/estimate_next.js"></script> 
 </head>
 <body>
