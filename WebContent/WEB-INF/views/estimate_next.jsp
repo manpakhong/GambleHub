@@ -13,6 +13,22 @@
 <script type = "text/javascript" src = '<c:url value="/javascript/estimate_next.js"/>'></script> 
 </head>
 <body>
-helo
+	<div class="content">
+		<table class="bigSmallTable">
+			<c:set var="count" value="0" scope="page" />
+			<c:forEach items="${bigSmallEoList}" var="bigSmallEo">
+				<c:if test="${count % 5 eq 0 }">
+                	<tr>
+                </c:if>
+<%--                     <td>${bigSmallEo.round}</td> --%>
+                    <td>${bigSmallEo.result}</td>
+<%--                     <td>${bigSmallEo.updateDate}</td> --%>
+				<c:if test="${count % 5 eq 0 }">
+                	</tr>
+                </c:if>
+				<c:set var="count" value="${count + 1}" scope="page"/>                
+            </c:forEach>
+		</table>
+	</div>
 </body>
 </html>
