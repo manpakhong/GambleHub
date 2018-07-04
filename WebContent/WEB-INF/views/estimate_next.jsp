@@ -16,18 +16,24 @@
 	<div class="content">
 		<table class="bigSmallTable">
 			<c:set var="count" value="0" scope="page" />
+			<c:set var="isTrClosed" value="false" scope="page" />
 			<c:forEach items="${bigSmallEoList}" var="bigSmallEo">
 				<c:if test="${count % 5 eq 0 }">
                 	<tr>
+                	<c:set var="isTrClosed" value="false" scope="page" />
                 </c:if>
 <%--                     <td>${bigSmallEo.round}</td> --%>
                     <td>${bigSmallEo.result}</td>
 <%--                     <td>${bigSmallEo.updateDate}</td> --%>
-				<c:if test="${count % 5 eq 0 }">
+				<c:if test="${count % 5 eq 4 }">
                 	</tr>
+					<c:set var="isTrClosed" value="true" scope="page" />
                 </c:if>
 				<c:set var="count" value="${count + 1}" scope="page"/>                
             </c:forEach>
+            <c:if test="${isTrclosed eq false}">
+            	</tr>
+            </c:if>
 		</table>
 	</div>
 </body>

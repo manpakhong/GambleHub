@@ -1,3 +1,7 @@
 $(document).ready(function(){ 
-	alert('helo');
+	setTimeout(refreshPage, 3000)
 }); // end $(document).ready
+
+function refreshPage(){
+	location.reload();
+}
