@@ -1,6 +1,8 @@
 package com.rabbitforever.gamblehub.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.rabbitforever.gamblehub.daos.BigSmallDao;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
+import com.rabbitforever.gamblehub.tests.FindAndCountPatterns;
 @Service
 public class GambleServiceImp extends ServiceBase implements GambleService{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
@@ -19,6 +22,37 @@ public class GambleServiceImp extends ServiceBase implements GambleService{
 	@Autowired
 	private BigSmallDao dao;
 	   
+	public Map<String, Integer> getPatternCount(String resultString)  throws Exception{
+		Map<String, Integer> patternMap = null;
+		try {
+			String s =  resultString;
+			Map <String, Integer> mapCount = new HashMap<String, Integer>();
+			final int MINLEN = 2;
+			final int MINCNT = 2;
+
+			FindAndCountPatterns fac = new FindAndCountPatterns();
+			for (int sublen = MINLEN; sublen < s.length() / MINCNT; sublen ++) {
+//				System.out.println("\n" + sublen + "\n------");
+				for (int i = 0; i < s.length() - sublen; i++) {
+//					System.out.println(i);
+
+					String sub = s.substring(i, sublen+ i);
+
+					int cnt = fac.numberOfOccurrence(s, sub);
+					System.out.println(cnt);
+					if (cnt >=  MINCNT && !mapCount.containsKey(sub)) {
+						mapCount.put(sub, cnt);
+					}
+
+				}			
+			}
+		} catch (Exception e) {
+			logger.error(getClassName() + ".getPatternCount() - resultString=" + resultString, e);
+			throw e;
+		}
+		return patternMap;
+	}
+	
 	@Override
 	public List<BigSmallEo> read(Object so) throws Exception {
 		List<BigSmallEo> bigSmallEoList = null;
