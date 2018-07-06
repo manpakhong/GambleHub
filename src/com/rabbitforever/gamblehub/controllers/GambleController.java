@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.services.GambleService;
@@ -25,7 +26,10 @@ import com.rabbitforever.gamblehub.services.GambleService;
 @Controller
 public class GambleController {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
-
+	private GambleControllerHelper helper;
+	public GambleController() {
+		helper = new GambleControllerHelper();
+	}
 	private String getClassName() {
 		return this.getClass().getName();
 	}
@@ -47,6 +51,7 @@ public class GambleController {
 			gson = new Gson();
 			so = new BigSmallSo();
 			bigSmallEoList = gambleService.read(so);
+
 			json = gson.toJson(bigSmallEoList);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".getBigSmallList() - so=" + so, e);
@@ -66,7 +71,13 @@ public class GambleController {
 			// }
 
 			bigSmallEoList = gambleService.read(so);
+			String s = helper.getStringFromBigSmallEoList(bigSmallEoList);
+			String nextBettingSuggestion = gambleService.getNextBettingSuggestion(s);
+			if (nextBettingSuggestion == null) {
+				nextBettingSuggestion = "Nondeterministic";
+			}
 			model.addAttribute("bigSmallEoList", bigSmallEoList);
+			model.addAttribute("nextBettingSuggestion", nextBettingSuggestion);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
 		}

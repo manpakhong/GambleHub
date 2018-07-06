@@ -35,6 +35,8 @@
             	</tr>
             </c:if>
 		</table>
+		<div>Final Result:"${nextBettingSuggestion}"
+		</div>
 	</div>
 </body>
 </html>

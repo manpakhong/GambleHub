@@ -9,4 +9,5 @@ public interface GambleService {
 	public List<BigSmallEo> read(Object so) throws Exception;
 	public Integer create(BigSmallEo eo) throws Exception;
 	public Map<String, Integer> getPatternCount(String resultString) throws Exception;
+	public String getNextBettingSuggestion(String s) throws Exception;
 }
