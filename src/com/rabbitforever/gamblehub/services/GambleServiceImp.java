@@ -59,43 +59,43 @@ public class GambleServiceImp extends ServiceBase implements GambleService{
 			Iterator it = mapCount.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry pair = (Map.Entry)it.next();
-				System.out.println(pair.getKey() + ":" + pair.getValue());
+				logger.debug(getClassName() + "getNextBettingSuggestion() -" +  pair.getKey() + ":" + pair.getValue());
 				//it.remove();
 			}
 			String longestPattern =  fac.findTheLongestPattern(mapCount);
-			System.out.println("longest pattern:" + longestPattern + ",count:" + longestPattern.length());
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" + "longest pattern:" + longestPattern + ",count:" + longestPattern.length());
 			
 			List<String> matchingReversedPatternList = fac.findTheMatchingPatternWithLength(s, longestPattern.length(), mapCount);
 			Map<String, Integer> potentialEstimatePattern = fac.findPotentialEstimatePattern(matchingReversedPatternList, mapCount);
 			
-			System.out.println("Potential Estimate Pattern:");
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" + "Potential Estimate Pattern:");
 			Iterator it2 = potentialEstimatePattern.entrySet().iterator();
 			while (it2.hasNext()) {
 				Map.Entry pair = (Map.Entry)it2.next();
-				System.out.println(pair.getKey() + ":" + pair.getValue());
+				logger.debug(getClassName() + "getNextBettingSuggestion() -" + pair.getKey() + ":" + pair.getValue());
 				//it.remove();
 			}
-			System.out.println("Same Length Winner:");
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" + "Same Length Winner:");
 			Map<Integer, String> sameLengthWinner = fac.suggestNextBetting(potentialEstimatePattern, longestPattern.length());
 			Iterator it3 = sameLengthWinner.entrySet().iterator();
 			while (it3.hasNext()) {
 				Map.Entry pair = (Map.Entry)it3.next();
-				System.out.println(pair.getKey() + ":" + pair.getValue());
+				logger.debug(getClassName() + "getNextBettingSuggestion() -" + pair.getKey() + ":" + pair.getValue());
 				//it.remove();
 			}	
-			System.out.println("get final next estimate count");
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" + "get final next estimate count");
 			Map<String, Integer> finalNextEstimateCountMap = fac.getFinalNextEstimateCountMap(sameLengthWinner);
 			Iterator it4 = finalNextEstimateCountMap.entrySet().iterator();
 			while (it4.hasNext()) {
 				Map.Entry pair = (Map.Entry)it4.next();
-				System.out.println(pair.getKey() + ":" + pair.getValue());
+				logger.debug(getClassName() + "getNextBettingSuggestion() -" +pair.getKey() + ":" + pair.getValue());
 				//it.remove();
 			}	
-			System.out.println("estimate next betting");
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" +"estimate next betting");
 			String nextBetting = fac.getTheWinner(finalNextEstimateCountMap);
-			System.out.println("???????????????????????????????");
-			System.out.println(nextBetting);
-			System.out.println("???????????????????????????????");	
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" +"???????????????????????????????");
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" +nextBetting);
+			logger.debug(getClassName() + "getNextBettingSuggestion() -" +"???????????????????????????????");	
 			result = nextBetting;
 		} catch (Exception e) {
 			logger.error(getClassName() + ".getNextBettingSuggestion() - result=" + result, e);
@@ -120,7 +120,7 @@ public class GambleServiceImp extends ServiceBase implements GambleService{
 					String sub = s.substring(i, sublen+ i);
 
 					int cnt = fac.numberOfOccurrence(s, sub);
-					System.out.println(cnt);
+					logger.debug(getClassName() + "getPatternCount() -" + cnt);
 					if (cnt >=  MINCNT && !mapCount.containsKey(sub)) {
 						mapCount.put(sub, cnt);
 					}
