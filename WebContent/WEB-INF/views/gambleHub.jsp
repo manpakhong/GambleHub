@@ -34,6 +34,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Point</td>
+                    <td>
+                        <form:input path="point" /> <br />
+                        <form:errors path="point" cssClass="error" />
+                    </td>
+                </tr>                
+                <tr>
                     <td>Result</td>
                     <td>
                         <form:input path="result" /> <br />
@@ -51,12 +58,14 @@
         <table>
             <tr>
                 <td><strong>Round</strong></td>
+                <td><strong>Point</strong>
                 <td><strong>Result</strong></td>
                 <td><strong>Date</strong></td>
             </tr>
             <c:forEach items="${bigSmallEoList}" var="bigSmallEo">
                 <tr>
                     <td>${bigSmallEo.round}</td>
+                    <td>${bigSmallEo.point}</td>
                     <td>${bigSmallEo.result}</td>
                     <td>${bigSmallEo.updateDate}</td>
                 </tr>

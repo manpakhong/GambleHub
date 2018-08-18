@@ -1,6 +1,8 @@
 package com.rabbitforever.gamblehub.models.sos;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
@@ -8,8 +10,9 @@ public class BigSmallSo extends BigSmallEo implements So
 {
 	protected Date createDateTimeFrom;
 	protected Date createDateTimeTo;
-	protected Date lastModifyDateTimeFrom;
-	protected Date lastModifyDateTimeTo;
+	protected Date updateDateTimeFrom;
+	protected Date updateDateTimeTo;
+	protected List<OrderedBy> orderedByList;
 	@Override
 	public void setCreateDateTimeFrom(Date createDateTimeFrom){
 		this.createDateTimeFrom = createDateTimeFrom;
@@ -19,12 +22,12 @@ public class BigSmallSo extends BigSmallEo implements So
 		this.createDateTimeTo = createDateTimeTo;
 	}
 	@Override
-	public void setLastModifyDateTimeFrom(Date lastModifyDateTimeFrom){
-		this.lastModifyDateTimeFrom = lastModifyDateTimeFrom;
+	public void setUpdateDateTimeFrom(Date updateDateTimeFrom){
+		this.updateDateTimeFrom = updateDateTimeFrom;
 	}
 	@Override
-	public void setLastModifyDateTimeTo(Date lastModifyDateTimeTo){
-		this.lastModifyDateTimeTo = lastModifyDateTimeTo;
+	public void setUpdateDateTimeTo(Date updateDateTimeTo){
+		this.updateDateTimeTo = updateDateTimeTo;
 	}
 	@Override
 	public Date getCreateDateTimeFrom(){
@@ -35,11 +38,23 @@ public class BigSmallSo extends BigSmallEo implements So
 		return this.createDateTimeTo;
 	}
 	@Override
-	public Date getLastModifyDateTimeFrom(){
-		return this.lastModifyDateTimeFrom;
+	public Date getUpdateDateTimeFrom(){
+		return this.updateDateTimeFrom;
 	}
 	@Override
-	public Date getLastModifyDateTimeTo(){
-		return this.lastModifyDateTimeTo;
+	public Date getUpdateDateTimeTo(){
+		return this.updateDateTimeTo;
+	}
+	@Override
+	public void addOrderedBy(OrderedBy orderBy) {
+		if (this.orderedByList == null) {
+			this.orderedByList = new ArrayList<OrderedBy>();
+		}
+		this.orderedByList.add(orderBy);
+	}
+
+	@Override
+	public List<OrderedBy> getOrderedByList() {
+		return this.orderedByList;
 	}
 }

@@ -24,6 +24,7 @@ import org.hibernate.annotations.GenerationTime;
 public class BigSmallEo {
 	protected Integer id;
 	protected String round;
+	protected Integer point;
 	protected String result;
 	protected Date createDate;
 	protected Date updateDate;
@@ -45,6 +46,13 @@ public class BigSmallEo {
 	}
 	public void setRound(String round) {
 		this.round = round;
+	}
+	@Column(name = "point", columnDefinition = "INT(11) UNSIGNED")
+	public Integer getPoint() {
+		return point;
+	}
+	public void setPoint(Integer point) {
+		this.point = point;
 	}
 	@Column(name = "result", length = 255, nullable = false)
 	public String getResult() {

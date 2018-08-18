@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
+import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 
 @Repository
 public class BigSmallDaoImp implements BigSmallDao{
@@ -66,6 +67,13 @@ public class BigSmallDaoImp implements BigSmallDao{
 				Predicate predicate = builder.equal(root.get("id"), bigSmallSo.getId());
 				predicateList.add(predicate);
 			}
+			if (bigSmallSo.getPoint() != null) {
+				if (predicateList == null) {
+					predicateList = new ArrayList<Predicate>();
+				}
+				Predicate predicate = builder.equal(root.get("point"), bigSmallSo.getPoint());
+				predicateList.add(predicate);
+			}			
 			if (bigSmallSo.getRound() != null) {
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
@@ -73,15 +81,50 @@ public class BigSmallDaoImp implements BigSmallDao{
 				Predicate predicate = builder.equal(root.get("round"), bigSmallSo.getRound());
 				predicateList.add(predicate);
 			}
+			if (bigSmallSo.getCreateDateTimeFrom() != null) {
+				Date dateFrom = bigSmallSo.getCreateDateTimeFrom();
+				Date dateTo = bigSmallSo.getCreateDateTimeTo();
+				if (predicateList == null) {
+					predicateList = new ArrayList<Predicate>();
+				}
+				if (dateTo == null) {
+					dateTo = new Date();
+				}
+				Predicate predicate = builder.between(root.get("createDate"),dateFrom, dateTo);
+				predicateList.add(predicate);
+			}
+			if (bigSmallSo.getUpdateDateTimeFrom() != null) {
+				Date dateFrom = bigSmallSo.getUpdateDateTimeFrom();
+				Date dateTo = bigSmallSo.getUpdateDateTimeTo();
+				if (predicateList == null) {
+					predicateList = new ArrayList<Predicate>();
+				}
+				if (dateTo == null) {
+					dateTo = new Date();
+				}
+				Predicate predicate = builder.between(root.get("updateDate"),dateFrom, dateTo);
+				predicateList.add(predicate);
+			}			
 			if (predicateList != null) {
 				query.select(root).where(predicateList.toArray(new Predicate[] {}));
 			} else {
 				query.select(root);
 			}
+			List<OrderedBy> orderedByList = bigSmallSo.getOrderedByList();
+			if (orderedByList != null) {
+				for (OrderedBy orderedBy: orderedByList) {
+					String dataField = orderedBy.getDataField();
+					if (orderedBy.getIsAsc()) {
+						query.orderBy(builder.desc(root.get(dataField)));
+					} else {
+						query.orderBy(builder.desc(root.get(dataField)));
+					}
+				}
+			}
 			q = session.createQuery(query);
 			bigSmallEoList = q.getResultList();
 			for (BigSmallEo bigSmallEo: bigSmallEoList) {
-				System.out.println(bigSmallEo.getResult());
+				logger.debug(bigSmallEo.getResult());
 			}
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
@@ -121,6 +164,7 @@ public class BigSmallDaoImp implements BigSmallDao{
 			id = eo.getId();
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - eo=" + eo, e);
+			trans.rollback();
 			throw e;
 		} // end try ... catch
 		finally {

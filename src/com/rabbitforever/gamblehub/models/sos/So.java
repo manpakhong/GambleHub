@@ -1,6 +1,7 @@
 package com.rabbitforever.gamblehub.models.sos;
 
 import java.util.Date;
+import java.util.List;
 
 public interface So {
 	public Date getCreateDateTimeFrom();
@@ -9,9 +10,12 @@ public interface So {
 	public Date getCreateDateTimeTo();
 	public void setCreateDateTimeTo(Date createDateTimeTo);
 	
-	public Date getLastModifyDateTimeFrom();
-	public void setLastModifyDateTimeFrom(Date lastModifyDateTimeFrom);
+	public Date getUpdateDateTimeFrom();
+	public void setUpdateDateTimeFrom(Date updateDateTimeFrom);
 	
-	public Date getLastModifyDateTimeTo();
-	public void setLastModifyDateTimeTo(Date lastModifyDateTimeTo);
+	public Date getUpdateDateTimeTo();
+	public void setUpdateDateTimeTo(Date updateDateTimeTo);
+	
+	public void addOrderedBy(OrderedBy orderBy);
+	public List<OrderedBy> getOrderedByList();
 }

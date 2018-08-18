@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
+import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 import com.rabbitforever.gamblehub.services.GambleService;
 
 @Controller
@@ -94,8 +95,13 @@ public class GambleController {
 			// model.addAttribute("bigSmallEoList", gambleService.read());
 			// return "editUsers";
 			// }
-
+			OrderedBy orderedBy = new OrderedBy();
+			orderedBy.setDesc("id");
+			so.addOrderedBy(orderedBy);
+			
 			bigSmallEoList = gambleService.read(so);
+
+			
 			model.addAttribute("bigSmallEoList", bigSmallEoList);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
