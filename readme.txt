@@ -32,3 +32,9 @@ add the following lines to tomcat-users.xml
 <role rolename="admin-gui"/>
 <role rolename="manager-gui"/>
 <user username="tomcat" password="tomcat" roles="admin,admin-gui,manager-gui"/>
+
+Additional add (optional):
+============================
+aspect J
+Eclipse Java EE Developer Tools 3.10
+Error Log
