@@ -12,9 +12,9 @@ config using log4j @Tomcat
 4. @Project/extra_libs/libs, copy all files including tomcat-extras-juli-adapters-8.5.2.jar to $CATALINA_HOME/lib
 
 5. add line to tomcat start script:
-	-Dlog4j.configuration="file:c:\apache-tomcat-8.5.27\conf\log4j.properties"
+	-Dlog4j.configuration="file:C:\apache-tomcat-8.5.31\conf\log4j.properties"
 	-Dlog4j.configuration="file:/Library/Tomcat/conf/log4j.properties"
-	-Dlog4j.configuration="file:c:\apache-tomcat-8.5.27\conf\log4j.properties" -Djava.awt.headless=true -Dfile.encoding=UTF-8 
+	-Dlog4j.configuration="file:C:\apache-tomcat-8.5.31\conf\log4j.properties" -Djava.awt.headless=true -Dfile.encoding=UTF-8 
 	-server -Xms1536m -Xmx1536m
 	-XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
 	(if for eclipse, stop tomcat server, double click Tomcat v8.5 Server at localhost, @Open launch configuration, click Arguments tag and append line to the argument
