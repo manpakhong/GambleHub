@@ -17,7 +17,7 @@ public abstract class BundlesUtils <T> {
 		init();
 	}
 	private String getClassName(){
-		String className = this.getClassName();
+		String className = this.getClass().getName();
 		return className;
 	}
 	private void init() throws IOException{

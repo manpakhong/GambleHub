@@ -15,7 +15,7 @@ public class SysBundlesUtils extends BundlesUtils <SysProperties>{
 
 
 	private String getClassName(){
-		String className = this.getClassName();
+		String className = this.getClass().getName();
 		return className;
 	}
 	@Override

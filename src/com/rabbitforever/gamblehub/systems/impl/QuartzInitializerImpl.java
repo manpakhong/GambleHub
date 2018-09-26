@@ -42,6 +42,7 @@ public class QuartzInitializerImpl implements Initializer{
 			  // Tell quartz to schedule the job using our trigger
 			  Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 		    	scheduler.start();
+		
 			  scheduler.scheduleJob(job, trigger);
 		} catch (Exception e) {
 			log.error(QuartzInitializerImpl.class.getName() + "routineJob()", e);
