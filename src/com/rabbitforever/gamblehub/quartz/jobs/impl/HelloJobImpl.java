@@ -1,6 +1,6 @@
 package com.rabbitforever.gamblehub.quartz.jobs.impl;
 
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

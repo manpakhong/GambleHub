@@ -4,8 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.jboss.logging.Logger;
-import org.quartz.Scheduler;
-import org.quartz.impl.StdSchedulerFactory;
 
 import com.rabbitforever.gamblehub.systems.Initializer;
 
@@ -23,10 +21,10 @@ public class InitializerImpl extends HttpServlet implements Initializer{
 	@Override
 	public void start() throws Exception{
 		try {
-			quartzInitializer = new QuartzInitializerImpl();
-			quartzInitializer.start();
-			
-			log.info("System is Initialized!");
+//			quartzInitializer = new QuartzInitializerImpl();
+//			quartzInitializer.start();
+//			
+//			log.info("System is Initialized!");
 		} catch (Exception e) {
 			log.error(InitializerImpl.class.getName() + "start()", e);
 			throw e;
