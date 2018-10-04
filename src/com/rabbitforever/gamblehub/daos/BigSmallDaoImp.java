@@ -1,11 +1,5 @@
 package com.rabbitforever.gamblehub.daos;
 
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,10 +9,16 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.rabbitforever.gamblehub.interceptors.AuditInterceptor;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
@@ -150,8 +150,8 @@ public class BigSmallDaoImp implements BigSmallDao{
 		Transaction trans = null;
 		Integer id = null;
 		try {
-			session = sessionFactory.getCurrentSession();
-
+			session = sessionFactory.withOptions().interceptor(new AuditInterceptor()).openSession();
+			
 			trans = session.getTransaction();
 			trans.begin();
 
@@ -168,13 +168,11 @@ public class BigSmallDaoImp implements BigSmallDao{
 			throw e;
 		} // end try ... catch
 		finally {
+			if (session != null) {
+				session.close();
+				session = null;
+			}
 
-//			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
-//				if (session != null) {
-//					session.close();
-//					session = null;
-//				}
-//			}
 		}
 		return id;
 	}
