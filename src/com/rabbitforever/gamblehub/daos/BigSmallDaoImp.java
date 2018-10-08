@@ -172,7 +172,6 @@ public class BigSmallDaoImp implements BigSmallDao{
 				session.close();
 				session = null;
 			}
-
 		}
 		return id;
 	}
