@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css"/>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/baccarat.css"/>
+<script type = "text/javascript" src = '<c:url value="/javascript/jquery-3.3.1.js"/>'></script> 
+<script type = "text/javascript" src = '<c:url value="/javascript/baccarat.js"/>'></script> 
 <title>Insert title here</title>
 </head>
 <body>
