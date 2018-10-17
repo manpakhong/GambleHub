@@ -6,8 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/common.css"/>
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/baccarat.css"/>
-<script type = "text/javascript" src = '<c:url value="/javascript/jquery-3.3.1.js"/>'></script> 
-<script type = "text/javascript" src = '<c:url value="/javascript/baccarat.js"/>'></script> 
+
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/baccarat.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -22,9 +24,9 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="text" value=""/></td>
-				<td><label for="count"></label></td>
-				<td><label for="oddEven"></label></td>
+				<td><input type="text" value="" class="resultInput" onchange="resultInput_onchange(event)" /></td>
+				<td><label for="count" class="countLabel"></label></td>
+				<td><label for="oddEven" class="oddEvenLabel"></label></td>
 			</tr>
 		</tbody>
 
