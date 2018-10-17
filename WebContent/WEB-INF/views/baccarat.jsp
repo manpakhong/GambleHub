@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="text" value="" class="resultInput" onchange="resultInput_onchange(event)" /></td>
+				<td><input type="text" value="" class="resultInput" onkeydown="resultInput_onkeydown(event)" onchange="resultInput_onchange(event)" /></td>
 				<td><label for="count" class="countLabel"></label></td>
 				<td><label for="oddEven" class="oddEvenLabel"></label></td>
 			</tr>
