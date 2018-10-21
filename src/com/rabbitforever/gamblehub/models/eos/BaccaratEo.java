@@ -99,5 +99,33 @@ public class BaccaratEo
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BaccaratEo [id=");
+		builder.append(id);
+		builder.append(", session=");
+		builder.append(session);
+		builder.append(", round=");
+		builder.append(round);
+		builder.append(", bankPlayer=");
+		builder.append(bankPlayer);
+		builder.append(", result=");
+		builder.append(result);
+		builder.append(", oddEven=");
+		builder.append(oddEven);
+		builder.append(", datetime=");
+		builder.append(datetime);
+		builder.append(", createDate=");
+		builder.append(createDate);
+		builder.append(", updateDate=");
+		builder.append(updateDate);
+		builder.append(", createdBy=");
+		builder.append(createdBy);
+		builder.append(", updatedBy=");
+		builder.append(updatedBy);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

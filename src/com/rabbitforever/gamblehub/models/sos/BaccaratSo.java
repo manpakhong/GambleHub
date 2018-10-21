@@ -63,4 +63,11 @@ public class BaccaratSo extends BaccaratEo implements So
 	public List<OrderedBy> getOrderedByList() {
 		return this.orderedByList;
 	}
+	@Override
+	public String toString() {
+		return "BaccaratSo [createDateTimeFrom=" + createDateTimeFrom + ", createDateTimeTo=" + createDateTimeTo
+				+ ", updateDateTimeFrom=" + updateDateTimeFrom + ", updateDateTimeTo=" + updateDateTimeTo
+				+ ", orderedByList=" + orderedByList + "]";
+	}
+	
 }
