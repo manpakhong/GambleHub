@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
+import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 
@@ -22,6 +23,9 @@ import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 
+	public BaccaratDao() throws Exception{
+		super();
+	}
 	private String getClassName(){
 		return this.getClass().getName();
 	}
@@ -41,6 +45,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 			trans.begin();
 			builder = session.getCriteriaBuilder();
 			query = builder.createQuery(BaccaratEo.class);
+			root = query.from(BaccaratEo.class);
 			if(baccaratSo.getId() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();

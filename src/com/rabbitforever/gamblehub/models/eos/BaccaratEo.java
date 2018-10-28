@@ -3,10 +3,15 @@ package com.rabbitforever.gamblehub.models.eos;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+@Entity
+@Table(name = "gbl_baccarat")
 public class BaccaratEo
 {
 	protected Integer id;
@@ -21,8 +26,8 @@ public class BaccaratEo
 	protected String createdBy;
 	protected String updatedBy;
 	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "id", nullable = false, columnDefinition = "INT(11) UNSIGNED")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
@@ -36,7 +41,7 @@ public class BaccaratEo
 	public void setSession(String session) {
 		this.session = session;
 	}
-	@Column(name = "round")
+	@Column(name = "round", columnDefinition = "INT(11) UNSIGNED")
 	public Integer getRound() {
 		return round;
 	}
@@ -71,14 +76,16 @@ public class BaccaratEo
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
 	}
-	@Column(name = "create_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
 	public Date getCreateDate() {
 		return createDate;
 	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	@Column(name = "update_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
 	public Date getUpdateDate() {
 		return updateDate;
 	}
@@ -99,33 +106,5 @@ public class BaccaratEo
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BaccaratEo [id=");
-		builder.append(id);
-		builder.append(", session=");
-		builder.append(session);
-		builder.append(", round=");
-		builder.append(round);
-		builder.append(", bankPlayer=");
-		builder.append(bankPlayer);
-		builder.append(", result=");
-		builder.append(result);
-		builder.append(", oddEven=");
-		builder.append(oddEven);
-		builder.append(", datetime=");
-		builder.append(datetime);
-		builder.append(", createDate=");
-		builder.append(createDate);
-		builder.append(", updateDate=");
-		builder.append(updateDate);
-		builder.append(", createdBy=");
-		builder.append(createdBy);
-		builder.append(", updatedBy=");
-		builder.append(updatedBy);
-		builder.append("]");
-		return builder.toString();
-	}
-	
+
 }

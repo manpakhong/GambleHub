@@ -13,17 +13,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
 import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
+import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
-import com.rabbitforever.gamblehub.models.sos.OrderedBy;
-import com.rabbitforever.gamblehub.services.GambleService;
+import com.rabbitforever.gamblehub.services.BaccaratService;
 
 @Controller
 public class BaccaratController {
@@ -37,7 +33,7 @@ public class BaccaratController {
 	}
 
 	@Autowired
-	private GambleService gambleService;
+	private BaccaratService baccaratService;
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -63,23 +59,22 @@ public class BaccaratController {
 //	}
 //	
 	@GetMapping("/baccarat")
-	public String getBaccarat(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
-		List<BigSmallEo> bigSmallEoList = null;
+	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
+		List<BaccaratEo> baccaratEoList = null;
 
 		try {
 			// if (result.hasErrors()) {
 			// model.addAttribute("bigSmallEoList", gambleService.read());
 			// return "editUsers";
 			// }
-
-			bigSmallEoList = gambleService.read(so);
-			String s = helper.getStringFromBigSmallEoList(bigSmallEoList);
-			String nextBettingSuggestion = gambleService.getNextBettingSuggestion(s);
-			if (nextBettingSuggestion == null) {
-				nextBettingSuggestion = "Nondeterministic";
+			if (so == null) {
+				so = new BaccaratSo();
 			}
-			model.addAttribute("bigSmallEoList", bigSmallEoList);
-			model.addAttribute("nextBettingSuggestion", nextBettingSuggestion);
+			baccaratEoList = baccaratService.read(so);
+
+
+			model.addAttribute("baccaratEoList", baccaratEoList);
+
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
 		}
@@ -117,16 +112,16 @@ public class BaccaratController {
     @PostMapping("/addBaccarat")
     public String create(@ModelAttribute("baccaratEo") @Valid BaccaratEo eo,
                             BindingResult result, Model model) {
-		List<BigSmallEo> bigSmallEoList = null;
-		BigSmallSo so = null;
+//		List<BigSmallEo> bigSmallEoList = null;
+//		BigSmallSo so = null;
 		try {
-			 so = new BigSmallSo();
-			 bigSmallEoList = gambleService.read(so);
-        if (result.hasErrors()) {
-            model.addAttribute("bigSmallEoList", bigSmallEoList);
-            return "baccarat";
-        }
- 
+//			 so = new BigSmallSo();
+//			 bigSmallEoList = gambleService.read(so);
+//        if (result.hasErrors()) {
+//            model.addAttribute("bigSmallEoList", bigSmallEoList);
+//            return "baccarat";
+//        }
+// 
 
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - eo=" + eo, e);

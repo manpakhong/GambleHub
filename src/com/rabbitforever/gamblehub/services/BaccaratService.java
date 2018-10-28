@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rabbitforever.gamblehub.daos.BaccaratDao;
@@ -10,6 +11,7 @@ import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 @Service
 public class BaccaratService extends ServiceBase{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	@Autowired
 	private BaccaratDao dao;
 	private String getClassName(){
 		return this.getClass().getName();
