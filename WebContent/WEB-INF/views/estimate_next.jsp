@@ -8,9 +8,9 @@
 <title>Big Small Gamble Result Estimation</title>
 <link href = '<c:url value="/css/common.css"/>' rel = "stylesheet" />
 <link href = '<c:url value="/css/estimate_next.css"/>' rel = "stylesheet" />
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/estimate_next.js"></script>
 
-<script type = "text/javascript" src = '<c:url value="/javascript/jquery-3.3.1.js"/>'></script> 
-<script type = "text/javascript" src = '<c:url value="/javascript/estimate_next.js"/>'></script> 
 </head>
 <body>
 	<div class="content">

@@ -17,7 +17,7 @@ public class PropertiesFactory {
 	private BundlesBuilder<SysProperties> sysBundlesBuilder;
 	private final String SYS_PROPERTIES_FILE = "sys.properties";
 	private final String MYSQL_DB_PROPERTIES_FILE = "mysql.db.properties";
-	private final String REPORT_PROPERTIES_FILE = "report.properties";
+
 	private static PropertiesFactory propertiesFactory;
 	private static MysqlDbProperties mysqlDbProperties;
 	private static SysProperties sysProperties;
