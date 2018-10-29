@@ -22,7 +22,7 @@ public class GambleControllerHelper {
 			}
 		} catch (Exception e) {
 			logger.error(getClassName() + ".getStringFromBigSmallEoList() - bigSmallEoList=" + bigSmallEoList, e);
-			throw e;
+			throw e; 
 		}
 		return s.toString();
 	}
