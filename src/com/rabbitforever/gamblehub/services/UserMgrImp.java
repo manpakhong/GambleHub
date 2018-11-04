@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rabbitforever.gamblehub.daos.UserDao;
 import com.rabbitforever.gamblehub.models.eos.UserEo;
 @Service
-public class UserServiceImp implements UserService {
+public class UserMgrImp implements UserMgr {
 
 	   @Autowired
 	   private UserDao userDao;

@@ -8,15 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.rabbitforever.gamblehub.daos.BaccaratDao;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
+import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 @Service
-public class BaccaratService extends ServiceBase{
+public class BaccaratMgr extends ServiceBase{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	@Autowired
 	private BaccaratDao dao;
 	private String getClassName(){
 		return this.getClass().getName();
 	}
-	public BaccaratService() throws Exception{
+	public BaccaratMgr() throws Exception{
 		try{
 			init(null);
 		} catch (Exception e){
@@ -24,7 +25,7 @@ public class BaccaratService extends ServiceBase{
 			throw e;
 		}
 	} // end constructor
-	public BaccaratService(String connectionType) throws Exception{
+	public BaccaratMgr(String connectionType) throws Exception{
 		try{
 			init(connectionType);
 		} catch (Exception e){
@@ -40,6 +41,22 @@ public class BaccaratService extends ServiceBase{
 			throw e;
 		}
 	} // end constructor
+	public Integer getSessionMaxRound(String sessionString) throws Exception{
+		Integer maxRound = null;
+		BaccaratSo so = null;
+		List<BaccaratEo> gblBaccaratEoList = null;
+		try{
+			
+			gblBaccaratEoList = dao.read(so);
+		}
+		catch (Exception e){
+			logger.error(getClassName() + ".read() - so=" + so, e);
+			throw e;
+		} finally{// end try ... catch 
+			so = null;
+		}
+		return maxRound;
+	}
 	public List<BaccaratEo> read(Object so) throws Exception{
 		List<BaccaratEo> gblBaccaratEoList = null;
 		try{

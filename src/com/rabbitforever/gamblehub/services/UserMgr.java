@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.rabbitforever.gamblehub.models.eos.UserEo;
 
-public interface UserService {
+public interface UserMgr {
 	public void save(UserEo userEo);
 	public List<UserEo> list();
 }

@@ -22,7 +22,7 @@ import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
-import com.rabbitforever.gamblehub.services.GambleService;
+import com.rabbitforever.gamblehub.services.GambleMgr;
 
 @Controller
 public class GambleController {
@@ -36,7 +36,7 @@ public class GambleController {
 	}
 
 	@Autowired
-	private GambleService gambleService;
+	private GambleMgr gambleService;
 
 	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 	public @ResponseBody String getBigSmallList() {

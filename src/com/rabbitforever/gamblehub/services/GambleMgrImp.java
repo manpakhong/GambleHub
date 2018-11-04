@@ -15,13 +15,13 @@ import com.rabbitforever.gamblehub.helpers.GameServiceHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.tests.FindAndCountPatterns;
 @Service
-public class GambleServiceImp extends ServiceBase implements GambleService{
+public class GambleMgrImp extends ServiceBase implements GambleMgr{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private final int MINLEN = 2;
 	private final int MINCNT = 2;
 	private GameServiceHelper helper;
 	
-	public GambleServiceImp() {
+	public GambleMgrImp() {
 		helper = new GameServiceHelper(MINLEN);
 	}
 	

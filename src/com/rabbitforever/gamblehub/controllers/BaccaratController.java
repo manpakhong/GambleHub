@@ -19,7 +19,8 @@ import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
-import com.rabbitforever.gamblehub.services.BaccaratService;
+import com.rabbitforever.gamblehub.models.vos.BaccaratVo;
+import com.rabbitforever.gamblehub.services.BaccaratMgr;
 
 @Controller
 public class BaccaratController {
@@ -33,7 +34,7 @@ public class BaccaratController {
 	}
 
 	@Autowired
-	private BaccaratService baccaratService;
+	private BaccaratMgr baccaratService;
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -60,9 +61,11 @@ public class BaccaratController {
 //	
 	@GetMapping("/baccarat")
 	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
+		BaccaratVo vo = null;
 		List<BaccaratEo> baccaratEoList = null;
-
+		Integer round = null;
 		try {
+			vo = new BaccaratVo();
 			// if (result.hasErrors()) {
 			// model.addAttribute("bigSmallEoList", gambleService.read());
 			// return "editUsers";
@@ -70,11 +73,13 @@ public class BaccaratController {
 			if (so == null) {
 				so = new BaccaratSo();
 			}
+			
+			
 			baccaratEoList = baccaratService.read(so);
-
+			vo.setBaccaratEoList(baccaratEoList);
 
 			model.addAttribute("baccaratEoList", baccaratEoList);
-
+			model.addAttribute("vo", vo);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
 		}

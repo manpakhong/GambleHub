@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rabbitforever.gamblehub.models.eos.UserEo;
-import com.rabbitforever.gamblehub.services.UserService;
+import com.rabbitforever.gamblehub.services.UserMgr;
 
 @Controller
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserMgr userService;
  
     @GetMapping("/userList")
     public String userForm(Locale locale, Model model) {
