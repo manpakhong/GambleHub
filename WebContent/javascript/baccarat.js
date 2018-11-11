@@ -6,7 +6,20 @@ var INPUT_TYPE_PLAY = "P";
 $(document).ready(function(){ 
 
 }); // end $(document).ready
-
+function createBaccaratDto(){
+	var baccaratDto = {};
+	baccaratDto.id = -1;
+	baccaratDto.session = "";
+	baccaratDto.round = 0;
+	baccaratDto.bankPlayer = "";
+	baccaratDto.result = "";
+	baccaratDto.oddEven = "";
+	baccaratDto.datetime = "";
+	baccaratDto.createDate = "";
+	baccaratDto.updateDate = "";
+	baccaratDto.createdBy = "";
+	baccaratDto.updatedBy = "";
+}
 function isCharacterKeyPress(evt) {
     if (typeof evt.which == "undefined") {
         // This is IE, which only fires keypress events for printable keys
