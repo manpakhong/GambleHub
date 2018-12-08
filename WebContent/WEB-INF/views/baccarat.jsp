@@ -32,7 +32,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="button" value="Add" class="addNewButton" /></td>
+				<td><input type="button" value="Add" class="addNewButton" onclick="addNewButton_onclick(event)"/></td>
 				<td><input type="text" value="<%= dateUtils.getDateString() %>" class="sessionInput"/></td>
 				<td><input type="text" value="" class="roundInput" /></td>
 				<td><input type="text" value="" class="resultInput" onkeydown="resultInput_onkeydown(event)" onchange="resultInput_onchange(event)" /></td>

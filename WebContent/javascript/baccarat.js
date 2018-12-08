@@ -15,10 +15,14 @@ function createBaccaratDto(){
 	baccaratDto.result = "";
 	baccaratDto.oddEven = "";
 	baccaratDto.datetime = "";
-	baccaratDto.createDate = "";
-	baccaratDto.updateDate = "";
+	baccaratDto.datetimeString = "";
+	baccaratDto.createDate = new Date();
+	baccaratDto.createDateString = "";
+	baccaratDto.updateDate = new Date();
+	baccaratDto.updateDateString = "";
 	baccaratDto.createdBy = "";
 	baccaratDto.updatedBy = "";
+	return baccaratDto;
 }
 function isCharacterKeyPress(evt) {
     if (typeof evt.which == "undefined") {
@@ -60,6 +64,13 @@ function resultInput_onkeydown(e){
 
 
 	}
+}
+function collectBaccaratData(){
+	var baccaratDto = createBaccaratDto();
+}
+function addNewButton_onclick(e){
+	var controlObj = e.target;
+	
 }
 function resultInput_onchange(e){
 	var controlObj = e.target;
