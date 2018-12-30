@@ -24,6 +24,7 @@ function createBaccaratDto(){
 	baccaratDto.updatedBy = "";
 	return baccaratDto;
 }
+
 function isCharacterKeyPress(evt) {
     if (typeof evt.which == "undefined") {
         // This is IE, which only fires keypress events for printable keys
@@ -70,7 +71,15 @@ function collectBaccaratData(){
 }
 function addNewButton_onclick(e){
 	var controlObj = e.target;
+	var tdObj = $(controlObj).parent();
+	var trObj = $(controlObj).parent();
+	var sessionInput = $(trObj).find('.sessionInput');
+	var roundInput = $(trObj).find('.roundInput');
+	var resultInput = $(trObj).find('.resultInput');
+	var countLabel = $(trObj).find('.countLabel');
+	var oddEvenLabel = $(trObj).find('oddEvenLabel');
 	
+	alert($(sessionInput).val() + $(roundInput).val());
 }
 function resultInput_onchange(e){
 	var controlObj = e.target;
