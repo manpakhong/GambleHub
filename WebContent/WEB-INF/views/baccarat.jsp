@@ -13,6 +13,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 <link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/baccarat.css"/>
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/baccarat.js"></script>
 <title>Insert title here</title>
 </head>

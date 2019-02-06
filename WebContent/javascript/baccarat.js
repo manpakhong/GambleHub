@@ -66,21 +66,33 @@ function resultInput_onkeydown(e){
 
 	}
 }
-function collectBaccaratData(){
-	var baccaratDto = createBaccaratDto();
-}
-function addNewButton_onclick(e){
-	var controlObj = e.target;
-	var tdObj = $(controlObj).parent();
-	var trObj = $(controlObj).parent();
+function collectBaccaratData(trObj){
 	var sessionInput = $(trObj).find('.sessionInput');
 	var roundInput = $(trObj).find('.roundInput');
 	var resultInput = $(trObj).find('.resultInput');
 	var countLabel = $(trObj).find('.countLabel');
 	var oddEvenLabel = $(trObj).find('oddEvenLabel');
 	
-	alert($(sessionInput).val() + $(roundInput).val());
+	var baccaratDto = createBaccaratDto();
+	baccaratDto.sessionInput = sessionInput;
+	baccaratDto.roundInput = roundInput;
+	baccaratDto.resultInput = resultInput;
+	baccaratDto.oddEvenLabel = oddEventLabel;
+	
+	return baccaratDto;
 }
+function postAddBaccaratData(baccaratDto){
+	var postDto = createPostDto();
+	
+}
+function addNewButton_onclick(e){
+	var controlObj = e.target;
+	var tdObj = $(controlObj).parent();
+	var trObj = $(tdObj).parent();
+	
+	var baccaratDto = collectBaccaratData(trObj);
+}
+
 function resultInput_onchange(e){
 	var controlObj = e.target;
 	var changeValue = $(controlObj).val();
