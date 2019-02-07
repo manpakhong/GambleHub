@@ -83,7 +83,39 @@ function collectBaccaratData(trObj){
 }
 function postAddBaccaratData(baccaratDto){
 	var postDto = createPostDto();
+	postDto.dataInstance = baccaratDto;
+	postDto.dataClassName = "BaccaratDto";
+	var dataString = JSON.stringify(postDto);
+	console.log(dataString);
 	
+	$.ajax({
+		type : "POST",
+		url : "../../../rabbitforever/commands/BlogPageCommand.php",
+		data : {
+			data : dataString
+		}
+	}).done(function(data, status, jqXHR) {
+		postAddBaccaratDataCallBack(data);
+//		alert("Promise success callback.");
+	}).fail(function(jqXHR, status, err) {
+//		alert("Promise error callback.");
+	}).always(function() {
+//		alert("Promise completion callback.");
+	})
+
+}
+
+function postAddBaccaratDataCallBack(jsonStr){
+	if (!isUndefinedOrIsNull(jsonStr)) {
+		if (jsonStr.length == 0) {
+			return;
+		}
+		var baccaratVo = JSON.parse(jsonStr);
+		if (isUndefinedOrIsNull(baccaratVo)) {
+			//alert(getBundleLangByLabel('abnormal_nullable_data_return'));
+			return;
+		}
+	}
 }
 function addNewButton_onclick(e){
 	var controlObj = e.target;

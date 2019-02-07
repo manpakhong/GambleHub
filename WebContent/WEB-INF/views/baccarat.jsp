@@ -14,6 +14,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/common.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/common_utils.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/baccarat.js"></script>
 <title>Insert title here</title>
 </head>

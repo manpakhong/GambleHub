@@ -1,9 +1,16 @@
-var command = new Object();
-command.default = "SELECT";
-command.select = "SELECT";
-command.insert = "INSERT";
-command.delete = "DELETE";
-command.update = "UPDATE";
+//var command = new Object();
+//command.default = "SELECT";
+//command.select = "SELECT";
+//command.insert = "INSERT";
+//command.delete = "DELETE";
+//command.update = "UPDATE";
+
+var CMD_TYPE_NONE = 'NONE';
+var CMD_TYPE_SELECT = 'SELECT';
+var CMD_TYPE_UPDATE = 'UPDATE';
+var CMD_TYPE_DELETE = 'DELETE';
+var CMD_TYPE_INSERT = 'INSERT';
+var CMD_TYPE_BATCH_SAVE = 'BATCH_SAVE';
 
 $(document).ready(function(){ 
 	
@@ -11,8 +18,8 @@ $(document).ready(function(){
 
 function createRequestDto(){
 	var requestDto = {};
-	requestDto.command = "SELECT";
-	requestDto.object = "";
-	requestDto.objectName = "";
+	requestDto.command = CMD_TYPE_NONE;
+	requestDto.dataInstance = "";
+	requestDto.dataClassName = "";
 	return requestDto;
 }
