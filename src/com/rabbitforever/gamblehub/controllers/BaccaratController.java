@@ -12,17 +12,21 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
+import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
+import com.rabbitforever.gamblehub.models.dtos.RequestDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
-import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
-import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.vos.BaccaratVo;
 import com.rabbitforever.gamblehub.services.BaccaratMgr;
 
 @Controller
+@RequestMapping("/baccarat")
 public class BaccaratController {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private GambleControllerHelper helper;
@@ -59,7 +63,7 @@ public class BaccaratController {
 //		return json;
 //	}
 //	
-	@GetMapping("/baccarat")
+	@GetMapping("load")
 	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
 		BaccaratVo vo = null;
 		List<BaccaratEo> baccaratEoList = null;
@@ -114,9 +118,9 @@ public class BaccaratController {
 //    public BigSmallEo formBackingObject() {
 //        return new BigSmallEo();
 //    }
-    @PostMapping("/addBaccarat")
-    public String create(@ModelAttribute("baccaratEo") @Valid BaccaratEo eo,
-                            BindingResult result, Model model) {
+    @RequestMapping(value = "addBaccarat", method = RequestMethod.POST)
+    @ResponseBody
+    public String create(@RequestBody String jsonString) {
 //		List<BigSmallEo> bigSmallEoList = null;
 //		BigSmallSo so = null;
 		try {
@@ -127,10 +131,10 @@ public class BaccaratController {
 //            return "baccarat";
 //        }
 // 
-
+			String json = jsonString.toString();
 		} catch (Exception e) {
-			logger.error(getClassName() + ".create() - eo=" + eo, e);
+			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
 		}
-        return "redirect:/";
+        return "{helo: 'helo'}";
     }
 }

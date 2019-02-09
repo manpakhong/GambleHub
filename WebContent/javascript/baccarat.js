@@ -71,18 +71,18 @@ function collectBaccaratData(trObj){
 	var roundInput = $(trObj).find('.roundInput');
 	var resultInput = $(trObj).find('.resultInput');
 	var countLabel = $(trObj).find('.countLabel');
-	var oddEvenLabel = $(trObj).find('oddEvenLabel');
+	var oddEvenLabel = $(trObj).find('.oddEvenLabel');
 	
 	var baccaratDto = createBaccaratDto();
-	baccaratDto.sessionInput = sessionInput;
-	baccaratDto.roundInput = roundInput;
-	baccaratDto.resultInput = resultInput;
-	baccaratDto.oddEvenLabel = oddEventLabel;
+	baccaratDto.sessionInput = $(sessionInput).val();
+	baccaratDto.roundInput = $(roundInput).val();
+	baccaratDto.resultInput = $(resultInput).val();
+	baccaratDto.oddEvenLabel = $(oddEvenLabel).html();
 	
-	return baccaratDto;
+	return baccaratDto; 
 }
 function postAddBaccaratData(baccaratDto){
-	var postDto = createPostDto();
+	var postDto = createRequestDto();
 	postDto.dataInstance = baccaratDto;
 	postDto.dataClassName = "BaccaratDto";
 	var dataString = JSON.stringify(postDto);
@@ -90,10 +90,9 @@ function postAddBaccaratData(baccaratDto){
 	
 	$.ajax({
 		type : "POST",
-		url : "../../../rabbitforever/commands/BlogPageCommand.php",
-		data : {
-			data : dataString
-		}
+		url : "addBaccarat",
+		contentType: "application/json; charset=utf-8",
+		data : dataString
 	}).done(function(data, status, jqXHR) {
 		postAddBaccaratDataCallBack(data);
 //		alert("Promise success callback.");
@@ -117,12 +116,14 @@ function postAddBaccaratDataCallBack(jsonStr){
 		}
 	}
 }
+
 function addNewButton_onclick(e){
 	var controlObj = e.target;
 	var tdObj = $(controlObj).parent();
 	var trObj = $(tdObj).parent();
 	
 	var baccaratDto = collectBaccaratData(trObj);
+	postAddBaccaratData(baccaratDto);
 }
 
 function resultInput_onchange(e){

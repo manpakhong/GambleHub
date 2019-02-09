@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="com.rabbitforever.common.factories.UtilsFactory" %>
 <%@ page import="com.rabbitforever.common.utils.DateUtils" %>
@@ -16,7 +16,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/common.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/common_utils.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/baccarat.js"></script>
-<title>Insert title here</title>
+<title>Baccarat</title>
 </head>
 <body>
 	<div class="mainContentDiv">
