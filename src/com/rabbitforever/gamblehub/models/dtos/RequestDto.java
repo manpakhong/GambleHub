@@ -1,9 +1,9 @@
 package com.rabbitforever.gamblehub.models.dtos;
 
-public abstract class RequestDto <T>{
+public abstract class RequestDto {
 	protected String command;
 	protected String dataClassName;
-	protected T dataInstance;
+
 	public String getCommand() {
 		return command;
 	}
@@ -16,12 +16,4 @@ public abstract class RequestDto <T>{
 	public void setDataClassName(String dataClassName) {
 		this.dataClassName = dataClassName;
 	}
-	public T getDataInstance() {
-		return dataInstance;
-	}
-	public void setDataInstance(T dataInstance) {
-		this.dataInstance = dataInstance;
-	}
-	
-	
 }

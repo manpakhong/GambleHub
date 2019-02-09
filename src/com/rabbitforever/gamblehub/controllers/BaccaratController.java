@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
 import com.rabbitforever.gamblehub.models.dtos.RequestDto;
@@ -124,6 +125,9 @@ public class BaccaratController {
 //		List<BigSmallEo> bigSmallEoList = null;
 //		BigSmallSo so = null;
 		try {
+			Gson gson = new Gson();
+			BaccaratRequestDto requestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+//			BaccaratDto baccaratDto = requestDto.get
 //			 so = new BigSmallSo();
 //			 bigSmallEoList = gambleService.read(so);
 //        if (result.hasErrors()) {

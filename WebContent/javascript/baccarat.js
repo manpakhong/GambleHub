@@ -8,7 +8,7 @@ $(document).ready(function(){
 }); // end $(document).ready
 function createBaccaratDto(){
 	var baccaratDto = {};
-	baccaratDto.id = -1;
+	baccaratDto.id = null;
 	baccaratDto.session = "";
 	baccaratDto.round = 0;
 	baccaratDto.bankPlayer = "";
