@@ -8,11 +8,12 @@ $(document).ready(function(){
 }); // end $(document).ready
 function createBaccaratDto(){
 	var baccaratDto = {};
-	baccaratDto.id = null;
+	baccaratDto.id = -1;
 	baccaratDto.session = "";
 	baccaratDto.round = 0;
 	baccaratDto.bankPlayer = "";
 	baccaratDto.result = "";
+	baccaratDto.count = 0;
 	baccaratDto.oddEven = "";
 	baccaratDto.datetime = "";
 	baccaratDto.datetimeString = "";
@@ -66,18 +67,74 @@ function resultInput_onkeydown(e){
 
 	}
 }
+var BANK_PLAYER_BANK = 'B';
+var BANK_PLAYER_PLAYER = 'P';
+function determineBankPlayer(result){
+	var bankPlayer;
+	if (!isUndefinedOrIsNull(result)){
+		var bp = result.charAt(0);
+		if (bp == BANK_PLAYER_BANK){
+			bankPlayer = BANK_PLAYER_BANK;
+		} else if (bp == BANK_PLAYER_PLAYER){
+			bankPlayer = BANK_PLAYER_PLAYER;
+		}
+	}
+	return bankPlayer;
+}
+function marshallCountString2Int(countString){
+	var rtnResult;
+	if (!isUndefinedOrIsNull(countString)) {
+		var numericString = '';
+		for (var i=0; i < countString.length; i++){
+			var charString = countString.charAt(i);
+			if (!isNaN(charString)){
+				numericString += charString;
+			}
+		}
+		if (numericString.length > 0){
+			rtnResult = tryParseInt(numericString);
+		}
+	}
+	return rtnResult;
+}
 function collectBaccaratData(trObj){
+	var baccaratDto = createBaccaratDto();
+	
 	var sessionInput = $(trObj).find('.sessionInput');
 	var roundInput = $(trObj).find('.roundInput');
 	var resultInput = $(trObj).find('.resultInput');
 	var countLabel = $(trObj).find('.countLabel');
 	var oddEvenLabel = $(trObj).find('.oddEvenLabel');
+	var countLabel = $(trObj).find('.countLabel');
+	var dateParamInput = $(trObj).find('.dateParamInput');
 	
-	var baccaratDto = createBaccaratDto();
-	baccaratDto.sessionInput = $(sessionInput).val();
-	baccaratDto.roundInput = $(roundInput).val();
-	baccaratDto.resultInput = $(resultInput).val();
-	baccaratDto.oddEvenLabel = $(oddEvenLabel).html();
+	var session = $(sessionInput).val();
+	var roundString = $(roundInput).val();
+	var round = tryParseInt(roundString);
+	var bankPlayer = determineBankPlayer(result);
+	var result = $(resultInput).val();
+	var countString = $(countLabel).html();
+	var count = marshallCountString2Int(countString);
+	var oddEven = $(oddEvenLabel).html();
+	var roundString = $(roundInput).val();
+	var round = tryParseInt(roundString);
+	var datetimeParamString = $(dateParamInput).val();
+	var datetime = parseParamDateTimeString(datetimeParamString);
+	var createDateString = convertDate2ParamDateTimeString(baccaratDto.createDate);
+	var updateDateString = convertDate2ParamDateTimeString(baccaratDto.updateDate);
+	
+
+	baccaratDto.session = session;
+	baccaratDto.round = round;
+	baccaratDto.bankPlayer = bankPlayer;
+	baccaratDto.result = result;
+	baccaratDto.count = count;
+	baccaratDto.oddEven = oddEven;
+	baccaratDto.datetime = datetime;
+	baccaratDto.datetimeString = datetimeParamString;
+	baccaratDto.createDateString = createDateString;
+	baccaratDto.updateDateString = updateDateString;
+	
 	
 	return baccaratDto; 
 }

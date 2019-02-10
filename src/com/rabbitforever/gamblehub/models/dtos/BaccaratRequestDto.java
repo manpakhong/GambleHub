@@ -1,13 +1,13 @@
 package com.rabbitforever.gamblehub.models.dtos;
 
 public class BaccaratRequestDto extends RequestDto {
-	private BaccaratRequestDto dataInstance;
+	private BaccaratDto dataInstance;
 
-	public BaccaratRequestDto getDataInstance() {
+	public BaccaratDto getDataInstance() {
 		return dataInstance;
 	}
 
-	public void setDataInstance(BaccaratRequestDto dataInstance) {
+	public void setDataInstance(BaccaratDto dataInstance) {
 		this.dataInstance = dataInstance;
 	}
 	

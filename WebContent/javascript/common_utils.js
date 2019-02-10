@@ -45,6 +45,32 @@ function getDateString_YYYYMMDD_HHMMSS(){
 	var dateString = year.toString() + paddingPrefixZeroLen2(month.toString()) + paddingPrefixZeroLen2(date.toString()) + "_" + paddingPrefixZeroLen2(hour.toString()) + paddingPrefixZeroLen2(minute.toString()) + paddingPrefixZeroLen2(second.toString()) ;
 	return dateString;
 }
+function parseParamDateString(paramDateString){
+	var dateStringRtn;
+	if (typeof paramDateString !== 'undefined' && paramDateString !== null){
+		var regExp = /(\d{4})(\d{2})(\d{2})/;
+		var match = regExp.exec(paramDateString);
+		if (typeof match !== 'undefined' && match !== null){
+			if (match.length == 7){
+				dateRtn = new Date(match[1],match[2]-1,0,0,1,0);
+			}
+		}
+	}
+	return dateStringRtn;
+}
+function parseParamDateTimeString(paramDateTimeString){
+	var dateStringRtn;
+	if (typeof paramDateTimeString !== 'undefined' && paramDateTimeString !== null){
+		var regExp = /(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/;
+		var match = regExp.exec(paramDateTimeString);
+		if (typeof match !== 'undefined' && match !== null){
+			if (match.length == 7){
+				dateRtn = new Date(match[1],match[2]-1,match[4],match[5],match[6],0);
+			}
+		}
+	}
+	return dateStringRtn;
+}
 function getDateStringFromDisplayDateTimeString(dateTimeString){
 	var dateStringRtn;
 	if (typeof dateTimeString !== 'undefined' && dateTimeString !== null){
@@ -104,7 +130,27 @@ function paddingPrefixZero(instring, length){
 	}
 	return instring;
 }
-
+function convertDate2ParamDateString(date){
+	var rtnDateString = '';
+	if (date instanceof Date){
+		rtnDateString += date.getFullYear();
+		rtnDateString += paddingPrefixZeroLen2((date.getMonth() + 1).toString());
+		rtnDateString += paddingPrefixZeroLen2(date.getDate().toString());
+	}
+	return rtnDateString;
+}
+function convertDate2ParamDateTimeString(date){
+	var rtnDateString = '';
+	if (date instanceof Date){
+		rtnDateString += date.getFullYear();
+		rtnDateString += paddingPrefixZeroLen2((date.getMonth() + 1).toString()) ;
+		rtnDateString += paddingPrefixZeroLen2(date.getDate().toString()) + '_';
+		rtnDateString += paddingPrefixZeroLen2(date.getHours().toString());
+		rtnDateString += paddingPrefixZeroLen2(date.getMinutes().toString());
+		rtnDateString += paddingPrefixZeroLen2(date.getSeconds().toString());
+	}
+	return rtnDateString;
+}
 function convertDate2GsonDate(date){
 	var rtnDateString = '';
 	if (date instanceof Date){

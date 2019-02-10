@@ -18,7 +18,8 @@ public class BaccaratEo
 	protected String session;
 	protected Integer round;
 	protected String bankPlayer;
-	protected Integer result;
+	protected String result;
+	protected Integer count;
 	protected String oddEven;
 	protected Date datetime;
 	protected Date createDate;
@@ -56,11 +57,18 @@ public class BaccaratEo
 		this.bankPlayer = bankPlayer;
 	}
 	@Column(name = "result")
-	public Integer getResult() {
+	public String getResult() {
 		return result;
 	}
-	public void setResult(Integer result) {
+	public void setResult(String result) {
 		this.result = result;
+	}
+	@Column(name = "count")
+	public Integer getCount() {
+		return count;
+	}
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 	@Column(name = "odd_even")
 	public String getOddEven() {

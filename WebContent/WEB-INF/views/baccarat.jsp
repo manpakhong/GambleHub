@@ -21,6 +21,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 <body>
 	<div class="mainContentDiv">
 	<label for="date" class="dateLabel"><%= dateUtils.getTodayDisplayDateString() %></label>
+	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateParamString() %>" />
 	<table class="baccaratTable">
 		<thead>
 			<tr>
@@ -35,7 +36,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 		<tbody>
 			<tr>
 				<td><input type="button" value="Add" class="addNewButton" onclick="addNewButton_onclick(event)"/></td>
-				<td><input type="text" value="<%= dateUtils.getDateString() %>" class="sessionInput"/></td>
+				<td><input type="text" value="<%= dateUtils.getDateParamString() %>" class="sessionInput"/></td>
 				<td><input type="text" value="" class="roundInput" /></td>
 				<td><input type="text" value="" class="resultInput" onkeydown="resultInput_onkeydown(event)" onchange="resultInput_onchange(event)" /></td>
 				<td><label for="count" class="countLabel"></label></td>
