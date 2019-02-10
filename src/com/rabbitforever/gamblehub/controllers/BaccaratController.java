@@ -127,6 +127,7 @@ public class BaccaratController {
 		try {
 			Gson gson = new Gson();
 			BaccaratRequestDto requestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+			
 //			BaccaratDto baccaratDto = requestDto.get
 //			 so = new BigSmallSo();
 //			 bigSmallEoList = gambleService.read(so);
