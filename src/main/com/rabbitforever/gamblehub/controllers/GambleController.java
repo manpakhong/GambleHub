@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
+import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;

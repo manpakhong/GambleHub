@@ -1,13 +1,15 @@
-package com.rabbitforever.gamblehub.helpers;
+package com.rabbitforever.gamblehub.controllers.helpers;
 
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
+import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
-public class GambleControllerHelper {
+public class GambleControllerHelper extends ControllerHelper<BaccaratDto, BaccaratEo>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private String getClassName(){
 		return this.getClass().getName();

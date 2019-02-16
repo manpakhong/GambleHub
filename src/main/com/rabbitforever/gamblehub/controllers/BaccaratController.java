@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.rabbitforever.gamblehub.helpers.GambleControllerHelper;
+import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
+import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
-import com.rabbitforever.gamblehub.models.dtos.RequestDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 import com.rabbitforever.gamblehub.models.vos.BaccaratVo;
@@ -124,9 +124,13 @@ public class BaccaratController {
     public String create(@RequestBody String jsonString) {
 //		List<BigSmallEo> bigSmallEoList = null;
 //		BigSmallSo so = null;
+    	BaccaratMgr baccaratMgr = null;
 		try {
 			Gson gson = new Gson();
-			BaccaratRequestDto requestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+			BaccaratRequestDto baccaratRequestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+			String command = baccaratRequestDto.getCommand();
+			String className = baccaratRequestDto.getDataClassName();
+			BaccaratDto baccaratDto = baccaratRequestDto.getDataInstance();
 			
 //			BaccaratDto baccaratDto = requestDto.get
 //			 so = new BigSmallSo();
@@ -136,9 +140,13 @@ public class BaccaratController {
 //            return "baccarat";
 //        }
 // 
+			
+//			baccaratMgr.create(eo);
 			String json = jsonString.toString();
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
+		} finally {
+			baccaratMgr = null;
 		}
         return "{helo: 'helo'}";
     }

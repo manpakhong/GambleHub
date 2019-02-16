@@ -1,4 +1,4 @@
-package com.rabbitforever.gamblehub.helpers;
+package com.rabbitforever.gamblehub.services.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

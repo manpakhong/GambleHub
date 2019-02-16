@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rabbitforever.gamblehub.daos.BigSmallDao;
-import com.rabbitforever.gamblehub.helpers.GameServiceHelper;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
+import com.rabbitforever.gamblehub.services.helpers.GameServiceHelper;
 import com.rabbitforever.gamblehub.tests.FindAndCountPatterns;
 @Service
 public class GambleMgrImp extends ServiceBase implements GambleMgr{
