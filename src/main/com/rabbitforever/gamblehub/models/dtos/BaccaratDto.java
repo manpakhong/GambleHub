@@ -5,7 +5,7 @@ import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 public class BaccaratDto extends BaccaratEo{
 	private String datetimeString;
 	private String createDateString;
-	private String updateDateString;
+	private String updateDateString; 
 	public String getDatetimeString() {
 		return datetimeString;
 	}
