@@ -68,16 +68,15 @@ public class BaccaratMgr extends ServiceBase{
 		} // end try ... catch
 		return gblBaccaratEoList;
 	} // end select function
-	public Integer create(BaccaratEo eo) throws Exception{
-		Integer noOfAffectedRow = null;
+	public void create(BaccaratEo eo) throws Exception{
 		try{
-			noOfAffectedRow = dao.create(eo);
+			dao.create(eo);
 		}
 		catch (Exception e){
 			logger.error(getClassName() + ".create() - eo=" + eo, e);
 			throw e;
 		} // end try ... catch
-		return noOfAffectedRow;
+
 	} // end create function
 	public Integer update(BaccaratEo eo) throws Exception{
 		Integer noOfAffectedRow = null;

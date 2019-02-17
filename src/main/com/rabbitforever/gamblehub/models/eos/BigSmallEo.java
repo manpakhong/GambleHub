@@ -1,24 +1,15 @@
 package com.rabbitforever.gamblehub.models.eos;
 
 import java.util.Date;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 @Entity
 @Table(name = "gbl_big_small")
 public class BigSmallEo {

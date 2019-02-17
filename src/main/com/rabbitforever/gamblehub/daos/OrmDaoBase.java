@@ -44,8 +44,8 @@ public abstract class OrmDaoBase <T> {
 			generalUtilsFactory = UtilsFactory.getInstance();
 			miscUtils = generalUtilsFactory.getInstanceOfMiscUtils();
 			dateUtils = generalUtilsFactory.getInstanceOfDateUtils();
-
-			SessionFactory sessionFactory = hibernateUtils.getSessionFactory();
+			
+			sessionFactory = hibernateUtils.getSessionFactory();
 			session = sessionFactory.getCurrentSession();
 
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public abstract class OrmDaoBase <T> {
 		}
 	}
 	public abstract List<T> read(Object so) throws Exception;
-	public abstract Integer create(T eo) throws Exception;
+	public abstract void create(T eo) throws Exception;
 	public abstract Integer update(T eo) throws Exception;
 	public abstract Integer delete(T eo) throws Exception;
 

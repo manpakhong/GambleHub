@@ -19,9 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rabbitforever.gamblehub.interceptors.AuditInterceptor;
+import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
+import com.rabbitforever.gamblehub.utils.HibernateUtils;
 
 @Repository
 public class BigSmallDaoImp implements BigSmallDao{

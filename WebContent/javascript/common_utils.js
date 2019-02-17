@@ -45,31 +45,31 @@ function getDateString_YYYYMMDD_HHMMSS(){
 	var dateString = year.toString() + paddingPrefixZeroLen2(month.toString()) + paddingPrefixZeroLen2(date.toString()) + "_" + paddingPrefixZeroLen2(hour.toString()) + paddingPrefixZeroLen2(minute.toString()) + paddingPrefixZeroLen2(second.toString()) ;
 	return dateString;
 }
-function parseParamDateString(paramDateString){
-	var dateStringRtn;
+function parseParamDateStringToDate(paramDateString){
+	var dateRtn;
 	if (typeof paramDateString !== 'undefined' && paramDateString !== null){
 		var regExp = /(\d{4})(\d{2})(\d{2})/;
 		var match = regExp.exec(paramDateString);
 		if (typeof match !== 'undefined' && match !== null){
-			if (match.length == 7){
-				dateRtn = new Date(match[1],match[2]-1,0,0,1,0);
+			if (match.length == 4){
+				dateRtn = new Date(match[1],match[2]-1,match[3],0,0,0);
 			}
 		}
 	}
-	return dateStringRtn;
+	return dateRtn;
 }
-function parseParamDateTimeString(paramDateTimeString){
-	var dateStringRtn;
+function parseParamDateTimeStringToDate(paramDateTimeString){
+	var dateRtn;
 	if (typeof paramDateTimeString !== 'undefined' && paramDateTimeString !== null){
 		var regExp = /(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/;
 		var match = regExp.exec(paramDateTimeString);
 		if (typeof match !== 'undefined' && match !== null){
 			if (match.length == 7){
-				dateRtn = new Date(match[1],match[2]-1,match[4],match[5],match[6],0);
+				dateRtn = new Date(match[1],match[2]-1,match[3],match[4],match[5],match[6]);
 			}
 		}
 	}
-	return dateStringRtn;
+	return dateRtn;
 }
 function getDateStringFromDisplayDateTimeString(dateTimeString){
 	var dateStringRtn;

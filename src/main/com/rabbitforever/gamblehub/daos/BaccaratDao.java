@@ -1,6 +1,7 @@
 package com.rabbitforever.gamblehub.daos;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -121,20 +122,22 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 			for (BaccaratEo baccaratEo:baccaratEoList){
 				logger.debug(baccaratEo.toString());
 			}
+			trans.commit();
 		}catch (Exception e){
 			logger.error(getClassName() + ".read() - so=" + so, e);
+			trans.rollback();
 			throw e;
 		} // end try ... catch
 		finally {
 			if(trans != null){
-				trans.commit();
+
 				trans = null;
 			}
 		}
 		return baccaratEoList;
 	} // end select function
 	@Override
-	public Integer create(BaccaratEo eo) throws Exception {
+	public void create(BaccaratEo eo) throws Exception {
 		List<BaccaratEo> baccaratEoList = null;
 		CriteriaBuilder builder = null;
 		CriteriaQuery<BaccaratEo> query = null;
@@ -143,14 +146,24 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 		Query<BaccaratEo> q = null;
 		List<Predicate> predicateList = null;
 		try {
-			
+			trans = session.getTransaction();
+			trans.begin();
+
+			eo.setCreatedBy("admin");
+			eo.setCreateDate(new Date());
+			eo.setUpdatedBy("admin");
+			eo.setUpdateDate(new Date());
+			session.save(eo);
+			trans.commit();
+			Integer id = eo.getId();
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - eo=" + eo, e);
+			trans.rollback();
 			throw e;
 		} // end try ... catch
 		finally {
 			if (trans != null) {
-				trans.commit();
+
 				trans = null;
 			}
 //			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
@@ -160,7 +173,6 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 //				}
 //			}
 		}
-		return null;
 	}
 
 	@Override

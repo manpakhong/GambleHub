@@ -15,13 +15,13 @@ import javax.persistence.TemporalType;
 public class BaccaratEo
 {
 	protected Integer id;
+	protected Date datetime;
 	protected String session;
 	protected Integer round;
 	protected String bankPlayer;
 	protected String result;
-	protected Integer count;
 	protected String oddEven;
-	protected Date datetime;
+	protected Integer count;
 	protected Date createDate;
 	protected Date updateDate;
 	protected String createdBy;
@@ -35,7 +35,14 @@ public class BaccaratEo
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(name = "session")
+	@Column(name = "datetime", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
+	public Date getDatetime() {
+		return datetime;
+	}
+	public void setDatetime(Date datetime) {
+		this.datetime = datetime;
+	}
+	@Column(name = "session",length = 45, nullable = true)
 	public String getSession() {
 		return session;
 	}
@@ -49,41 +56,35 @@ public class BaccaratEo
 	public void setRound(Integer round) {
 		this.round = round;
 	}
-	@Column(name = "bank_player")
+	@Column(name = "bank_player",length = 45, nullable = true)
 	public String getBankPlayer() {
 		return bankPlayer;
 	}
 	public void setBankPlayer(String bankPlayer) {
 		this.bankPlayer = bankPlayer;
 	}
-	@Column(name = "result")
+	@Column(name = "result",length = 45, nullable = true)
 	public String getResult() {
 		return result;
 	}
 	public void setResult(String result) {
 		this.result = result;
 	}
-	@Column(name = "count")
-	public Integer getCount() {
-		return count;
-	}
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-	@Column(name = "odd_even")
+	@Column(name = "odd_even",length = 45, nullable = true)
 	public String getOddEven() {
 		return oddEven;
 	}
 	public void setOddEven(String oddEven) {
 		this.oddEven = oddEven;
 	}
-	@Column(name = "datetime")
-	public Date getDatetime() {
-		return datetime;
+	@Column(name = "count", columnDefinition = "INT(11) UNSIGNED")
+	public Integer getCount() {
+		return count;
 	}
-	public void setDatetime(Date datetime) {
-		this.datetime = datetime;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", nullable = false)
 	public Date getCreateDate() {
@@ -100,14 +101,14 @@ public class BaccaratEo
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-	@Column(name = "created_by")
+	@Column(name = "created_by",length = 255, nullable = true)
 	public String getCreatedBy() {
 		return createdBy;
 	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-	@Column(name = "updated_by")
+	@Column(name = "updated_by",length = 255, nullable = true)
 	public String getUpdatedBy() {
 		return updatedBy;
 	}

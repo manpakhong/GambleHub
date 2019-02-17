@@ -20,7 +20,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(UserEo.class,BigSmallEo.class,BaccaratEo.class);
+        factoryBean.setAnnotatedClasses(BaccaratEo.class,UserEo.class,BigSmallEo.class);
         
         return factoryBean;
     }

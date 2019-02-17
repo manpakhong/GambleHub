@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.rabbitforever.gamblehub.controllers.helpers.ControllerHelper;
 import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
+import com.rabbitforever.gamblehub.daos.BigSmallDao;
+import com.rabbitforever.gamblehub.daos.BigSmallDaoImp;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
@@ -135,10 +137,11 @@ public class BaccaratController {
 			BaccaratDto baccaratDto = baccaratRequestDto.getDataInstance();
 			gambleControllerHelper = new GambleControllerHelper();
 			
-			
+			BaccaratEo baccaratEo = new BaccaratEo();
+			BeanUtils.copyProperties(baccaratEo, baccaratDto);
 			gambleControllerHelper.parseCommonDateTimeStringToDate(baccaratDto);
 			baccaratMgr = new BaccaratMgr();
-			baccaratMgr.create(baccaratDto);
+			baccaratMgr.create(baccaratEo);
 //			BaccaratDto baccaratDto = requestDto.get
 //			 so = new BigSmallSo();
 //			 bigSmallEoList = gambleService.read(so);
@@ -147,7 +150,7 @@ public class BaccaratController {
 //            return "baccarat";
 //        }
 // 
-			
+
 //			baccaratMgr.create(eo);
 			String json = jsonString.toString();
 		} catch (Exception e) {

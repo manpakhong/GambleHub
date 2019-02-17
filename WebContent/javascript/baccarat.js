@@ -8,15 +8,15 @@ $(document).ready(function(){
 }); // end $(document).ready
 function createBaccaratDto(){
 	var baccaratDto = {};
-	baccaratDto.id = -1;
+	baccaratDto.id = null;
+	baccaratDto.datetime = "";
+	baccaratDto.datetimeString = "";
 	baccaratDto.session = "";
 	baccaratDto.round = 0;
 	baccaratDto.bankPlayer = "";
 	baccaratDto.result = "";
 	baccaratDto.count = 0;
 	baccaratDto.oddEven = "";
-	baccaratDto.datetime = "";
-	baccaratDto.datetimeString = "";
 	baccaratDto.createDate = new Date();
 	baccaratDto.createDateString = "";
 	baccaratDto.updateDate = new Date();
@@ -106,20 +106,20 @@ function collectBaccaratData(trObj){
 	var countLabel = $(trObj).find('.countLabel');
 	var oddEvenLabel = $(trObj).find('.oddEvenLabel');
 	var countLabel = $(trObj).find('.countLabel');
-	var dateParamInput = $(trObj).find('.dateParamInput');
+	var dateParamInput = $(document).find('.dateParamInput');
 	
 	var session = $(sessionInput).val();
 	var roundString = $(roundInput).val();
 	var round = tryParseInt(roundString);
-	var bankPlayer = determineBankPlayer(result);
 	var result = $(resultInput).val();
+	var bankPlayer = determineBankPlayer(result);
 	var countString = $(countLabel).html();
 	var count = marshallCountString2Int(countString);
 	var oddEven = $(oddEvenLabel).html();
 	var roundString = $(roundInput).val();
 	var round = tryParseInt(roundString);
 	var datetimeParamString = $(dateParamInput).val();
-	var datetime = parseParamDateTimeString(datetimeParamString);
+	var datetime = parseParamDateStringToDate(datetimeParamString);
 	var createDateString = convertDate2ParamDateTimeString(baccaratDto.createDate);
 	var updateDateString = convertDate2ParamDateTimeString(baccaratDto.updateDate);
 	
