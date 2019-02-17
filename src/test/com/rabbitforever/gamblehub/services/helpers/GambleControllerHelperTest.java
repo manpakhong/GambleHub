@@ -2,11 +2,11 @@ package com.rabbitforever.gamblehub.services.helpers;
 
 import static org.junit.Assert.fail;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
-import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 
 public class GambleControllerHelperTest {
 
@@ -16,9 +16,10 @@ public class GambleControllerHelperTest {
 		try {
 			helper = new GambleControllerHelper();
 			BaccaratDto dto = new BaccaratDto();
-			dto.setCreateDateString("20190216_2256");
-			BaccaratEo eo = new BaccaratEo();
-			helper.parseCommonDateTimeStringToDate(dto, eo);
+			dto.setCreateDateString("20190216_225601");
+			dto.setUpdateDateString("20190217_021600");
+			helper.parseCommonDateTimeStringToDate(dto);
+			Assert.assertTrue(dto.getCreateDate() != null && dto.getUpdateDate() != null);
 		} catch (Exception e) {
 			fail("Exception caught!-" + e);
 		}

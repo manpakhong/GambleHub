@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.rabbitforever.gamblehub.controllers.helpers.ControllerHelper;
 import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
@@ -31,7 +32,7 @@ import com.rabbitforever.gamblehub.services.BaccaratMgr;
 public class BaccaratController {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private GambleControllerHelper helper;
-	public BaccaratController() {
+	public BaccaratController() throws Exception{
 		helper = new GambleControllerHelper();
 	}
 	private String getClassName() {
@@ -124,6 +125,7 @@ public class BaccaratController {
     public String create(@RequestBody String jsonString) {
 //		List<BigSmallEo> bigSmallEoList = null;
 //		BigSmallSo so = null;
+    	GambleControllerHelper gambleControllerHelper = null;
     	BaccaratMgr baccaratMgr = null;
 		try {
 			Gson gson = new Gson();
@@ -131,7 +133,12 @@ public class BaccaratController {
 			String command = baccaratRequestDto.getCommand();
 			String className = baccaratRequestDto.getDataClassName();
 			BaccaratDto baccaratDto = baccaratRequestDto.getDataInstance();
+			gambleControllerHelper = new GambleControllerHelper();
 			
+			
+			gambleControllerHelper.parseCommonDateTimeStringToDate(baccaratDto);
+			baccaratMgr = new BaccaratMgr();
+			baccaratMgr.create(baccaratDto);
 //			BaccaratDto baccaratDto = requestDto.get
 //			 so = new BigSmallSo();
 //			 bigSmallEoList = gambleService.read(so);
@@ -147,6 +154,7 @@ public class BaccaratController {
 			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
 		} finally {
 			baccaratMgr = null;
+			gambleControllerHelper = null;
 		}
         return "{helo: 'helo'}";
     }

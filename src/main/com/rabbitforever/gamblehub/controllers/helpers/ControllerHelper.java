@@ -1,33 +1,62 @@
 package com.rabbitforever.gamblehub.controllers.helpers;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class ControllerHelper <D, E>{
+import com.rabbitforever.common.factories.UtilsFactory;
+import com.rabbitforever.common.utils.DateUtils;
+
+public abstract class ControllerHelper <D>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private UtilsFactory utilsFactory;
+	private DateUtils dateUtils;
+	public ControllerHelper() throws Exception{
+		utilsFactory = UtilsFactory.getInstance();
+		dateUtils = utilsFactory.getInstanceOfDateUtils();
+	}
 	private String getClassName(){
 		return this.getClass().getName();
 	}	
-	public void parseCommonDateTimeStringToDate(D dto, E eo) throws Exception{
+	public void parseCommonDateTimeStringToDate(D dto) throws Exception{
 		try {
-			Method method = dto.getClass().getMethod("getCreateDateString", null);
-			Type[] genericParameterTypes = method.getGenericParameterTypes();
-			for(Type genericParameterType : genericParameterTypes){
-			    if(genericParameterType instanceof ParameterizedType){
-			        ParameterizedType aType = (ParameterizedType) genericParameterType;
-			        Type[] parameterArgTypes = aType.getActualTypeArguments();
-			        for(Type parameterArgType : parameterArgTypes){
-			            Class parameterArgClass = (Class) parameterArgType;
-			            System.out.println("parameterArgClass = " + parameterArgClass);
-			        }
-			    }
+			parseCreateDateTimeStringToDate(dto);
+			parseUpdateDateTimeStringToDate(dto);
+		} catch (Exception e) {
+			logger.error(getClassName() + ".parseCommonDateTimeStringToDate()-dto=" + dto, e);
+			throw e;
+		}
+	}
+	private void parseCreateDateTimeStringToDate(D dto) throws Exception{
+		try {
+			Method dtoMethod = dto.getClass().getMethod("getCreateDateString");
+			Object returnObject = dtoMethod.invoke(dto);
+			String createDateString = (String) returnObject;
+			if (createDateString != null && !createDateString.isEmpty()) {
+				Date createDate = dateUtils.parseDateTimeStringToDate(createDateString);
+				Method eoMethod = dto.getClass().getMethod("setCreateDate", Date.class);
+				eoMethod.invoke(dto,createDate);
+			}
+
+		} catch (Exception e) {
+			logger.error(getClassName() + ".parseCreateDateTimeStringToDate()-dto=" + dto , e);
+			throw e;
+		}
+	}
+	private void parseUpdateDateTimeStringToDate(D dto) throws Exception{
+		try {
+			Method dtoMethod = dto.getClass().getMethod("getUpdateDateString");
+			Object returnObject = dtoMethod.invoke(dto);
+			String createDateString = (String) returnObject;
+			if (createDateString != null && !createDateString.isEmpty()) {
+				Date createDate = dateUtils.parseDateTimeStringToDate(createDateString);
+				Method eoMethod = dto.getClass().getMethod("setUpdateDate", Date.class);
+				eoMethod.invoke(dto,createDate);
 			}
 		} catch (Exception e) {
-			logger.error(getClassName() + ".parseCommonDateTimeStringToDate()-dto=" + dto + ",eo=" + eo, e);
+			logger.error(getClassName() + ".parseUpdateDateTimeStringToDate()-dto=" + dto , e);
 			throw e;
 		}
 	}

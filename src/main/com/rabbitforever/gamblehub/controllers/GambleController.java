@@ -28,7 +28,7 @@ import com.rabbitforever.gamblehub.services.GambleMgr;
 public class GambleController {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private GambleControllerHelper helper;
-	public GambleController() {
+	public GambleController() throws Exception{
 		helper = new GambleControllerHelper();
 	}
 	private String getClassName() {

@@ -6,14 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
-import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
-public class GambleControllerHelper extends ControllerHelper<BaccaratDto, BaccaratEo>{
+public class GambleControllerHelper extends ControllerHelper<BaccaratDto>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	private String getClassName(){
 		return this.getClass().getName();
 	}	
+	public GambleControllerHelper() throws Exception{
+		super();
+	}
 	public String getStringFromBigSmallEoList(List<BigSmallEo> bigSmallEoList) throws Exception{
 		StringBuilder s = null;
 		try {
