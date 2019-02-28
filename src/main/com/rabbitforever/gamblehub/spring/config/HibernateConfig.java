@@ -20,11 +20,12 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(BaccaratEo.class,UserEo.class,BigSmallEo.class);
+//        Class [] annotatedClasses =  {BaccaratEo.class,UserEo.class,BigSmallEo.class};
+//        factoryBean.setAnnotatedClasses(BaccaratEo.class);
         
         return factoryBean;
     }
- 
+
     @Bean
     public HibernateTransactionManager getTransactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
