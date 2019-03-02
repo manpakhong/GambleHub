@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
-import com.rabbitforever.gamblehub.daos.BigSmallDao;
-import com.rabbitforever.gamblehub.daos.BigSmallDaoImp;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
+import com.rabbitforever.gamblehub.models.dtos.BaccaratReponseDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
@@ -124,13 +123,16 @@ public class BaccaratController {
 //    }
     @RequestMapping(value = "addBaccarat", method = RequestMethod.POST)
     @ResponseBody
-    public String create(@RequestBody String jsonString) {
+    public String create(@RequestBody String jsonString) throws Exception{
 //		List<BigSmallEo> bigSmallEoList = null;
 //		BigSmallSo so = null;
     	GambleControllerHelper gambleControllerHelper = null;
     	BaccaratMgr baccaratMgr = null;
+    	BaccaratReponseDto baccaratReponseDto = null;
+    	String reponseJsonString = null;
+    	Gson gson = null;
 		try {
-			Gson gson = new Gson();
+			gson = new Gson();
 			BaccaratRequestDto baccaratRequestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
 			String command = baccaratRequestDto.getCommand();
 			String className = baccaratRequestDto.getDataClassName();
@@ -152,13 +154,22 @@ public class BaccaratController {
 // 
 
 //			baccaratMgr.create(eo);
-			String json = jsonString.toString();
+			
+			baccaratReponseDto = new BaccaratReponseDto();
+			baccaratReponseDto.setBaccaratDto(baccaratDto);
+			if (baccaratEo.getId() != null) {
+				baccaratReponseDto.setIsSuccess(true);
+			} else {
+				baccaratReponseDto.setIsSuccess(false);
+			}
+			reponseJsonString = gson.toJson(baccaratReponseDto, BaccaratReponseDto.class);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
+			throw e;
 		} finally {
 			baccaratMgr = null;
 			gambleControllerHelper = null;
 		}
-        return "{helo: 'helo'}";
+        return reponseJsonString;
     }
 }
