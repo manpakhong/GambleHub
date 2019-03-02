@@ -24,5 +24,17 @@ public class BaccaratDto extends BaccaratEo{
 	public void setUpdateDateString(String updateDateString) {
 		this.updateDateString = updateDateString;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BaccaratDto [datetimeString=");
+		builder.append(datetimeString);
+		builder.append(", createDateString=");
+		builder.append(createDateString);
+		builder.append(", updateDateString=");
+		builder.append(updateDateString);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

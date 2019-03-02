@@ -16,4 +16,15 @@ public abstract class RequestDto {
 	public void setDataClassName(String dataClassName) {
 		this.dataClassName = dataClassName;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RequestDto [command=");
+		builder.append(command);
+		builder.append(", dataClassName=");
+		builder.append(dataClassName);
+		builder.append("]");
+		return builder.toString();
+	}
+	
 }
