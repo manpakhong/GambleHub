@@ -23,7 +23,6 @@ import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 @Repository
 public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
-
 	public BaccaratDao() throws Exception{
 		super();
 	}

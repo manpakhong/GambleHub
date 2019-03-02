@@ -84,7 +84,7 @@ public class BaccaratController {
 			
 			
 			baccaratEoList = baccaratService.read(so);
-			vo.setBaccaratEoList(baccaratEoList);
+//			vo.setBaccaratDtoList(baccaratDtoList);
 
 			model.addAttribute("baccaratEoList", baccaratEoList);
 			model.addAttribute("vo", vo);

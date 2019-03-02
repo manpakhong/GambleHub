@@ -6,6 +6,12 @@ public class BaccaratDto extends BaccaratEo{
 	private String datetimeString;
 	private String createDateString;
 	private String updateDateString;
+	public BaccaratDto() {
+		
+	}
+	public BaccaratDto (BaccaratEo baccaratEo) {
+		
+	}
 	public String getDatetimeString() {
 		return datetimeString;
 	}
