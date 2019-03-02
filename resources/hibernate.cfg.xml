@@ -20,6 +20,5 @@
 		<property name="hibernate.c3p0.max_statements">150</property>
 		<mapping class="com.rabbitforever.gamblehub.models.eos.BigSmallEo"></mapping> 
 		<mapping class="com.rabbitforever.gamblehub.models.eos.BaccaratEo"></mapping> 
-
 	</session-factory>
 </hibernate-configuration>

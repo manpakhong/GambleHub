@@ -15,14 +15,13 @@ import com.rabbitforever.gamblehub.models.eos.UserEo;
 public class HibernateConfig {
     @Autowired
     private ApplicationContext context;
- 
+
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
 //        Class [] annotatedClasses =  {BaccaratEo.class,UserEo.class,BigSmallEo.class};
 //        factoryBean.setAnnotatedClasses(BaccaratEo.class);
-        
         return factoryBean;
     }
 
