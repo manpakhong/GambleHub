@@ -1,12 +1,7 @@
 package com.rabbitforever.gamblehub.models.dtos;
 
-import java.lang.reflect.Method;
+public class ReponseDto{
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-public abstract class ReponseDto{
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	protected String message;
 	protected Boolean isSuccess;
 
@@ -24,9 +19,7 @@ public abstract class ReponseDto{
 		this.isSuccess = isSuccess;
 	}
 
-	private String getClassName(){
-		return this.getClass().getName();
-	}	
+
 //	public void setDto(T dto) throws Exception{
 //		try {
 //

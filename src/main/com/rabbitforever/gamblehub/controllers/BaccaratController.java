@@ -162,7 +162,7 @@ public class BaccaratController {
 			} else {
 				baccaratReponseDto.setIsSuccess(false);
 			}
-			reponseJsonString = gson.toJson(baccaratReponseDto, BaccaratReponseDto.class);
+			reponseJsonString = gson.toJson(baccaratReponseDto);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
 			throw e;
