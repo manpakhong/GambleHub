@@ -3,6 +3,7 @@
  */
 var INPUT_TYPE_BANK = "B";
 var INPUT_TYPE_PLAY = "P";
+var currentControl;
 $(document).ready(function(){ 
 
 }); // end $(document).ready
@@ -138,6 +139,48 @@ function collectBaccaratData(trObj){
 	
 	return baccaratDto; 
 }
+function postDeleteBaccaratData(baccaratDto){
+	var postDto = createRequestDto();
+	postDto.dataInstance = baccaratDto;
+	postDto.dataClassName = "BaccaratDto";
+	var dataString = JSON.stringify(postDto);
+	console.log(dataString);
+	
+	$.ajax({
+		type : "POST",
+		url : "deleteBaccarat",
+		contentType: "application/json; charset=utf-8",
+		data : dataString
+	}).done(function(data, status, jqXHR) {
+		postDeleteBaccaratDataCallBack(data);
+//		alert("Promise success callback.");
+	}).fail(function(jqXHR, status, err) {
+//		alert("Promise error callback.");
+	}).always(function() {
+//		alert("Promise completion callback.");
+	})
+}
+function postEditBaccaratData(baccaratDto){
+	var postDto = createRequestDto();
+	postDto.dataInstance = baccaratDto;
+	postDto.dataClassName = "BaccaratDto";
+	var dataString = JSON.stringify(postDto);
+	console.log(dataString);
+	
+	$.ajax({
+		type : "POST",
+		url : "editBaccarat",
+		contentType: "application/json; charset=utf-8",
+		data : dataString
+	}).done(function(data, status, jqXHR) {
+		postEditBaccaratDataCallBack(data);
+//		alert("Promise success callback.");
+	}).fail(function(jqXHR, status, err) {
+//		alert("Promise error callback.");
+	}).always(function() {
+//		alert("Promise completion callback.");
+	})
+}
 function postAddBaccaratData(baccaratDto){
 	var postDto = createRequestDto();
 	postDto.dataInstance = baccaratDto;
@@ -160,25 +203,82 @@ function postAddBaccaratData(baccaratDto){
 	})
 
 }
-
+function createBaccaratTableTrTopRow(){
+	var tbodyObj =  $('.baccaratTableTbody');
+	var dateParamInput = $('.dateParamInput');
+	var dateParam = $(dateParamInput).val();
+	var trObjString = "<tr>"
+	+	"<td><input type=\"button\" value=\"Add\" class=\"addNewButton\" onclick=\"addNewButton_onclick(event)\"/></td>"
+	+ 	"<td><input type=\"text\" value=\"" + dateParam + "\" class=\"sessionInput\"/></td>"
+	+	"<td><input type=\"text\" value=\"\" class=\"roundInput\" /></td>"
+	+	"<td><input type=\"text\" value=\"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" /></td>"
+	+	"<td><label for=\"count\" class=\"countLabel\"></label></td>"
+	+	"<td><label for=\"oddEven\" class=\"oddEvenLabel\"></label></td>"
+	+	"</tr>";
+	
+	$(tbodyObj).append(trObjString);
+}
+function createBaccaratTableTrDataRow(baccaratDto){
+	var tbodyObj =  $('.baccaratTableTbody');
+	var dateParamInput = $('.dateParamInput');
+	var dateParam = $(dateParamInput).val();
+	var trObjString = "<tr>"
+	+	"<td>"
+	+		"<input type=\"button\" value=\"Delete\" class=\"addNewButton\" onclick=\"deleteButton_onclick(event)\"/>"
+	+		"<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>"
+	+	"</td>"
+	+ 	"<td><input type=\"text\" value=\"" + baccaratDto.session + "\" class=\"sessionInput\"/></td>"
+	+	"<td><input type=\"text\" value=\"\" class=\"roundInput\" value=\"" + baccaratDto.round +"\"/></td>"
+	+	"<td><input type=\"text\" value=\"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" value=\"" + baccaratDto.result +"\" /></td>"
+	+	"<td><label for=\"count\" class=\"countLabel\">" + baccaratDto.count +"</label></td>"
+	+	"<td><label for=\"oddEven\" class=\"oddEvenLabel\">"+ baccaratDto.count +"</label></td>"
+	+	"</tr>";
+	
+	$(tbodyObj).append(trObjString);
+}
 function postAddBaccaratDataCallBack(jsonStr){
 	if (!isUndefinedOrIsNull(jsonStr)) {
 		if (jsonStr.length == 0) {
 			return;
 		}
-		var baccaratVo = JSON.parse(jsonStr);
-		if (isUndefinedOrIsNull(baccaratVo)) {
-			//alert(getBundleLangByLabel('abnormal_nullable_data_return'));
-			return;
+		var baccaratReponseDto = JSON.parse(jsonStr);
+		if (!isUndefinedOrIsNull(baccaratReponseDto)) {
+			var isSuccess = baccaratReponseDto.isSuccess;
+			var bacccaratDto = baccaratReponseDto.baccaratDto;
+			if (isSuccess){
+				createBaccaratTableTrDataRow(bacccaratDto);
+				createBaccaratTableTrTopRow();
+				$(currentControl).remove();
+			}
 		}
 	}
+}
+
+function deleteButton_onclick(e){
+	var controlObj = e.target;
+	var tdObj = $(controlObj).parent();
+	var trObj = $(tdObj).parent();
+	var tbodyObj = $(trObj).parent();
+	currentControl = trObj;
+	var baccaratDto = collectBaccaratData(trObj);
+	postDeleteBaccaratData(baccaratDto);
+}
+function editButton_onclick(e){
+	var controlObj = e.target;
+	var tdObj = $(controlObj).parent();
+	var trObj = $(tdObj).parent();
+	var tbodyObj = $(trObj).parent();
+	currentControl = trObj;
+	var baccaratDto = collectBaccaratData(trObj);
+	postEditBaccaratData(baccaratDto);
 }
 
 function addNewButton_onclick(e){
 	var controlObj = e.target;
 	var tdObj = $(controlObj).parent();
 	var trObj = $(tdObj).parent();
-	
+	var tbodyObj = $(trObj).parent();
+	currentControl = trObj;
 	var baccaratDto = collectBaccaratData(trObj);
 	postAddBaccaratData(baccaratDto);
 }

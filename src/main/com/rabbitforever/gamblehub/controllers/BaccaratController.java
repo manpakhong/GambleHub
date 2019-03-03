@@ -66,6 +66,8 @@ public class BaccaratController {
 //		return json;
 //	}
 //	
+	
+	
 	@GetMapping("load")
 	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
 		BaccaratVo vo = null;
@@ -73,6 +75,7 @@ public class BaccaratController {
 		Integer round = null;
 		try {
 			vo = new BaccaratVo();
+			
 			// if (result.hasErrors()) {
 			// model.addAttribute("bigSmallEoList", gambleService.read());
 			// return "editUsers";

@@ -33,7 +33,7 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 				<th>Odd/Even</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="baccaratTableTbody">
 			<tr>
 				<td><input type="button" value="Add" class="addNewButton" onclick="addNewButton_onclick(event)"/></td>
 				<td><input type="text" value="<%= dateUtils.getDateParamString() %>" class="sessionInput"/></td>
@@ -43,7 +43,6 @@ DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 				<td><label for="oddEven" class="oddEvenLabel"></label></td>
 			</tr>
 		</tbody>
-
 	</table>
 	</div>
 </body>
