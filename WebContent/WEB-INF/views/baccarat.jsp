@@ -2,8 +2,10 @@
     pageEncoding="utf-8"%>
 <%@ page import="com.rabbitforever.common.factories.UtilsFactory" %>
 <%@ page import="com.rabbitforever.common.utils.DateUtils" %>
+<%@ page import="com.rabbitforever.gamblehub.controllers.helpers.BaccaratControllerHelper" %>
 <% UtilsFactory utilsFactory = UtilsFactory.getInstance(); 
 DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
+BaccaratControllerHelper controllerHelper = new BaccaratControllerHelper();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

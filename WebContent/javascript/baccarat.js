@@ -228,10 +228,10 @@ function createBaccaratTableTrDataRow(baccaratDto){
 	+		"<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>"
 	+	"</td>"
 	+ 	"<td><input type=\"text\" value=\"" + baccaratDto.session + "\" class=\"sessionInput\"/></td>"
-	+	"<td><input type=\"text\" value=\"\" class=\"roundInput\" value=\"" + baccaratDto.round +"\"/></td>"
-	+	"<td><input type=\"text\" value=\"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" value=\"" + baccaratDto.result +"\" /></td>"
+	+	"<td><input type=\"text\" value=\"" + baccaratDto.round +"\" class=\"roundInput\" /></td>"
+	+	"<td><input type=\"text\" value=\"" + baccaratDto.result +"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\"  /></td>"
 	+	"<td><label for=\"count\" class=\"countLabel\">" + baccaratDto.count +"</label></td>"
-	+	"<td><label for=\"oddEven\" class=\"oddEvenLabel\">"+ baccaratDto.count +"</label></td>"
+	+	"<td><label for=\"oddEven\" class=\"oddEvenLabel\">"+ baccaratDto.oddEven +"</label></td>"
 	+	"</tr>";
 	
 	$(tbodyObj).append(trObjString);
@@ -286,20 +286,23 @@ function addNewButton_onclick(e){
 function resultInput_onchange(e){
 	var controlObj = e.target;
 	var changeValue = $(controlObj).val();
+	var tdObj = $(controlObj).parent();
+	var trObj = $(tdObj).parent();
+	var countLabelObj = $(trObj).find('.countLabel');
 	isTheSameInput = validateSameResultInput(changeValue);
 	if (!isTheSameInput){
 		alert("You should have the same character input!");
 	}
 	var count = countInput(changeValue);
-	updateCountValue(changeValue);
+	updateCountValue(countLabelObj,changeValue);
 
 	var resultString = oddEvenDeterminator(count);
 	updateOddEvenValue(resultString);
 }
-function updateCountValue(changeValue){
+function updateCountValue(countLabelObj, changeValue){
 	var count = countInput(changeValue);
 	if (count > 0){
-		$('.countLabel').text(changeValue.charAt(0) + count);
+		$(countLabelObj).text(changeValue.charAt(0) + count);
 	}
 
 }

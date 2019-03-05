@@ -41,10 +41,47 @@ public class BaccaratControllerHelper {
 				sbHtml.append("</thead>");
 				sbHtml.append("<tbody class=\"baccaratTableTbody\">");
 					sbHtml.append(renderBaccaratTableTrTopRow(baccaratDtoList));
+					sbHtml.append(renderBaccaratTableTrDataRow(baccaratDtoList));
 				sbHtml.append("</tbody>");
 			sbHtml.append("</table>");
 		} catch (Exception e) {
 			logger.error(getClassName() + ".renderBaccaratTable()", e);
+			throw e;
+		}
+		return sbHtml.toString();
+	}
+	public String renderBaccaratTableTrDataRow(List<BaccaratDto> baccaratDtoList) throws Exception {
+		StringBuilder sbHtml = null;
+		try {
+			sbHtml = new StringBuilder();
+			
+			for (BaccaratDto baccaratDto: baccaratDtoList) {
+				sbHtml.append("<tr>");
+				sbHtml.append("<td>");
+					sbHtml.append("<input type=\"button\" value=\"Delete\" class=\"addNewButton\" onclick=\"deleteButton_onclick(event)\"/>");
+					sbHtml.append("<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateParamString() + "\" class=\"sessionInput\"/>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<input type=\"text\" value=\""  + baccaratDto.getRound() + "\" class=\"roundInput\" />");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<input type=\"text\" value=\""  + baccaratDto.getResult() + "\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" />");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getCount() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"oddEven\" class=\"oddEvenLabel\">"  + baccaratDto.getOddEven() + "</label>");
+				sbHtml.append("</td>");
+			sbHtml.append("</tr>");
+			}
+
+
+		} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTableTrTopRow()", e);
 			throw e;
 		}
 		return sbHtml.toString();
