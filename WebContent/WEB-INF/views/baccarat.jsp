@@ -2,10 +2,10 @@
     pageEncoding="utf-8"%>
 <%@ page import="com.rabbitforever.common.factories.UtilsFactory" %>
 <%@ page import="com.rabbitforever.common.utils.DateUtils" %>
-<%@ page import="com.rabbitforever.gamblehub.controllers.helpers.BaccaratControllerHelper" %>
+<%@ page import="com.rabbitforever.gamblehub.controllers.BaccaratController" %>
 <% UtilsFactory utilsFactory = UtilsFactory.getInstance(); 
 DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
-BaccaratControllerHelper controllerHelper = new BaccaratControllerHelper();
+BaccaratController controller = new BaccaratController();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,7 +24,8 @@ BaccaratControllerHelper controllerHelper = new BaccaratControllerHelper();
 	<div class="mainContentDiv">
 	<label for="date" class="dateLabel"><%= dateUtils.getTodayDisplayDateString() %></label>
 	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateParamString() %>" />
-	<table class="baccaratTable">
+	<%= controller.renderBaccaratTable() %>
+<%-- 	<table class="baccaratTable">
 		<thead>
 			<tr>
 				<th></th>
@@ -45,7 +46,7 @@ BaccaratControllerHelper controllerHelper = new BaccaratControllerHelper();
 				<td><label for="oddEven" class="oddEvenLabel"></label></td>
 			</tr>
 		</tbody>
-	</table>
+	</table> --%>
 	</div>
 </body>
 </html>
