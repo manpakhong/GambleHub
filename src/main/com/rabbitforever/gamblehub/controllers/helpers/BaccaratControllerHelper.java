@@ -1,5 +1,6 @@
 package com.rabbitforever.gamblehub.controllers.helpers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
+import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 
 public class BaccaratControllerHelper {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
@@ -21,6 +23,23 @@ public class BaccaratControllerHelper {
 	private String getClassName(){
 		return this.getClass().getName();
 	}	
+	
+	public List<BaccaratDto> transformToBaccaratDtoList(List<BaccaratEo> baccaratEoList) throws Exception {
+		List<BaccaratDto> baccaratDtoList = null;
+		try {
+			if (baccaratEoList != null) {
+				baccaratDtoList = new ArrayList<BaccaratDto>();
+				for (BaccaratEo baccaratEo: baccaratEoList) {
+					BaccaratDto baccaratDto = new BaccaratDto(baccaratEo);
+					baccaratDtoList.add(baccaratDto);
+				}
+			}
+		} catch (Exception e) {
+			logger.error(getClassName() + ".transformToBaccaratDtoList() - baccaratEoList=" + baccaratEoList, e);
+			throw e; 
+		}
+		return baccaratDtoList;
+	}
 	public String renderBaccaratTable(List<BaccaratDto> baccaratDtoList) throws Exception{
 		StringBuilder sbHtml = null;
 		try {
@@ -62,7 +81,7 @@ public class BaccaratControllerHelper {
 					sbHtml.append("<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateParamString() + "\" class=\"sessionInput\"/>");
+					sbHtml.append("<input type=\"text\" value=\"" +baccaratDto.getSession() + "\" class=\"sessionInput\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<input type=\"text\" value=\""  + baccaratDto.getRound() + "\" class=\"roundInput\" />");
@@ -92,7 +111,7 @@ public class BaccaratControllerHelper {
 			sbHtml = new StringBuilder();
 			sbHtml.append("<tr>");
 				sbHtml.append("<td>");
-					sbHtml.append("<input type=\"button\" value=\"Add\" class=\"addNewButton\" onclick=\"addNewButton_onclick(event)\"/>)");
+					sbHtml.append("<input type=\"button\" value=\"Add\" class=\"addNewButton\" onclick=\"addNewButton_onclick(event)\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateParamString() + "\" class=\"sessionInput\"/>");

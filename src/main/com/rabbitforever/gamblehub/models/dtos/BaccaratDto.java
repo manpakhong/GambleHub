@@ -16,9 +16,7 @@ public class BaccaratDto extends BaccaratEo {
 	}
 
 	public BaccaratDto(BaccaratEo baccaratEo) throws Exception {
-
 		BeanUtils.copyProperties(this, baccaratEo);
-
 	}
 
 	public String getDatetimeString() {

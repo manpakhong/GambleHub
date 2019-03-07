@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.rabbitforever.gamblehub.controllers.helpers.BaccaratControllerHelper;
 import com.rabbitforever.gamblehub.controllers.helpers.GambleControllerHelper;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratReponseDto;
@@ -32,16 +33,16 @@ import com.rabbitforever.gamblehub.services.BaccaratMgr;
 @RequestMapping("/baccarat")
 public class BaccaratController {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
-	private GambleControllerHelper helper;
+	private BaccaratControllerHelper helper;
 	public BaccaratController() throws Exception{
-		helper = new GambleControllerHelper();
+		helper = new BaccaratControllerHelper();
 	}
 	private String getClassName() {
 		return this.getClass().getName();
 	}
 
 	@Autowired
-	private BaccaratMgr baccaratService;
+	private BaccaratMgr baccaratMgr;
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -85,7 +86,7 @@ public class BaccaratController {
 			}
 			
 			
-			baccaratEoList = baccaratService.read(so);
+			baccaratEoList = baccaratMgr.read(so);
 //			vo.setBaccaratDtoList(baccaratDtoList);
 
 			model.addAttribute("baccaratEoList", baccaratEoList);
@@ -174,5 +175,26 @@ public class BaccaratController {
 			gambleControllerHelper = null;
 		}
         return reponseJsonString;
+    }
+    
+    public String renderBaccaratTable() throws Exception{
+    	List<BaccaratEo> baccaratEoList = null;
+    	String renderHtmlString = null;
+    	List<BaccaratDto> baccaratDtoList = null;
+    	try {
+    		BaccaratSo baccaratSo = new BaccaratSo();
+    		if (baccaratMgr == null) {
+    			baccaratMgr = new  BaccaratMgr();
+    		}
+			baccaratEoList = baccaratMgr.read(baccaratSo);
+			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
+			
+    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
+    	} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
+			throw e;
+		} finally {
+		}
+    	return renderHtmlString;
     }
 }
