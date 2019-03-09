@@ -10,7 +10,6 @@ import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
-import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
 public class BaccaratControllerHelper {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());

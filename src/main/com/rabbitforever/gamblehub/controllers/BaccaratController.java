@@ -47,7 +47,9 @@ public class BaccaratController {
 	@Autowired
 	private BaccaratMgr baccaratMgr;
 	@Autowired
-	private GambleMgr gambleService;
+	private GambleMgr gambleService1;
+	@Autowired
+	private GambleMgr gambleService2;
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -270,19 +272,21 @@ public class BaccaratController {
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
-    		if (gambleService == null) {
-    			gambleService = new GambleMgrImp();
+    		if (gambleService1 == null) {
+    			gambleService1 = new GambleMgrImp();
     		}
     		
-    		
+    		if (gambleService2 == null) {
+    			gambleService2 = new GambleMgrImp();
+    		}
 			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
 			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
-			String nextBBettingSuggestion = gambleService.getNextBettingSuggestion(b);
+			String nextBBettingSuggestion = gambleService1.getNextBettingSuggestion(b);
 			if (nextBBettingSuggestion == null) {
 				nextBBettingSuggestion = "Non-deterministic";
 			}
 			
-			String nextPBettingSuggestion = gambleService.getNextBettingSuggestion(p);
+			String nextPBettingSuggestion = gambleService2.getNextBettingSuggestion(p);
 			if (nextPBettingSuggestion == null) {
 				nextPBettingSuggestion = "Non-deterministic";
 			}
