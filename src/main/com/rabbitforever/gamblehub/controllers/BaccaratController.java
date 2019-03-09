@@ -26,8 +26,11 @@ import com.rabbitforever.gamblehub.models.dtos.BaccaratReponseDto;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratRequestDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
+import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 import com.rabbitforever.gamblehub.models.vos.BaccaratVo;
 import com.rabbitforever.gamblehub.services.BaccaratMgr;
+import com.rabbitforever.gamblehub.services.GambleMgr;
+import com.rabbitforever.gamblehub.services.GambleMgrImp;
 
 @Controller
 @RequestMapping("/baccarat")
@@ -43,6 +46,8 @@ public class BaccaratController {
 
 	@Autowired
 	private BaccaratMgr baccaratMgr;
+	@Autowired
+	private GambleMgr gambleService;
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -67,7 +72,33 @@ public class BaccaratController {
 //		return json;
 //	}
 //	
-	
+	@GetMapping("load_result")
+	public String getBaccaratResult(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
+		BaccaratVo vo = null;
+		List<BaccaratEo> baccaratEoList = null;
+		Integer round = null;
+		try {
+			vo = new BaccaratVo();
+			
+			// if (result.hasErrors()) {
+			// model.addAttribute("bigSmallEoList", gambleService.read());
+			// return "editUsers";
+			// }
+			if (so == null) {
+				so = new BaccaratSo();
+			}
+			
+			
+			baccaratEoList = baccaratMgr.read(so);
+//			vo.setBaccaratDtoList(baccaratDtoList);
+
+			model.addAttribute("baccaratEoList", baccaratEoList);
+			model.addAttribute("vo", vo);
+		} catch (Exception e) {
+			logger.error(getClassName() + ".read() - so=" + so, e);
+		}
+		return "baccarat_result";
+	}
 	
 	@GetMapping("load")
 	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
@@ -186,10 +217,81 @@ public class BaccaratController {
     		if (baccaratMgr == null) {
     			baccaratMgr = new  BaccaratMgr();
     		}
+    		OrderedBy orderBy = new OrderedBy();
+    		orderBy.setDesc("round");
+    		baccaratSo.addOrderedBy(orderBy);
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
     		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
+    	} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
+			throw e;
+		} finally {
+		}
+    	return renderHtmlString;
+    }
+    public String renderBaccaratResult() throws Exception{
+    	List<BaccaratEo> baccaratEoList = null;
+    	String renderHtmlString = null;
+    	List<BaccaratDto> baccaratDtoList = null;
+    	try {
+    		BaccaratSo baccaratSo = new BaccaratSo();
+    		if (baccaratMgr == null) {
+    			baccaratMgr = new  BaccaratMgr();
+    		}
+    		OrderedBy orderBy = new OrderedBy();
+    		orderBy.setDesc("round");
+    		baccaratSo.addOrderedBy(orderBy);
+			baccaratEoList = baccaratMgr.read(baccaratSo);
+			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
+			
+    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
+    	} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
+			throw e;
+		} finally {
+		}
+    	return renderHtmlString;
+    }
+    public String renderBaccaratResultTable() throws Exception{
+    	List<BaccaratEo> baccaratEoList = null;
+    	String renderHtmlString = null;
+    	List<BaccaratDto> baccaratDtoList = null;
+    	
+    	try {
+    		BaccaratSo baccaratSo = new BaccaratSo();
+    		if (baccaratMgr == null) {
+    			baccaratMgr = new  BaccaratMgr();
+    		}
+    		OrderedBy orderBy = new OrderedBy();
+    		orderBy.setAsc("round");
+    		baccaratSo.addOrderedBy(orderBy);
+			baccaratEoList = baccaratMgr.read(baccaratSo);
+			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
+			
+    		if (gambleService == null) {
+    			gambleService = new GambleMgrImp();
+    		}
+    		
+    		
+			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
+			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
+			String nextBBettingSuggestion = gambleService.getNextBettingSuggestion(b);
+			if (nextBBettingSuggestion == null) {
+				nextBBettingSuggestion = "Non-deterministic";
+			}
+			
+			String nextPBettingSuggestion = gambleService.getNextBettingSuggestion(p);
+			if (nextPBettingSuggestion == null) {
+				nextPBettingSuggestion = "Non-deterministic";
+			}
+			
+    		renderHtmlString = helper.renderBaccaratResultTable(baccaratDtoList, nextBBettingSuggestion, nextPBettingSuggestion);
+    		
+
+			
+			
     	} catch (Exception e) {
 			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
 			throw e;

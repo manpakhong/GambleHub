@@ -110,7 +110,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 				for (OrderedBy orderedBy: orderedByList) {
 					String dataField = orderedBy.getDataField();
 					if (orderedBy.getIsAsc()) {
-						query.orderBy(builder.desc(root.get(dataField)));
+						query.orderBy(builder.asc(root.get(dataField)));
 					} else {
 						query.orderBy(builder.desc(root.get(dataField)));
 					}

@@ -5,8 +5,12 @@ var INPUT_TYPE_BANK = "B";
 var INPUT_TYPE_PLAY = "P";
 var currentControl;
 $(document).ready(function(){ 
-
+	setTimeout(refreshPage, 3000);
 }); // end $(document).ready
+
+function refreshPage(){
+	location.reload();
+}
 function createBaccaratDto(){
 	var baccaratDto = {};
 	baccaratDto.id = null;
@@ -289,7 +293,6 @@ function resultInput_onchange(e){
 	var tdObj = $(controlObj).parent();
 	var trObj = $(tdObj).parent();
 	var countLabelObj = $(trObj).find('.countLabel');
-	var oddEvenLabelObj = $(trObj).find('.oddEvenLabel');
 	isTheSameInput = validateSameResultInput(changeValue);
 	if (!isTheSameInput){
 		alert("You should have the same character input!");
@@ -298,7 +301,7 @@ function resultInput_onchange(e){
 	updateCountValue(countLabelObj,changeValue);
 
 	var resultString = oddEvenDeterminator(count);
-	updateOddEvenValue(oddEvenLabelObj, resultString);
+	updateOddEvenValue(resultString);
 }
 function updateCountValue(countLabelObj, changeValue){
 	var count = countInput(changeValue);
@@ -307,8 +310,8 @@ function updateCountValue(countLabelObj, changeValue){
 	}
 
 }
-function updateOddEvenValue(countLabelObj, resultString){
-	$(countLabelObj).text(resultString);
+function updateOddEvenValue(resultString){
+	$('.oddEvenLabel').text(resultString);
 }
 function countInput(value){
 	var firstCharacter;

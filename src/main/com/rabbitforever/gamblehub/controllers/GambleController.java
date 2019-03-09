@@ -75,7 +75,7 @@ public class GambleController {
 			String s = helper.getStringFromBigSmallEoList(bigSmallEoList);
 			String nextBettingSuggestion = gambleService.getNextBettingSuggestion(s);
 			if (nextBettingSuggestion == null) {
-				nextBettingSuggestion = "Nondeterministic";
+				nextBettingSuggestion = "Non-deterministic";
 			}
 			model.addAttribute("bigSmallEoList", bigSmallEoList);
 			model.addAttribute("nextBettingSuggestion", nextBettingSuggestion);

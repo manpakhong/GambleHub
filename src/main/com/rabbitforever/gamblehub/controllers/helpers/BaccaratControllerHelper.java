@@ -10,6 +10,7 @@ import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
 import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
+import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 
 public class BaccaratControllerHelper {
 	private final Logger logger = LoggerFactory.getLogger(getClassName());
@@ -29,8 +30,36 @@ public class BaccaratControllerHelper {
 		try {
 			if (baccaratEoList != null) {
 				baccaratDtoList = new ArrayList<BaccaratDto>();
-				for (BaccaratEo baccaratEo: baccaratEoList) {
+				for (int i = 0; i < baccaratEoList.size(); i++) {
+					BaccaratEo baccaratEo = baccaratEoList.get(i);
 					BaccaratDto baccaratDto = new BaccaratDto(baccaratEo);
+					
+					String resultFirstCharString = baccaratDto.getResult();
+					String oddEvenAbbreviation = baccaratDto.getOddEven();
+					
+					if (resultFirstCharString != null && resultFirstCharString.length() > 0) {
+						resultFirstCharString = new Character(resultFirstCharString.charAt(0)).toString();
+					}
+					if (oddEvenAbbreviation != null && oddEvenAbbreviation.length() > 0) {
+						oddEvenAbbreviation = new Character(oddEvenAbbreviation.charAt(0)).toString();
+					}
+					
+					if (i % 2 == 0) {
+						baccaratDto.setDisplayEvenBankerPlayerPBAbbreviationResult(resultFirstCharString);
+						baccaratDto.setDisplayEvenBankerPlayerResult(oddEvenAbbreviation);
+						baccaratDto.setDisplayOddBankerPlayerPBAbbreviationResult("");
+						baccaratDto.setDisplayOddBankerPlayerResult("");
+					} else {
+						baccaratDto.setDisplayOddBankerPlayerPBAbbreviationResult(resultFirstCharString);
+						baccaratDto.setDisplayOddBankerPlayerResult(oddEvenAbbreviation);
+						
+						baccaratDto.setDisplayEvenBankerPlayerPBAbbreviationResult("");
+						baccaratDto.setDisplayEvenBankerPlayerResult("");
+					}
+					
+					
+					baccaratDto.setResultFirstCharString(resultFirstCharString);
+					baccaratDto.setOddEvenAbbreviation(oddEvenAbbreviation);
 					baccaratDtoList.add(baccaratDto);
 				}
 			}
@@ -39,6 +68,110 @@ public class BaccaratControllerHelper {
 			throw e; 
 		}
 		return baccaratDtoList;
+	}
+	public String getPlayerStringFromBaccaratDtoList(List<BaccaratDto> baccaratDtoList) throws Exception{
+		StringBuilder s = null;
+		try {
+			s = new StringBuilder();
+			for (BaccaratDto dto: baccaratDtoList) {
+				if (BaccaratDto.BANK_PLAYER_PLAYER.equals(dto.getBankPlayer())) {
+					String result = dto.getOddEvenAbbreviation();
+					s.append(result);
+				}
+			}
+		} catch (Exception e) {
+			logger.error(getClassName() + ".getStringFromBaccaratDtoList() - baccaratDtoList=" + baccaratDtoList, e);
+			throw e; 
+		}
+		return s.toString();
+	}
+	public String getBankerStringFromBaccaratDtoList(List<BaccaratDto> baccaratDtoList) throws Exception{
+		StringBuilder s = null;
+		try {
+			s = new StringBuilder();
+			for (BaccaratDto dto: baccaratDtoList) {
+				if (BaccaratDto.BANK_PLAYER_BANKER.equals(dto.getBankPlayer())) {
+					String result = dto.getOddEvenAbbreviation();
+					s.append(result);
+				}
+			}
+		} catch (Exception e) {
+			logger.error(getClassName() + ".getStringFromBaccaratDtoList() - baccaratDtoList=" + baccaratDtoList, e);
+			throw e; 
+		}
+		return s.toString();
+	}
+	public String renderBaccaratResultTable(List<BaccaratDto> baccaratDtoList, String nextBBettingSuggestion, String nextPBettingSuggestion) throws Exception{
+		StringBuilder sbHtml = null;
+		try {
+			sbHtml = new StringBuilder();
+			
+			sbHtml.append("<br/>");
+			sbHtml.append("<div>Next Banker estimation -----------------> " + nextBBettingSuggestion + "</div>");
+			sbHtml.append("<div>Next Player estimation ------------------> "  + nextPBettingSuggestion  +"</div>");
+			sbHtml.append("<br/>");
+			sbHtml.append("<table class=\"baccaratTable\">");
+				sbHtml.append("<thead>");
+					sbHtml.append("<tr>");
+
+						sbHtml.append("<th>No.</th>");
+						sbHtml.append("<th>B(Banker)/P(Player)</th>");
+						sbHtml.append("<th>Odd(O)/Even</th>");
+						sbHtml.append("<th>P/E</th>");
+						sbHtml.append("<th>(O/E)</th>");
+						sbHtml.append("<th>P/E</th>");
+						sbHtml.append("<th>(O/E)</th>");
+					sbHtml.append("</tr>");
+				sbHtml.append("</thead>");
+				sbHtml.append("<tbody class=\"baccaratTableTbody\">");
+					sbHtml.append(renderBaccaratResultTableTrDataRow(baccaratDtoList));
+	
+				sbHtml.append("</tbody>");
+			sbHtml.append("</table>");
+		} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable()", e);
+			throw e;
+		}
+		return sbHtml.toString();
+	}
+	public String renderBaccaratResultTableTrDataRow(List<BaccaratDto> baccaratDtoList) throws Exception {
+		StringBuilder sbHtml = null;
+		try {
+			sbHtml = new StringBuilder();
+			
+			for (int i = 0; i < baccaratDtoList.size(); i++){
+				BaccaratDto baccaratDto = baccaratDtoList.get(i);
+				sbHtml.append("<tr>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getRound() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getResult() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getOddEvenAbbreviation() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayOddBankerPlayerPBAbbreviationResult() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayOddBankerPlayerResult() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerPBAbbreviationResult() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerResult() + "</label>");
+				sbHtml.append("</td>");
+			sbHtml.append("</tr>");
+			}
+
+
+		} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTableTrTopRow()", e);
+			throw e;
+		}
+		return sbHtml.toString();
 	}
 	public String renderBaccaratTable(List<BaccaratDto> baccaratDtoList) throws Exception{
 		StringBuilder sbHtml = null;

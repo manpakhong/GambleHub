@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 @Table(name = "gbl_baccarat")
 public class BaccaratEo
 {
+	public static final String BANK_PLAYER_BANKER="B";
+	public static final String BANK_PLAYER_PLAYER="P";
 	protected Integer id;
 	protected Date datetime;
 	protected String session;
