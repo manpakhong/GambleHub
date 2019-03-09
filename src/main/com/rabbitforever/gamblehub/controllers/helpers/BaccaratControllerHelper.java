@@ -32,7 +32,8 @@ public class BaccaratControllerHelper {
 				for (int i = 0; i < baccaratEoList.size(); i++) {
 					BaccaratEo baccaratEo = baccaratEoList.get(i);
 					BaccaratDto baccaratDto = new BaccaratDto(baccaratEo);
-					
+					int seq = i + 1;
+					baccaratDto.setSeq(seq);
 					String resultFirstCharString = baccaratDto.getResult();
 					String oddEvenAbbreviation = baccaratDto.getOddEven();
 					
@@ -142,7 +143,7 @@ public class BaccaratControllerHelper {
 				BaccaratDto baccaratDto = baccaratDtoList.get(i);
 				sbHtml.append("<tr>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getRound() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getSeq() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getResult() + "</label>");

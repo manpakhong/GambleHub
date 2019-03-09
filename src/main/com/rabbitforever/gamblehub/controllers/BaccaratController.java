@@ -47,9 +47,8 @@ public class BaccaratController {
 	@Autowired
 	private BaccaratMgr baccaratMgr;
 	@Autowired
-	private GambleMgr gambleService1;
-	@Autowired
-	private GambleMgr gambleService2;
+	private GambleMgr gambleMgr;
+
 //
 //	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
 //	public @ResponseBody String getBigSmallList() {
@@ -219,9 +218,12 @@ public class BaccaratController {
     		if (baccaratMgr == null) {
     			baccaratMgr = new  BaccaratMgr();
     		}
-    		OrderedBy orderBy = new OrderedBy();
-    		orderBy.setDesc("round");
-    		baccaratSo.addOrderedBy(orderBy);
+    		OrderedBy orderBySession = new OrderedBy();
+    		orderBySession.setDesc("session");
+    		OrderedBy orderedByRound = new OrderedBy();
+    		orderedByRound.setDesc("round");
+    		baccaratSo.addOrderedBy(orderBySession);
+    		baccaratSo.addOrderedBy(orderedByRound);
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
@@ -272,21 +274,18 @@ public class BaccaratController {
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
-    		if (gambleService1 == null) {
-    			gambleService1 = new GambleMgrImp();
+    		if (gambleMgr == null) {
+    			gambleMgr = new GambleMgrImp();
     		}
-    		
-    		if (gambleService2 == null) {
-    			gambleService2 = new GambleMgrImp();
-    		}
+
 			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
 			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
-			String nextBBettingSuggestion = gambleService1.getNextBettingSuggestion(b);
+			String nextBBettingSuggestion = gambleMgr.getNextBettingSuggestion(b);
 			if (nextBBettingSuggestion == null) {
 				nextBBettingSuggestion = "Non-deterministic";
 			}
 			
-			String nextPBettingSuggestion = gambleService2.getNextBettingSuggestion(p);
+			String nextPBettingSuggestion = gambleMgr.getNextBettingSuggestion(p);
 			if (nextPBettingSuggestion == null) {
 				nextPBettingSuggestion = "Non-deterministic";
 			}

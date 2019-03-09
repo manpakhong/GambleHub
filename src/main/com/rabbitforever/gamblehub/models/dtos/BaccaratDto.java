@@ -7,6 +7,7 @@ import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 
 public class BaccaratDto extends BaccaratEo {
 //	private Logger log = Logger.getLogger(getClassName());
+	private Integer seq;
 	private String datetimeString;
 	private String createDateString;
 	private String updateDateString;
@@ -26,6 +27,14 @@ public class BaccaratDto extends BaccaratEo {
 	}
 
 
+
+	public Integer getSeq() {
+		return seq;
+	}
+
+	public void setSeq(Integer seq) {
+		this.seq = seq;
+	}
 
 	public String getDisplayOddBankerPlayerPBAbbreviationResult() {
 		return displayOddBankerPlayerPBAbbreviationResult;
@@ -103,7 +112,9 @@ public class BaccaratDto extends BaccaratEo {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BaccaratDto [datetimeString=");
+		builder.append("BaccaratDto [seq=");
+		builder.append(seq);
+		builder.append(", datetimeString=");
 		builder.append(datetimeString);
 		builder.append(", createDateString=");
 		builder.append(createDateString);

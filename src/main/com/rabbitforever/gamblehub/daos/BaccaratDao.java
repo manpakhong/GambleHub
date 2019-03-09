@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -16,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
-import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BaccaratSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 
@@ -51,54 +51,65 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("id"), baccaratSo.getId());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getSession() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("session"), baccaratSo.getSession());
+				predicateList.add(predicate);
+
 			}
 			if(baccaratSo.getRound() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("round"), baccaratSo.getRound());
+				predicateList.add(predicate);
+
 			}
 			if(baccaratSo.getBankPlayer() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("bank_player"), baccaratSo.getBankPlayer());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getResult() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("result"), baccaratSo.getResult());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getOddEven() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("odd_even"), baccaratSo.getOddEven());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getDatetime() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("datetime"), baccaratSo.getDatetime());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getCreateDate() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("create_date"), baccaratSo.getCreateDate());
+				predicateList.add(predicate);
 			}
 			if(baccaratSo.getUpdateDate() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
 				Predicate predicate = builder.equal(root.get("update_date"), baccaratSo.getUpdateDate());
+				predicateList.add(predicate);
 			}
 			if (predicateList != null) {
 				query.select(root).where(predicateList.toArray(new Predicate[] {}));
@@ -106,15 +117,21 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 				query.select(root);
 			}
 			List<OrderedBy> orderedByList = baccaratSo.getOrderedByList();
+			List<Order> orderList = null;
 			if (orderedByList != null){
+				orderList = new ArrayList<Order>();
 				for (OrderedBy orderedBy: orderedByList) {
 					String dataField = orderedBy.getDataField();
 					if (orderedBy.getIsAsc()) {
-						query.orderBy(builder.asc(root.get(dataField)));
+						orderList.add(builder.asc(root.get(dataField)));
+
 					} else {
-						query.orderBy(builder.desc(root.get(dataField)));
+						orderList.add(builder.desc(root.get(dataField)));
 					}
 				}
+			}
+			if (orderList != null) {
+				query.orderBy(orderList);
 			}
 			q = session.createQuery(query);
 			baccaratEoList = q.getResultList();

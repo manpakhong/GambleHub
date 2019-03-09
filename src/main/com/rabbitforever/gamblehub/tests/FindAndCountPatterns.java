@@ -6,12 +6,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class FindAndCountPatterns {
+	private final Logger logger = LoggerFactory.getLogger(getClassName());
 	final static int MINLEN = 2;
 	final static int MINCNT = 2;
-	
+	private String getClassName() {
+		return this.getClass().getName();
+	}
 	public static void main(String[] args) {
-		String s =  "SBDSBBSSSBBDSSSDDDDBBBBSBSBSBBDSSBDDDBBSBSSSSBDBBBBSSBBSSBBSS";
+		String s =  "SBDSBBSSSBBDSSSDDDDBBBBSBSBSBBDSSBDDDBBSBSSSSBDBBBBSSBBSSBBSSSBSSSSSSSBBBBBBBSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
 		Map <String, Integer> mapCount = new HashMap<String, Integer>();
 
 
@@ -190,11 +196,11 @@ public class FindAndCountPatterns {
 		List<String> matchingReversedPatternList = null;
 		try {
 			int maxLength = resultString.length();
-			System.out.println("length of resultString:" + maxLength);
+			logger.debug(getClassName() + "getNextBettingSuggestion() -length of resultString:" + maxLength);
 			matchingReversedPatternList = new ArrayList<String>();
 			for (int i = MINLEN - 2; i < maxReverseLength - 1; i++) {
-				System.out.println("i=" + i + ", substring(" + (maxLength - i -1) + "," + (maxLength) + ")");
-				System.out.println("substring:" + resultString.substring(maxLength - i - 1, maxLength));
+				logger.debug(getClassName() + "getNextBettingSuggestion() -i=" + i + ", substring(" + (maxLength - i -1) + "," + (maxLength) + ")");
+				logger.debug(getClassName() + "getNextBettingSuggestion() -substring:" + resultString.substring(maxLength - i - 1, maxLength));
 				matchingReversedPatternList.add(resultString.substring(maxLength - i - 1, maxLength));
 			}
 		} catch (Exception e) {

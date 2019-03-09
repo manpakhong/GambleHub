@@ -162,11 +162,11 @@ public class GameServiceHelper {
 		List<String> matchingReversedPatternList = null;
 		try {
 			int maxLength = resultString.length();
-			System.out.println("length of resultString:" + maxLength);
+			logger.debug(getClassName() + ".findTheMatchingPatternWithLength() - length of resultString:" + maxLength);
 			matchingReversedPatternList = new ArrayList<String>();
 			for (int i = minLen - 2; i < maxReverseLength - 1; i++) {
-				System.out.println("i=" + i + ", substring(" + (maxLength - i -1) + "," + (maxLength) + ")");
-				System.out.println("substring:" + resultString.substring(maxLength - i - 1, maxLength));
+				logger.debug(getClassName() + ".findTheMatchingPatternWithLength() -i=" + i + ", substring(" + (maxLength - i -1) + "," + (maxLength) + ")");
+				logger.debug(getClassName() + ".findTheMatchingPatternWithLength() -substring:" + resultString.substring(maxLength - i - 1, maxLength));
 				matchingReversedPatternList.add(resultString.substring(maxLength - i - 1, maxLength));
 			}
 		} catch (Exception e) {
