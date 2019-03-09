@@ -1,6 +1,7 @@
 package com.rabbitforever.gamblehub.systems.impl;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -13,15 +14,18 @@ import com.rabbitforever.gamblehub.quartz.jobs.impl.HelloJobImpl;
 import com.rabbitforever.gamblehub.systems.Initializer;
 
 public class QuartzInitializerImpl implements Initializer{
-	private static final Logger log = Logger.getLogger(QuartzInitializerImpl.class);
+	private final Logger logger = LogManager.getLogger(getClassName());
 	@Override
 	public void start() throws Exception {
 		try {
 	        createAndRunJob();
 		} catch (Exception e) {
-			log.error(QuartzInitializerImpl.class.getName() + "start()", e);
+			logger.error(QuartzInitializerImpl.class.getName() + "start()", e);
 			throw e;
 		}
+	}
+	private String getClassName(){
+		return this.getClass().getName();
 	}
 	private void createAndRunJob() throws Exception {
 		try {
@@ -45,7 +49,7 @@ public class QuartzInitializerImpl implements Initializer{
 		
 			  scheduler.scheduleJob(job, trigger);
 		} catch (Exception e) {
-			log.error(QuartzInitializerImpl.class.getName() + "routineJob()", e);
+			logger.error(QuartzInitializerImpl.class.getName() + "routineJob()", e);
 			throw e;
 		}
 	}

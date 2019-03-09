@@ -1,10 +1,10 @@
 package com.rabbitforever.gamblehub.factories.builders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.gamblehub.bundles.MysqlDbProperties;
 public class MysqlDbBundlesBuilder extends BundlesBuilder<MysqlDbProperties>{
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private String className;
 	public MysqlDbBundlesBuilder(String fileName) throws Exception{
 		super(fileName);

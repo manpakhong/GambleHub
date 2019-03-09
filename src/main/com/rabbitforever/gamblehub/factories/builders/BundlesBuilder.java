@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.CommonUtils;
@@ -15,7 +16,7 @@ import com.rabbitforever.common.utils.FileUtils;
 import com.rabbitforever.gamblehub.factories.PropertiesFactory;
 
 public abstract class BundlesBuilder <T> {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private Properties properties;
 	protected String fileName;
 	protected PropertiesFactory propertiesFactory;
@@ -31,7 +32,7 @@ public abstract class BundlesBuilder <T> {
 		init();
 	}
 	private String getClassName(){
-		String className = this.getClassName();
+		String className = this.getClass().getName();
 		return className;
 	}
 	private void init() throws IOException{

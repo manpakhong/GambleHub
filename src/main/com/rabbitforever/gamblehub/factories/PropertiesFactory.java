@@ -1,7 +1,7 @@
 package com.rabbitforever.gamblehub.factories;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.gamblehub.bundles.MysqlDbProperties;
 import com.rabbitforever.gamblehub.bundles.SysProperties;
@@ -10,8 +10,8 @@ import com.rabbitforever.gamblehub.factories.builders.MysqlDbBundlesBuilder;
 import com.rabbitforever.gamblehub.factories.builders.SysBundlesBuilder;
 
 public class PropertiesFactory {
-	private final static Logger logger = LoggerFactory.getLogger(PropertiesFactory.class);
-	private final static String className = PropertiesFactory.class.getName();
+	private final static Logger logger = LogManager.getLogger(getClassName());
+
 	
 	
 	private BundlesBuilder<SysProperties> sysBundlesBuilder;
@@ -21,8 +21,10 @@ public class PropertiesFactory {
 	private static PropertiesFactory propertiesFactory;
 	private static MysqlDbProperties mysqlDbProperties;
 	private static SysProperties sysProperties;
-	private String getClassName() {
-		String className = this.getClassName();
+	
+
+	private static String getClassName() {
+		String className = PropertiesFactory.class.getName();
 		return className;
 	}
 	private PropertiesFactory() throws Exception{
@@ -48,7 +50,7 @@ public class PropertiesFactory {
 				propertiesFactory = new PropertiesFactory();
 			}
 		} catch (Exception e) {
-			logger.error(className + ".getInstanceOfPropertiesFactory() - ", e);
+			logger.error(getClassName() + ".getInstanceOfPropertiesFactory() - ", e);
 		}
 		return propertiesFactory;
 	}
@@ -61,7 +63,7 @@ public class PropertiesFactory {
 			}
 
 		} catch (Exception e) {
-			logger.error(className + ".getInstanceOfMySqlDbProperties() - ", e);
+			logger.error(getClassName() + ".getInstanceOfMySqlDbProperties() - ", e);
 		}
 		return mysqlDbProperties;
 	}
@@ -77,7 +79,7 @@ public class PropertiesFactory {
 			}
 
 		} catch (Exception ex) {
-			logger.error(className + ".getInstanceOfSysProperties() - ", ex);
+			logger.error(getClassName() + ".getInstanceOfSysProperties() - ", ex);
 			throw ex;
 		}
 		return sysProperties;

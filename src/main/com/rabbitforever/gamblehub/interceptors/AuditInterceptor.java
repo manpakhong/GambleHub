@@ -7,12 +7,11 @@ import org.hibernate.EmptyInterceptor;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 import org.hibernate.type.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AuditInterceptor extends EmptyInterceptor {
-
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private String getClassName(){
 		return this.getClass().getName();
 	}	

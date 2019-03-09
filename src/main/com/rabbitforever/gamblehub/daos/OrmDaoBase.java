@@ -8,8 +8,8 @@ import javax.sql.DataSource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rabbitforever.common.factories.UtilsFactory;
@@ -20,7 +20,7 @@ import com.rabbitforever.gamblehub.utils.DbUtils;
 import com.rabbitforever.gamblehub.utils.HibernateUtils;
 
 public abstract class OrmDaoBase <T> {
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	@Autowired
 	protected SessionFactory sessionFactory;
 	protected Session session;

@@ -13,8 +13,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +27,7 @@ import com.rabbitforever.gamblehub.utils.HibernateUtils;
 
 @Repository
 public class BigSmallDaoImp implements BigSmallDao{
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	@Autowired
 	private SessionFactory sessionFactory;
 	private Session session;

@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public abstract class BundlesUtils <T> {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private Properties properties;
 	private String fileName;
 	public BundlesUtils(String fileName) throws Exception{

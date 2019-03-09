@@ -6,11 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class FindAndCountPatterns {
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	final static int MINLEN = 2;
 	final static int MINCNT = 2;
 	private String getClassName() {

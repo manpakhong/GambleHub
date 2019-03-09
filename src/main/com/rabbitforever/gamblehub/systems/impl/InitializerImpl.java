@@ -3,19 +3,21 @@ package com.rabbitforever.gamblehub.systems.impl;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.jboss.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.gamblehub.systems.Initializer;
 
 @SuppressWarnings("serial")
 public class InitializerImpl extends HttpServlet implements Initializer{
-	private static final Logger log = Logger.getLogger(InitializerImpl.class);
+
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private Initializer quartzInitializer;
 	public void init() throws ServletException{
 		try{
 			start();
 		} catch (Exception e){
-			log.error("InitializerImpl.init()", e);
+			logger.error("InitializerImpl.init()", e);
 		}
 	}
 	@Override
@@ -26,8 +28,11 @@ public class InitializerImpl extends HttpServlet implements Initializer{
 //			
 //			log.info("System is Initialized!");
 		} catch (Exception e) {
-			log.error(InitializerImpl.class.getName() + "start()", e);
+			logger.error(InitializerImpl.class.getName() + "start()", e);
 			throw e;
 		}
+	}
+	private String getClassName(){
+		return this.getClass().getName();
 	}
 }

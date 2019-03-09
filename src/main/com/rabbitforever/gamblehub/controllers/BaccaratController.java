@@ -5,8 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +31,10 @@ import com.rabbitforever.gamblehub.models.vos.BaccaratVo;
 import com.rabbitforever.gamblehub.services.BaccaratMgr;
 import com.rabbitforever.gamblehub.services.GambleMgr;
 import com.rabbitforever.gamblehub.services.GambleMgrImp;
-
 @Controller
 @RequestMapping("/baccarat")
 public class BaccaratController {
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private BaccaratControllerHelper helper;
 	public BaccaratController() throws Exception{
 		helper = new BaccaratControllerHelper();

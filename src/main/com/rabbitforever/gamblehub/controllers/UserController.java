@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rabbitforever.gamblehub.models.eos.UserEo;
 import com.rabbitforever.gamblehub.services.UserMgr;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @Controller
 public class UserController {
+	private final Logger logger = LogManager.getLogger(getClassName());
     @Autowired
     private UserMgr userService;
  
@@ -24,7 +26,9 @@ public class UserController {
         model.addAttribute("users", userService.list());
         return "editUser";
     }
-     
+	private String getClassName() {
+		return this.getClass().getName();
+	}
     @ModelAttribute("user")
     public UserEo formBackingObject() {
         return new UserEo();

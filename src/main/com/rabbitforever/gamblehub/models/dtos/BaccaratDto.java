@@ -1,7 +1,6 @@
 package com.rabbitforever.gamblehub.models.dtos;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
 
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 

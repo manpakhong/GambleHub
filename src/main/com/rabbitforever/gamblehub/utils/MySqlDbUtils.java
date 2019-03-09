@@ -10,16 +10,19 @@ import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.ext.mysql.MySqlDataTypeFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.gamblehub.bundles.DbProperties;
 import com.rabbitforever.gamblehub.factories.PropertiesFactory;
 
 public class MySqlDbUtils extends DbUtils{
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	private String className = this.getClass().getName();
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private PropertiesFactory propertiesFactory;
+	private String getClassName(){
+	return this.getClass().getName();
+}
+
 	public MySqlDbUtils() throws Exception{
 		try {
 			propertiesFactory = PropertiesFactory.getInstanceOfPropertiesFactory();
@@ -63,7 +66,7 @@ public class MySqlDbUtils extends DbUtils{
 			String connectionString = properties.getConnectString();
 			databaseTester = new JdbcDatabaseTester(classForName, connectionString, username, password);
 		} catch (Exception e) {
-			logger.error(className + ".getJdbcDatabaseTester() - ", e);
+			logger.error(getClassName() + ".getJdbcDatabaseTester() - ", e);
 			throw e;
 		}
 		return databaseTester;

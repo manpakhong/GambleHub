@@ -4,11 +4,16 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class HibernateUtils {
+	private final Logger logger = LogManager.getLogger(getClassName());	
 	  private static StandardServiceRegistry registry;
 	  private static SessionFactory sessionFactory;
-
+		
+		private String getClassName(){
+		return this.getClass().getName();
+	}
 	  public HibernateUtils() {
 		  
 	  }

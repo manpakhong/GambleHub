@@ -3,14 +3,14 @@ package com.rabbitforever.gamblehub.controllers.helpers;
 import java.lang.reflect.Method;
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
 
 public abstract class ControllerHelper <D>{
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private UtilsFactory utilsFactory;
 	private DateUtils dateUtils;
 	public ControllerHelper() throws Exception{

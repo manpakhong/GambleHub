@@ -5,19 +5,22 @@ import java.sql.DriverManager;
 
 import org.dbunit.IDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import com.rabbitforever.gamblehub.bundles.DbProperties;
 
 public abstract class DbUtils {
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private String className = this.getClass().getName();
 	// public static final String DB_TYPE_MYSQL = "mysql";
 	// public static final String DB_TYPE_DB2 = "db2";
 	protected DbProperties properties;
 
-	
+	private String getClassName(){
+	return this.getClass().getName();
+}
 	public Connection getConnection() throws Exception {
 		Connection jdbcConnection = null;
 		try {

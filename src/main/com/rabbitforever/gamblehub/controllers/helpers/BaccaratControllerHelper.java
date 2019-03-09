@@ -3,8 +3,8 @@ package com.rabbitforever.gamblehub.controllers.helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.rabbitforever.common.factories.UtilsFactory;
 import com.rabbitforever.common.utils.DateUtils;
@@ -12,7 +12,7 @@ import com.rabbitforever.gamblehub.models.dtos.BaccaratDto;
 import com.rabbitforever.gamblehub.models.eos.BaccaratEo;
 
 public class BaccaratControllerHelper {
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private UtilsFactory utilsFactory;
 	private DateUtils dateUtils;
 	

@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +21,11 @@ import com.rabbitforever.gamblehub.models.eos.BigSmallEo;
 import com.rabbitforever.gamblehub.models.sos.BigSmallSo;
 import com.rabbitforever.gamblehub.models.sos.OrderedBy;
 import com.rabbitforever.gamblehub.services.GambleMgr;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @Controller
 public class GambleController {
-	private final Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	private GambleControllerHelper helper;
 	public GambleController() throws Exception{
 		helper = new GambleControllerHelper();

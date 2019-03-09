@@ -1,13 +1,13 @@
 package com.rabbitforever.gamblehub.factories;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.rabbitforever.gamblehub.utils.DbUtils;
 import com.rabbitforever.gamblehub.utils.HibernateUtils;
 import com.rabbitforever.gamblehub.utils.MySqlDbUtils;
 public class DbUtilsFactory {
-	private final static Logger logger = LoggerFactory.getLogger(getClassName());
+	private final Logger logger = LogManager.getLogger(getClassName());
 
 	private static DbUtils mySqlDbUtils;
 	private static DbUtilsFactory dbUtilsFactory;

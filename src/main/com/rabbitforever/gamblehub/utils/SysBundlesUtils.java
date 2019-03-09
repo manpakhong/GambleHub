@@ -2,13 +2,12 @@ package com.rabbitforever.gamblehub.utils;
 
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.rabbitforever.gamblehub.bundles.SysProperties;
 
 public class SysBundlesUtils extends BundlesUtils <SysProperties>{
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LogManager.getLogger(getClassName());
 	public SysBundlesUtils(String fileName) throws Exception {
 		super(fileName);
 	}
