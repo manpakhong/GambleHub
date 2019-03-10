@@ -326,9 +326,15 @@ public class BaccaratController {
     	return renderHtmlString;
     }
     public String renderEstimateBaccaratResultTable(String session) throws Exception{
-    	List<BaccaratEo> baccaratEoList = null;
     	String renderHtmlString = null;
+    	List<BaccaratEo> baccaratEoList = null;
     	List<BaccaratDto> baccaratDtoList = null;
+    	
+    	List<BaccaratEo> baccaratEoBankerList = null;
+    	List<BaccaratDto> baccaratDtoBankerList = null;
+    	
+    	List<BaccaratEo> baccaratEoPlayerList = null;
+    	List<BaccaratDto> baccaratDtoPlayerList = null;
     	
     	try {
     		BaccaratSo baccaratSo = new BaccaratSo();
@@ -345,12 +351,41 @@ public class BaccaratController {
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
+			
+			// banker
+    		BaccaratSo baccaratBankerSo = new BaccaratSo();
+    		baccaratBankerSo.setSession(session);
+    		OrderedBy orderBySessionBanker = new OrderedBy();
+    		orderBySessionBanker.setAsc("session");
+    		OrderedBy orderedByRoundBanker = new OrderedBy();
+    		orderedByRoundBanker.setAsc("round");
+    		baccaratBankerSo.setBankPlayer("B");
+    		baccaratBankerSo.addOrderedBy(orderBySessionBanker);
+    		baccaratBankerSo.addOrderedBy(orderedByRoundBanker);
+			baccaratEoBankerList = baccaratMgr.read(baccaratBankerSo);
+			baccaratDtoBankerList = helper.transformToBaccaratDtoList(baccaratEoBankerList);
+			
+			
+			// player
+    		BaccaratSo baccaratPlayerSo = new BaccaratSo();
+    		baccaratPlayerSo.setSession(session);
+    		OrderedBy orderBySessionPlayer = new OrderedBy();
+    		orderBySessionPlayer.setAsc("session");
+    		OrderedBy orderedByRoundPlayer = new OrderedBy();
+    		orderedByRoundPlayer.setAsc("round");
+    		baccaratPlayerSo.setBankPlayer("P");
+    		baccaratPlayerSo.addOrderedBy(orderBySessionPlayer);
+    		baccaratPlayerSo.addOrderedBy(orderedByRoundPlayer);
+			baccaratEoPlayerList = baccaratMgr.read(baccaratPlayerSo);
+			baccaratDtoPlayerList = helper.transformToBaccaratDtoList(baccaratEoPlayerList);
+			
+			
     		if (gambleMgr == null) {
     			gambleMgr = new GambleMgrImp();
     		}
 
-			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
-			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoList);
+			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoBankerList);
+			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoPlayerList);
 			String nextBBettingSuggestion = gambleMgr.getNextBettingSuggestion(b);
 			if (nextBBettingSuggestion == null) {
 				nextBBettingSuggestion = "Non-deterministic";

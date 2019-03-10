@@ -73,7 +73,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
-				Predicate predicate = builder.equal(root.get("bank_player"), baccaratSo.getBankPlayer());
+				Predicate predicate = builder.equal(root.get("bankPlayer"), baccaratSo.getBankPlayer());
 				predicateList.add(predicate);
 			}
 			if(baccaratSo.getResult() != null){
@@ -87,7 +87,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
-				Predicate predicate = builder.equal(root.get("odd_even"), baccaratSo.getOddEven());
+				Predicate predicate = builder.equal(root.get("oddEven"), baccaratSo.getOddEven());
 				predicateList.add(predicate);
 			}
 			if(baccaratSo.getDatetime() != null){
@@ -101,14 +101,14 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
-				Predicate predicate = builder.equal(root.get("create_date"), baccaratSo.getCreateDate());
+				Predicate predicate = builder.equal(root.get("createDate"), baccaratSo.getCreateDate());
 				predicateList.add(predicate);
 			}
 			if(baccaratSo.getUpdateDate() != null){
 				if (predicateList == null) {
 					predicateList = new ArrayList<Predicate>();
 				}
-				Predicate predicate = builder.equal(root.get("update_date"), baccaratSo.getUpdateDate());
+				Predicate predicate = builder.equal(root.get("updateDate"), baccaratSo.getUpdateDate());
 				predicateList.add(predicate);
 			}
 			if (predicateList != null) {
