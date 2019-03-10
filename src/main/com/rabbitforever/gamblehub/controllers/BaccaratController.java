@@ -385,7 +385,7 @@ public class BaccaratController {
     		}
 
 			String b = helper.getBankerStringFromBaccaratDtoList(baccaratDtoBankerList);
-			String p = helper.getBankerStringFromBaccaratDtoList(baccaratDtoPlayerList);
+			String p = helper.getPlayerStringFromBaccaratDtoList(baccaratDtoPlayerList);
 			String nextBBettingSuggestion = gambleMgr.getNextBettingSuggestion(b);
 			if (nextBBettingSuggestion == null) {
 				nextBBettingSuggestion = "Non-deterministic";
