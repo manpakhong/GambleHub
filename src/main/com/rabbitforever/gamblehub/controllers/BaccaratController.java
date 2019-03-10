@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -36,6 +37,7 @@ import com.rabbitforever.gamblehub.services.GambleMgrImp;
 public class BaccaratController {
 	private final Logger logger = LogManager.getLogger(getClassName());
 	private BaccaratControllerHelper helper;
+	private String session;
 	public BaccaratController() throws Exception{
 		helper = new BaccaratControllerHelper();
 	}
@@ -72,8 +74,8 @@ public class BaccaratController {
 //		return json;
 //	}
 //	
-	@GetMapping("load_result")
-	public String getBaccaratResult(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
+	 @RequestMapping(value = "load_result", method = { RequestMethod.POST, RequestMethod.GET })
+	public String getBaccaratResult(@RequestParam(value="session", required=false) String session, @ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
 		BaccaratVo vo = null;
 		List<BaccaratEo> baccaratEoList = null;
 		Integer round = null;
@@ -88,11 +90,15 @@ public class BaccaratController {
 				so = new BaccaratSo();
 			}
 			
+			String tableHtmlString = renderBaccaratResultTable(session);
+			vo.setTableHtml(tableHtmlString);
 			
 			baccaratEoList = baccaratMgr.read(so);
 //			vo.setBaccaratDtoList(baccaratDtoList);
 
+			vo.setTableHtml(tableHtmlString);
 			model.addAttribute("baccaratEoList", baccaratEoList);
+
 			model.addAttribute("vo", vo);
 		} catch (Exception e) {
 			logger.error(getClassName() + ".read() - so=" + so, e);
@@ -100,8 +106,36 @@ public class BaccaratController {
 		return "baccarat_result";
 	}
 	
-	@GetMapping("load")
-	public String getBaccarat(@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
+    public String renderBaccaratTable(String session) throws Exception{
+    	List<BaccaratEo> baccaratEoList = null;
+    	String renderHtmlString = null;
+    	List<BaccaratDto> baccaratDtoList = null;
+    	try {
+    		BaccaratSo baccaratSo = new BaccaratSo();
+    		baccaratSo.setSession(session);
+    		if (baccaratMgr == null) {
+    			baccaratMgr = new  BaccaratMgr();
+    		}
+    		OrderedBy orderBySession = new OrderedBy();
+    		orderBySession.setDesc("session");
+    		OrderedBy orderedByRound = new OrderedBy();
+    		orderedByRound.setDesc("round");
+    		baccaratSo.addOrderedBy(orderBySession);
+    		baccaratSo.addOrderedBy(orderedByRound);
+			baccaratEoList = baccaratMgr.read(baccaratSo);
+			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
+			
+    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
+    	} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
+			throw e;
+		} finally {
+		}
+    	return renderHtmlString;
+    }
+
+	 @RequestMapping(value = "load", method = { RequestMethod.POST, RequestMethod.GET })
+	public String getBaccarat(@RequestParam(value="session", required=false) String session,@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
 		BaccaratVo vo = null;
 		List<BaccaratEo> baccaratEoList = null;
 		Integer round = null;
@@ -116,10 +150,11 @@ public class BaccaratController {
 				so = new BaccaratSo();
 			}
 			
-			
+			this.session = session;
 			baccaratEoList = baccaratMgr.read(so);
 //			vo.setBaccaratDtoList(baccaratDtoList);
-
+			String tableHtmlString = renderBaccaratTable(session);
+			vo.setTableHtml(tableHtmlString);
 			model.addAttribute("baccaratEoList", baccaratEoList);
 			model.addAttribute("vo", vo);
 		} catch (Exception e) {
@@ -208,38 +243,14 @@ public class BaccaratController {
         return reponseJsonString;
     }
     
-    public String renderBaccaratTable() throws Exception{
+
+    public String renderBaccaratResult(String session) throws Exception{
     	List<BaccaratEo> baccaratEoList = null;
     	String renderHtmlString = null;
     	List<BaccaratDto> baccaratDtoList = null;
     	try {
     		BaccaratSo baccaratSo = new BaccaratSo();
-    		if (baccaratMgr == null) {
-    			baccaratMgr = new  BaccaratMgr();
-    		}
-    		OrderedBy orderBySession = new OrderedBy();
-    		orderBySession.setDesc("session");
-    		OrderedBy orderedByRound = new OrderedBy();
-    		orderedByRound.setDesc("round");
-    		baccaratSo.addOrderedBy(orderBySession);
-    		baccaratSo.addOrderedBy(orderedByRound);
-			baccaratEoList = baccaratMgr.read(baccaratSo);
-			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
-			
-    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
-    	} catch (Exception e) {
-			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
-			throw e;
-		} finally {
-		}
-    	return renderHtmlString;
-    }
-    public String renderBaccaratResult() throws Exception{
-    	List<BaccaratEo> baccaratEoList = null;
-    	String renderHtmlString = null;
-    	List<BaccaratDto> baccaratDtoList = null;
-    	try {
-    		BaccaratSo baccaratSo = new BaccaratSo();
+    		baccaratSo.setSession(session);
     		if (baccaratMgr == null) {
     			baccaratMgr = new  BaccaratMgr();
     		}
@@ -257,13 +268,14 @@ public class BaccaratController {
 		}
     	return renderHtmlString;
     }
-    public String renderBaccaratResultTable() throws Exception{
+    public String renderBaccaratResultTable(String session) throws Exception{
     	List<BaccaratEo> baccaratEoList = null;
     	String renderHtmlString = null;
     	List<BaccaratDto> baccaratDtoList = null;
     	
     	try {
     		BaccaratSo baccaratSo = new BaccaratSo();
+    		baccaratSo.setSession(session);
     		if (baccaratMgr == null) {
     			baccaratMgr = new  BaccaratMgr();
     		}

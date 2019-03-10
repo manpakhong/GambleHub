@@ -3,6 +3,7 @@
 <%@ page import="com.rabbitforever.common.factories.UtilsFactory" %>
 <%@ page import="com.rabbitforever.common.utils.DateUtils" %>
 <%@ page import="com.rabbitforever.gamblehub.controllers.BaccaratController" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <% UtilsFactory utilsFactory = UtilsFactory.getInstance(); 
 DateUtils dateUtils = utilsFactory.getInstanceOfDateUtils();
 BaccaratController controller = new BaccaratController();
@@ -24,7 +25,10 @@ BaccaratController controller = new BaccaratController();
 	<div class="mainContentDiv">
 	<label for="date" class="dateLabel"><%= dateUtils.getTodayDisplayDateString() %></label>
 	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateParamString() %>" />
-	<%= controller.renderBaccaratTable() %>
+	${vo.tableHtml}
+<%-- 		<c:out value='${vo.tableHtml}' /> --%>
+<%-- 	<%= controller.renderBaccaratTable(request.getParameter("session")) %>  --%>
+
 <%-- 	<table class="baccaratTable">
 		<thead>
 			<tr>

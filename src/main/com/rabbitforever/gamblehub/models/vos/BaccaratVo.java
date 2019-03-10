@@ -8,6 +8,7 @@ public class BaccaratVo {
 	private BaccaratDto baccaratDto;
 	private List<BaccaratDto> baccaratDtoList;
 	private Integer round;
+	private String tableHtml;
 	public List<BaccaratDto> getBaccaratDtoList() {
 		return baccaratDtoList;
 	}
@@ -26,6 +27,13 @@ public class BaccaratVo {
 	public void setBaccaratDto(BaccaratDto baccaratDto) {
 		this.baccaratDto = baccaratDto;
 	}
+	
+	public String getTableHtml() {
+		return tableHtml;
+	}
+	public void setTableHtml(String tableHtml) {
+		this.tableHtml = tableHtml;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -35,6 +43,8 @@ public class BaccaratVo {
 		builder.append(baccaratDtoList);
 		builder.append(", round=");
 		builder.append(round);
+		builder.append(", tableHtml=");
+		builder.append(tableHtml);
 		builder.append("]");
 		return builder.toString();
 	}
