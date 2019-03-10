@@ -232,6 +232,7 @@ public class BaccaratController {
 //			baccaratMgr.create(eo);
 			
 			baccaratReponseDto = new BaccaratReponseDto();
+			baccaratDto.setId(baccaratEo.getId());
 			baccaratReponseDto.setBaccaratDto(baccaratDto);
 			if (baccaratEo.getId() != null) {
 				baccaratReponseDto.setIsSuccess(true);

@@ -211,7 +211,7 @@ function createBaccaratTableTrTopRow(){
 	var dateParamInput = $('.dateParamInput');
 	var dateParam = $(dateParamInput).val();
 	var trObjString = "<tr>"
-	+	"<td><input type=\"button\" value=\"Create\" class=\"createButton\" onclick=\"createNewButton_onclick(event)\"/></td>"
+	+	"<td><input type=\"button\" value=\"Create\" class=\"createButton\" onclick=\"createButton_onclick(event)\"/></td>"
 	+ 	"<td><input type=\"text\" value=\"" + dateParam + "\" class=\"sessionInput\"/></td>"
 	+	"<td><input type=\"text\" value=\"\" class=\"roundInput\" /></td>"
 	+	"<td><input type=\"text\" value=\"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" /></td>"
@@ -274,6 +274,18 @@ function postDeleteBaccaratDataCallBack(jsonStr){
 		}
 	}
 }
+function updateBaccaratTableTrDataRow(baccaratDto){
+	var tbodyObj =  $('.baccaratTableTbody');
+	var dateParamInput = $('.dateParamInput');
+	var dateParam = $(dateParamInput).val();
+	var trObj = $(currentControl);
+	
+	
+	var idInputObj = $(trObj).find('.idInput');
+	$(idInputObj).val(baccaratDto.id);
+	
+
+}
 function postUpdateBaccaratDataCallBack(jsonStr){
 	if (!isUndefinedOrIsNull(jsonStr)) {
 		if (jsonStr.length == 0) {
@@ -309,6 +321,7 @@ function updateButton_onclick(e){
 	currentControl = trObj;
 	var baccaratDto = collectBaccaratData(trObj);
 	postUpdateBaccaratData(baccaratDto);
+	currentControl = trObj;
 }
 
 
