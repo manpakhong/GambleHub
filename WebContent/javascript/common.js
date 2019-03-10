@@ -11,7 +11,7 @@ var CMD_TYPE_UPDATE = 'UPDATE';
 var CMD_TYPE_DELETE = 'DELETE';
 var CMD_TYPE_INSERT = 'INSERT';
 var CMD_TYPE_BATCH_SAVE = 'BATCH_SAVE';
-
+var APP_NAME = "GambleHub";
 $(document).ready(function(){ 
 	
 }); // end $(document).ready

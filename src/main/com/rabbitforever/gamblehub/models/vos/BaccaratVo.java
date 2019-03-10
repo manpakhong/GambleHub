@@ -9,6 +9,15 @@ public class BaccaratVo {
 	private List<BaccaratDto> baccaratDtoList;
 	private Integer round;
 	private String tableHtml;
+	private String filterInputHtml;
+	
+	
+	public String getFilterInputHtml() {
+		return filterInputHtml;
+	}
+	public void setFilterInputHtml(String filterInputHtml) {
+		this.filterInputHtml = filterInputHtml;
+	}
 	public List<BaccaratDto> getBaccaratDtoList() {
 		return baccaratDtoList;
 	}
@@ -45,6 +54,8 @@ public class BaccaratVo {
 		builder.append(round);
 		builder.append(", tableHtml=");
 		builder.append(tableHtml);
+		builder.append(", filterInputHtml=");
+		builder.append(filterInputHtml);
 		builder.append("]");
 		return builder.toString();
 	}

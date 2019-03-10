@@ -25,6 +25,8 @@ BaccaratController controller = new BaccaratController();
 	<div class="mainContentDiv">
 	<label for="date" class="dateLabel"><%= dateUtils.getTodayDisplayDateString() %></label>
 	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateParamString() %>" />
+	
+	${vo.filterInputHtml}
 	${vo.tableHtml}
 <%-- 		<c:out value='${vo.tableHtml}' /> --%>
 <%-- 	<%= controller.renderBaccaratTable(request.getParameter("session")) %>  --%>
@@ -51,6 +53,7 @@ BaccaratController controller = new BaccaratController();
 			</tr>
 		</tbody>
 	</table> --%>
+
 	</div>
 </body>
 </html>

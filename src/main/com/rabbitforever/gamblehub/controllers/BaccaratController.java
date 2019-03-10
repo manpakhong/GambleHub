@@ -89,13 +89,13 @@ public class BaccaratController {
 			if (so == null) {
 				so = new BaccaratSo();
 			}
-			
-			String tableHtmlString = renderBaccaratResultTable(session);
-			vo.setTableHtml(tableHtmlString);
-			
-			baccaratEoList = baccaratMgr.read(so);
-//			vo.setBaccaratDtoList(baccaratDtoList);
+//			baccaratEoList = baccaratMgr.read(so);
 
+			String tableHtmlString = renderEstimateBaccaratResultTable(session);
+			vo.setTableHtml(tableHtmlString);
+			String inputFilterHtml = renderInputFilterControls(session);
+
+			vo.setFilterInputHtml(inputFilterHtml);
 			vo.setTableHtml(tableHtmlString);
 			model.addAttribute("baccaratEoList", baccaratEoList);
 
@@ -106,33 +106,15 @@ public class BaccaratController {
 		return "baccarat_result";
 	}
 	
-    public String renderBaccaratTable(String session) throws Exception{
-    	List<BaccaratEo> baccaratEoList = null;
-    	String renderHtmlString = null;
-    	List<BaccaratDto> baccaratDtoList = null;
-    	try {
-    		BaccaratSo baccaratSo = new BaccaratSo();
-    		baccaratSo.setSession(session);
-    		if (baccaratMgr == null) {
-    			baccaratMgr = new  BaccaratMgr();
-    		}
-    		OrderedBy orderBySession = new OrderedBy();
-    		orderBySession.setDesc("session");
-    		OrderedBy orderedByRound = new OrderedBy();
-    		orderedByRound.setDesc("round");
-    		baccaratSo.addOrderedBy(orderBySession);
-    		baccaratSo.addOrderedBy(orderedByRound);
-			baccaratEoList = baccaratMgr.read(baccaratSo);
-			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
-			
-    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
-    	} catch (Exception e) {
-			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
-			throw e;
-		} finally {
+	 public String renderInputFilterControls(String session) throws Exception {
+		 String html = null;
+		 try {
+			 html = helper.renderFilterInput(session);
+		} catch (Exception e) {
+			logger.error(getClassName() + ".renderInputFilterControls() - session=" + session, e);
 		}
-    	return renderHtmlString;
-    }
+		 return html;
+	 }
 
 	 @RequestMapping(value = "load", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getBaccarat(@RequestParam(value="session", required=false) String session,@ModelAttribute("baccaratSo") @Valid BaccaratSo so, BindingResult result, Model model) {
@@ -153,8 +135,11 @@ public class BaccaratController {
 			this.session = session;
 			baccaratEoList = baccaratMgr.read(so);
 //			vo.setBaccaratDtoList(baccaratDtoList);
-			String tableHtmlString = renderBaccaratTable(session);
+			String tableHtmlString = renderInputBaccaratTable(session);
 			vo.setTableHtml(tableHtmlString);
+			String inputFilterHtml = renderInputFilterControls(session);
+
+			vo.setFilterInputHtml(inputFilterHtml);
 			model.addAttribute("baccaratEoList", baccaratEoList);
 			model.addAttribute("vo", vo);
 		} catch (Exception e) {
@@ -162,36 +147,57 @@ public class BaccaratController {
 		}
 		return "baccarat";
 	}
-//
-//	
-//	@GetMapping("/")
-//	public String read(@ModelAttribute("bigSmallSo") @Valid BigSmallSo so, BindingResult result, Model model) {
-//		List<BigSmallEo> bigSmallEoList = null;
-//
-//		try {
-//			// if (result.hasErrors()) {
-//			// model.addAttribute("bigSmallEoList", gambleService.read());
-//			// return "editUsers";
-//			// }
-//			OrderedBy orderedBy = new OrderedBy();
-//			orderedBy.setDesc("id");
-//			so.addOrderedBy(orderedBy);
-//			
-//			bigSmallEoList = gambleService.read(so);
-//
-//			
-//			model.addAttribute("bigSmallEoList", bigSmallEoList);
-//		} catch (Exception e) {
-//			logger.error(getClassName() + ".read() - so=" + so, e);
-//		}
-//		return "gambleHub";
-//	}
-//
-//    @ModelAttribute("bigSmallEo")
-//    public BigSmallEo formBackingObject() {
-//        return new BigSmallEo();
-//    }
-    @RequestMapping(value = "addBaccarat", method = RequestMethod.POST)
+	    @RequestMapping(value = "deleteBaccarat", method = RequestMethod.POST)
+	    @ResponseBody
+	    public String delete(@RequestBody String jsonString) throws Exception{
+//			List<BigSmallEo> bigSmallEoList = null;
+//			BigSmallSo so = null;
+	    	GambleControllerHelper gambleControllerHelper = null;
+	    	BaccaratMgr baccaratMgr = null;
+	    	BaccaratReponseDto baccaratReponseDto = null;
+	    	String reponseJsonString = null;
+	    	Gson gson = null;
+			try {
+				gson = new Gson();
+				BaccaratRequestDto baccaratRequestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+				String command = baccaratRequestDto.getCommand();
+				String className = baccaratRequestDto.getDataClassName();
+				BaccaratDto baccaratDto = baccaratRequestDto.getDataInstance();
+				gambleControllerHelper = new GambleControllerHelper();
+				
+				BaccaratEo baccaratEo = new BaccaratEo();
+				BeanUtils.copyProperties(baccaratEo, baccaratDto);
+				gambleControllerHelper.parseCommonDateTimeStringToDate(baccaratDto);
+				baccaratMgr = new BaccaratMgr();
+				baccaratMgr.delete(baccaratEo);
+//				BaccaratDto baccaratDto = requestDto.get
+//				 so = new BigSmallSo();
+//				 bigSmallEoList = gambleService.read(so);
+//	        if (result.hasErrors()) {
+//	            model.addAttribute("bigSmallEoList", bigSmallEoList);
+//	            return "baccarat";
+//	        }
+	// 
+
+//				baccaratMgr.create(eo);
+				
+				baccaratReponseDto = new BaccaratReponseDto();
+				baccaratReponseDto.setBaccaratDto(baccaratDto);
+
+				baccaratReponseDto.setIsSuccess(true);
+
+
+				reponseJsonString = gson.toJson(baccaratReponseDto);
+			} catch (Exception e) {
+				logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
+				throw e;
+			} finally {
+				baccaratMgr = null;
+				gambleControllerHelper = null;
+			}
+	        return reponseJsonString;
+	    }
+    @RequestMapping(value = "createBaccarat", method = RequestMethod.POST)
     @ResponseBody
     public String create(@RequestBody String jsonString) throws Exception{
 //		List<BigSmallEo> bigSmallEoList = null;
@@ -243,6 +249,56 @@ public class BaccaratController {
         return reponseJsonString;
     }
     
+    @RequestMapping(value = "updateBaccarat", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(@RequestBody String jsonString) throws Exception{
+//		List<BigSmallEo> bigSmallEoList = null;
+//		BigSmallSo so = null;
+    	GambleControllerHelper gambleControllerHelper = null;
+    	BaccaratMgr baccaratMgr = null;
+    	BaccaratReponseDto baccaratReponseDto = null;
+    	String reponseJsonString = null;
+    	Gson gson = null;
+		try {
+			gson = new Gson();
+			BaccaratRequestDto baccaratRequestDto = gson.fromJson(jsonString, BaccaratRequestDto.class);
+			String command = baccaratRequestDto.getCommand();
+			String className = baccaratRequestDto.getDataClassName();
+			BaccaratDto baccaratDto = baccaratRequestDto.getDataInstance();
+			gambleControllerHelper = new GambleControllerHelper();
+			
+			BaccaratEo baccaratEo = new BaccaratEo();
+			BeanUtils.copyProperties(baccaratEo, baccaratDto);
+			gambleControllerHelper.parseCommonDateTimeStringToDate(baccaratDto);
+			baccaratMgr = new BaccaratMgr();
+			baccaratMgr.update(baccaratEo);
+//			BaccaratDto baccaratDto = requestDto.get
+//			 so = new BigSmallSo();
+//			 bigSmallEoList = gambleService.read(so);
+//        if (result.hasErrors()) {
+//            model.addAttribute("bigSmallEoList", bigSmallEoList);
+//            return "baccarat";
+//        }
+// 
+
+//			baccaratMgr.create(eo);
+			
+			baccaratReponseDto = new BaccaratReponseDto();
+			baccaratReponseDto.setBaccaratDto(baccaratDto);
+
+			baccaratReponseDto.setIsSuccess(true);
+
+			reponseJsonString = gson.toJson(baccaratReponseDto);
+		} catch (Exception e) {
+			logger.error(getClassName() + ".create() - jsonString=" + jsonString, e);
+			throw e;
+		} finally {
+			baccaratMgr = null;
+			gambleControllerHelper = null;
+		}
+        return reponseJsonString;
+    }
+    
 
     public String renderBaccaratResult(String session) throws Exception{
     	List<BaccaratEo> baccaratEoList = null;
@@ -268,7 +324,7 @@ public class BaccaratController {
 		}
     	return renderHtmlString;
     }
-    public String renderBaccaratResultTable(String session) throws Exception{
+    public String renderEstimateBaccaratResultTable(String session) throws Exception{
     	List<BaccaratEo> baccaratEoList = null;
     	String renderHtmlString = null;
     	List<BaccaratDto> baccaratDtoList = null;
@@ -279,9 +335,12 @@ public class BaccaratController {
     		if (baccaratMgr == null) {
     			baccaratMgr = new  BaccaratMgr();
     		}
-    		OrderedBy orderBy = new OrderedBy();
-    		orderBy.setAsc("round");
-    		baccaratSo.addOrderedBy(orderBy);
+    		OrderedBy orderBySession = new OrderedBy();
+    		orderBySession.setAsc("session");
+    		OrderedBy orderedByRound = new OrderedBy();
+    		orderedByRound.setAsc("round");
+    		baccaratSo.addOrderedBy(orderBySession);
+    		baccaratSo.addOrderedBy(orderedByRound);
 			baccaratEoList = baccaratMgr.read(baccaratSo);
 			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
@@ -302,10 +361,35 @@ public class BaccaratController {
 			}
 			
     		renderHtmlString = helper.renderBaccaratResultTable(baccaratDtoList, nextBBettingSuggestion, nextPBettingSuggestion);
-    		
 
+    	} catch (Exception e) {
+			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
+			throw e;
+		} finally {
+		}
+    	return renderHtmlString;
+    }
+    public String renderInputBaccaratTable(String session) throws Exception{
+    	List<BaccaratEo> baccaratEoList = null;
+    	String renderHtmlString = null;
+    	List<BaccaratDto> baccaratDtoList = null;
+    	try {
+    		BaccaratSo baccaratSo = new BaccaratSo();
+
+    		if (baccaratMgr == null) {
+    			baccaratMgr = new  BaccaratMgr();
+    		}
+    		baccaratSo.setSession(session);
+    		OrderedBy orderBySession = new OrderedBy();
+    		orderBySession.setDesc("session");
+    		OrderedBy orderedByRound = new OrderedBy();
+    		orderedByRound.setDesc("round");
+    		baccaratSo.addOrderedBy(orderBySession);
+    		baccaratSo.addOrderedBy(orderedByRound);
+			baccaratEoList = baccaratMgr.read(baccaratSo);
+			baccaratDtoList = helper.transformToBaccaratDtoList(baccaratEoList);
 			
-			
+    		renderHtmlString = helper.renderBaccaratTable(baccaratDtoList);
     	} catch (Exception e) {
 			logger.error(getClassName() + ".renderBaccaratTable() - baccaratEoList=" + baccaratEoList, e);
 			throw e;

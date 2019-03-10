@@ -192,7 +192,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 	}
 
 	@Override
-	public Integer update(BaccaratEo eo) throws Exception {
+	public void update(BaccaratEo eo) throws Exception {
 		List<BaccaratEo> baccaratEoList = null;
 		CriteriaBuilder builder = null;
 		CriteriaQuery<BaccaratEo> query = null;
@@ -201,14 +201,23 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 		Query<BaccaratEo> q = null;
 		List<Predicate> predicateList = null;
 		try {
-			
+			trans = session.getTransaction();
+			trans.begin();
+
+			eo.setCreatedBy("admin");
+			eo.setCreateDate(new Date());
+			eo.setUpdatedBy("admin");
+			eo.setUpdateDate(new Date());
+			session.update(eo);
+			trans.commit();
 		} catch (Exception e) {
 			logger.error(getClassName() + ".update() - eo=" + eo, e);
+			trans.rollback();
 			throw e;
 		} // end try ... catch
 		finally {
 			if (trans != null) {
-				trans.commit();
+
 				trans = null;
 			}
 //			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
@@ -218,11 +227,10 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 //				}
 //			}
 		}
-		return null;
 	}
 
 	@Override
-	public Integer delete(BaccaratEo eo) throws Exception {
+	public void delete(BaccaratEo eo) throws Exception {
 		List<BaccaratEo> baccaratEoList = null;
 		CriteriaBuilder builder = null;
 		CriteriaQuery<BaccaratEo> query = null;
@@ -231,14 +239,20 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 		Query<BaccaratEo> q = null;
 		List<Predicate> predicateList = null;
 		try {
-			
+			trans = session.getTransaction();
+			trans.begin();
+
+
+			session.delete(eo);
+			trans.commit();
 		} catch (Exception e) {
 			logger.error(getClassName() + ".delete() - eo=" + eo, e);
+			trans.rollback();
 			throw e;
 		} // end try ... catch
 		finally {
 			if (trans != null) {
-				trans.commit();
+
 				trans = null;
 			}
 //			if (connectionType.equals(CONNECTION_TYPE_HIBERNATE)) {
@@ -248,7 +262,7 @@ public class BaccaratDao extends OrmDaoBase<BaccaratEo>{
 //				}
 //			}
 		}
-		return null;
+
 	}
 
 }

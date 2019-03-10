@@ -375,3 +375,15 @@ function validateSameResultInput(changeValue){
 	}
 	return isValid;
 }
+function sessionFilterButton_onclick(e){
+	var controlObj = e.target;
+	var sessionInputString = $('.sessionInput').val();
+	var pathname = window.location.pathname; // Returns path only (/path/example.html)
+	var url      = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+	var origin   = window.location.origin;   // Returns base URL (https://example.com)
+	var url = origin + "/" + APP_NAME + "/" + "baccarat/load_result";
+	if (sessionInputString.length > 0){
+		url += "?session=" + sessionInputString;
+	}
+	window.location = url;
+}

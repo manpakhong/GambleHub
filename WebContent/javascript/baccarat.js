@@ -100,7 +100,7 @@ function marshallCountString2Int(countString){
 }
 function collectBaccaratData(trObj){
 	var baccaratDto = createBaccaratDto();
-	
+	var idInput = $(trObj).find('.idInput');
 	var sessionInput = $(trObj).find('.sessionInput');
 	var roundInput = $(trObj).find('.roundInput');
 	var resultInput = $(trObj).find('.resultInput');
@@ -109,6 +109,7 @@ function collectBaccaratData(trObj){
 	var countLabel = $(trObj).find('.countLabel');
 	var dateParamInput = $(document).find('.dateParamInput');
 	
+	var id = $(idInput).val();
 	var session = $(sessionInput).val();
 	var roundString = $(roundInput).val();
 	var round = tryParseInt(roundString);
@@ -124,7 +125,7 @@ function collectBaccaratData(trObj){
 	var createDateString = convertDate2ParamDateTimeString(baccaratDto.createDate);
 	var updateDateString = convertDate2ParamDateTimeString(baccaratDto.updateDate);
 	
-
+	baccaratDto.id = id;
 	baccaratDto.session = session;
 	baccaratDto.round = round;
 	baccaratDto.bankPlayer = bankPlayer;
@@ -143,6 +144,7 @@ function postDeleteBaccaratData(baccaratDto){
 	var postDto = createRequestDto();
 	postDto.dataInstance = baccaratDto;
 	postDto.dataClassName = "BaccaratDto";
+	postDto.command = "DELETE";
 	var dataString = JSON.stringify(postDto);
 	console.log(dataString);
 	
@@ -160,20 +162,21 @@ function postDeleteBaccaratData(baccaratDto){
 //		alert("Promise completion callback.");
 	})
 }
-function postEditBaccaratData(baccaratDto){
+function postUpdateBaccaratData(baccaratDto){
 	var postDto = createRequestDto();
 	postDto.dataInstance = baccaratDto;
 	postDto.dataClassName = "BaccaratDto";
+	postDto.command = "UPDATE";
 	var dataString = JSON.stringify(postDto);
 	console.log(dataString);
 	
 	$.ajax({
 		type : "POST",
-		url : "editBaccarat",
+		url : "updateBaccarat",
 		contentType: "application/json; charset=utf-8",
 		data : dataString
 	}).done(function(data, status, jqXHR) {
-		postEditBaccaratDataCallBack(data);
+		postUpdateBaccaratDataCallBack(data);
 //		alert("Promise success callback.");
 	}).fail(function(jqXHR, status, err) {
 //		alert("Promise error callback.");
@@ -181,7 +184,7 @@ function postEditBaccaratData(baccaratDto){
 //		alert("Promise completion callback.");
 	})
 }
-function postAddBaccaratData(baccaratDto){
+function postCreateBaccaratData(baccaratDto){
 	var postDto = createRequestDto();
 	postDto.dataInstance = baccaratDto;
 	postDto.dataClassName = "BaccaratDto";
@@ -190,11 +193,11 @@ function postAddBaccaratData(baccaratDto){
 	
 	$.ajax({
 		type : "POST",
-		url : "addBaccarat",
+		url : "createBaccarat",
 		contentType: "application/json; charset=utf-8",
 		data : dataString
 	}).done(function(data, status, jqXHR) {
-		postAddBaccaratDataCallBack(data);
+		postCreateBaccaratDataCallBack(data);
 //		alert("Promise success callback.");
 	}).fail(function(jqXHR, status, err) {
 //		alert("Promise error callback.");
@@ -208,7 +211,7 @@ function createBaccaratTableTrTopRow(){
 	var dateParamInput = $('.dateParamInput');
 	var dateParam = $(dateParamInput).val();
 	var trObjString = "<tr>"
-	+	"<td><input type=\"button\" value=\"Add\" class=\"addNewButton\" onclick=\"addNewButton_onclick(event)\"/></td>"
+	+	"<td><input type=\"button\" value=\"Create\" class=\"createButton\" onclick=\"createNewButton_onclick(event)\"/></td>"
 	+ 	"<td><input type=\"text\" value=\"" + dateParam + "\" class=\"sessionInput\"/></td>"
 	+	"<td><input type=\"text\" value=\"\" class=\"roundInput\" /></td>"
 	+	"<td><input type=\"text\" value=\"\" class=\"resultInput\" onkeydown=\"resultInput_onkeydown(event)\" onchange=\"resultInput_onchange(event)\" /></td>"
@@ -224,8 +227,9 @@ function createBaccaratTableTrDataRow(baccaratDto){
 	var dateParam = $(dateParamInput).val();
 	var trObjString = "<tr>"
 	+	"<td>"
-	+		"<input type=\"button\" value=\"Delete\" class=\"addNewButton\" onclick=\"deleteButton_onclick(event)\"/>"
-	+		"<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>"
+	+		"<input type=\"button\" value=\"Delete\" class=\"deleteButton\" onclick=\"deleteButton_onclick(event)\"/>"
+	+		"<input type=\"button\" value=\"Update\" class=\"updateButton\" onclick=\"updateButton_onclick(event)\"/>"
+	+ 		"<input type=\"hidden\" value=\"" + baccaratDto.id + "\" class=\"idInput\" />"
 	+	"</td>"
 	+ 	"<td><input type=\"text\" value=\"" + baccaratDto.session + "\" class=\"sessionInput\"/></td>"
 	+	"<td><input type=\"text\" value=\"" + baccaratDto.round +"\" class=\"roundInput\" /></td>"
@@ -236,7 +240,7 @@ function createBaccaratTableTrDataRow(baccaratDto){
 	
 	$(tbodyObj).prepend(trObjString);
 }
-function postAddBaccaratDataCallBack(jsonStr){
+function postCreateBaccaratDataCallBack(jsonStr){
 	if (!isUndefinedOrIsNull(jsonStr)) {
 		if (jsonStr.length == 0) {
 			return;
@@ -253,6 +257,40 @@ function postAddBaccaratDataCallBack(jsonStr){
 		}
 	}
 }
+function postDeleteBaccaratDataCallBack(jsonStr){
+	if (!isUndefinedOrIsNull(jsonStr)) {
+		if (jsonStr.length == 0) {
+			return;
+		}
+		var baccaratReponseDto = JSON.parse(jsonStr);
+		if (!isUndefinedOrIsNull(baccaratReponseDto)) {
+			var isSuccess = baccaratReponseDto.isSuccess;
+			var bacccaratDto = baccaratReponseDto.baccaratDto;
+			if (isSuccess){
+//				createBaccaratTableTrDataRow(bacccaratDto);
+//				createBaccaratTableTrTopRow();
+				$(currentControl).remove();
+			}
+		}
+	}
+}
+function postUpdateBaccaratDataCallBack(jsonStr){
+	if (!isUndefinedOrIsNull(jsonStr)) {
+		if (jsonStr.length == 0) {
+			return;
+		}
+		var baccaratReponseDto = JSON.parse(jsonStr);
+		if (!isUndefinedOrIsNull(baccaratReponseDto)) {
+			var isSuccess = baccaratReponseDto.isSuccess;
+			var bacccaratDto = baccaratReponseDto.baccaratDto;
+			if (isSuccess){
+				updateBaccaratTableTrDataRow(bacccaratDto);
+//				createBaccaratTableTrTopRow();
+//				$(currentControl).remove();
+			}
+		}
+	}
+}
 
 function deleteButton_onclick(e){
 	var controlObj = e.target;
@@ -263,24 +301,25 @@ function deleteButton_onclick(e){
 	var baccaratDto = collectBaccaratData(trObj);
 	postDeleteBaccaratData(baccaratDto);
 }
-function editButton_onclick(e){
+function updateButton_onclick(e){
 	var controlObj = e.target;
 	var tdObj = $(controlObj).parent();
 	var trObj = $(tdObj).parent();
 	var tbodyObj = $(trObj).parent();
 	currentControl = trObj;
 	var baccaratDto = collectBaccaratData(trObj);
-	postEditBaccaratData(baccaratDto);
+	postUpdateBaccaratData(baccaratDto);
 }
 
-function addNewButton_onclick(e){
+
+function createButton_onclick(e){
 	var controlObj = e.target;
 	var tdObj = $(controlObj).parent();
 	var trObj = $(tdObj).parent();
 	var tbodyObj = $(trObj).parent();
 	currentControl = trObj;
 	var baccaratDto = collectBaccaratData(trObj);
-	postAddBaccaratData(baccaratDto);
+	postCreateBaccaratData(baccaratDto);
 }
 
 function resultInput_onchange(e){
@@ -371,4 +410,16 @@ function validateSameResultInput(changeValue){
 		}
 	}
 	return isValid;
+}
+function sessionFilterButton_onclick(e){
+	var controlObj = e.target;
+	var sessionInputString = $('.sessionInput').val();
+	var pathname = window.location.pathname; // Returns path only (/path/example.html)
+	var url      = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+	var origin   = window.location.origin;   // Returns base URL (https://example.com)
+	var url = origin + "/" + APP_NAME + "/" + "baccarat/load";
+	if (sessionInputString.length > 0){
+		url += "?session=" + sessionInputString;
+	}
+	window.location = url;
 }

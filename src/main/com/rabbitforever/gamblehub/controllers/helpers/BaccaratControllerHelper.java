@@ -101,6 +101,21 @@ public class BaccaratControllerHelper {
 		}
 		return s.toString();
 	}
+	public String renderFilterInput(String session) throws Exception{
+		StringBuilder s = null;
+		try {
+			s = new StringBuilder();
+			if (session == null) {
+				session = "";
+			}
+			s.append("<input type=\"text\" value=\"" + session +  "\" class=\"sessionInput\" />");
+			s.append("<input type=\"button\" value=\"Filtered By Session\" class=\"sessionFilterButton\" onclick=\"sessionFilterButton_onclick(event)\" />");
+		} catch (Exception e) {
+			logger.error(getClassName() + ".renderFilterInput() - session=" + session, e);
+			throw e; 
+		}
+		return s.toString();
+	}
 	public String renderBaccaratResultTable(List<BaccaratDto> baccaratDtoList, String nextBBettingSuggestion, String nextPBettingSuggestion) throws Exception{
 		StringBuilder sbHtml = null;
 		try {
@@ -115,6 +130,7 @@ public class BaccaratControllerHelper {
 					sbHtml.append("<tr>");
 
 						sbHtml.append("<th>No.</th>");
+						sbHtml.append("<th>Session</th>");
 						sbHtml.append("<th>B(Banker)/P(Player)</th>");
 						sbHtml.append("<th>Odd(O)/Even</th>");
 						sbHtml.append("<th>P/E</th>");
@@ -143,25 +159,28 @@ public class BaccaratControllerHelper {
 				BaccaratDto baccaratDto = baccaratDtoList.get(i);
 				sbHtml.append("<tr>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getSeq() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"seqLabel\">"  + baccaratDto.getSeq() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getResult() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"sessionLabel\">"  + baccaratDto.getSession() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getOddEvenAbbreviation() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"resultLabel\">"  + baccaratDto.getResult() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayOddBankerPlayerPBAbbreviationResult() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"oddEvenAbbreviationLabel\">"  + baccaratDto.getOddEvenAbbreviation() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayOddBankerPlayerResult() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"displayOddBankerPlayerPBAbbreviationResultLabel\">"  + baccaratDto.getDisplayOddBankerPlayerPBAbbreviationResult() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerPBAbbreviationResult() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"displayOddBankerPlayerResultLabel\">"  + baccaratDto.getDisplayOddBankerPlayerResult() + "</label>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<label for=\"count\" class=\"countLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerResult() + "</label>");
+					sbHtml.append("<label for=\"count\" class=\"displayEvenBankerPlayerPBAbbreviationResultLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerPBAbbreviationResult() + "</label>");
+				sbHtml.append("</td>");
+				sbHtml.append("<td>");
+					sbHtml.append("<label for=\"count\" class=\"displayEvenBankerPlayerResultLabel\">"  + baccaratDto.getDisplayEvenBankerPlayerResult() + "</label>");
 				sbHtml.append("</td>");
 			sbHtml.append("</tr>");
 			}
@@ -210,8 +229,9 @@ public class BaccaratControllerHelper {
 			for (BaccaratDto baccaratDto: baccaratDtoList) {
 				sbHtml.append("<tr>");
 				sbHtml.append("<td>");
-					sbHtml.append("<input type=\"button\" value=\"Delete\" class=\"addNewButton\" onclick=\"deleteButton_onclick(event)\"/>");
-					sbHtml.append("<input type=\"button\" value=\"Edit\" class=\"addNewButton\" onclick=\"editButton_onclick(event)\"/>");
+					sbHtml.append("<input type=\"button\" value=\"Delete\" class=\"deleteButton\" onclick=\"deleteButton_onclick(event)\"/>");
+					sbHtml.append("<input type=\"button\" value=\"Update\" class=\"updateButton\" onclick=\"updateButton_onclick(event)\"/>");
+					sbHtml.append("<input type=\"hidden\" value=\"" + baccaratDto.getId() + "\" class=\"idInput\" />");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<input type=\"text\" value=\"" +baccaratDto.getSession() + "\" class=\"sessionInput\"/>");
@@ -244,7 +264,7 @@ public class BaccaratControllerHelper {
 			sbHtml = new StringBuilder();
 			sbHtml.append("<tr>");
 				sbHtml.append("<td>");
-					sbHtml.append("<input type=\"button\" value=\"Add\" class=\"addNewButton\" onclick=\"addNewButton_onclick(event)\"/>");
+					sbHtml.append("<input type=\"button\" value=\"Create\" class=\"createButton\" onclick=\"createButton_onclick(event)\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateParamString() + "\" class=\"sessionInput\"/>");

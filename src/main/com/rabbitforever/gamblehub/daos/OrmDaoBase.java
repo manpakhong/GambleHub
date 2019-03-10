@@ -55,7 +55,7 @@ public abstract class OrmDaoBase <T> {
 	}
 	public abstract List<T> read(Object so) throws Exception;
 	public abstract void create(T eo) throws Exception;
-	public abstract Integer update(T eo) throws Exception;
-	public abstract Integer delete(T eo) throws Exception;
+	public abstract void update(T eo) throws Exception;
+	public abstract void delete(T eo) throws Exception;
 
 }
