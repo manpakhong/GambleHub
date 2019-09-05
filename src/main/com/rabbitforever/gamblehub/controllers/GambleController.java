@@ -24,6 +24,7 @@ import com.rabbitforever.gamblehub.services.GambleMgr;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 @Controller
+//@RequestMapping("baccarat")
 public class GambleController {
 	private final Logger logger = LogManager.getLogger(getClassName());
 	private GambleControllerHelper helper;
@@ -37,7 +38,7 @@ public class GambleController {
 	@Autowired
 	private GambleMgr gambleService;
 
-	@RequestMapping(value = "/rest/getBigSmallList", method = RequestMethod.GET)
+	@RequestMapping(value = "rest/getBigSmallList", method = RequestMethod.GET)
 	public @ResponseBody String getBigSmallList() {
 		List<BigSmallEo> bigSmallEoList = null;
 		BigSmallSo so = null;

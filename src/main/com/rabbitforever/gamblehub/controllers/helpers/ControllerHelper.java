@@ -35,7 +35,7 @@ public abstract class ControllerHelper <D>{
 			Object returnObject = dtoMethod.invoke(dto);
 			String createDateString = (String) returnObject;
 			if (createDateString != null && !createDateString.isEmpty()) {
-				Date createDate = dateUtils.parseDateTimeStringToDate(createDateString);
+				Date createDate = dateUtils.parseDateTimeString2Date(createDateString);
 				Method eoMethod = dto.getClass().getMethod("setCreateDate", Date.class);
 				eoMethod.invoke(dto,createDate);
 			}
@@ -51,7 +51,7 @@ public abstract class ControllerHelper <D>{
 			Object returnObject = dtoMethod.invoke(dto);
 			String createDateString = (String) returnObject;
 			if (createDateString != null && !createDateString.isEmpty()) {
-				Date createDate = dateUtils.parseDateTimeStringToDate(createDateString);
+				Date createDate = dateUtils.parseDateTimeString2Date(createDateString);
 				Method eoMethod = dto.getClass().getMethod("setUpdateDate", Date.class);
 				eoMethod.invoke(dto,createDate);
 			}

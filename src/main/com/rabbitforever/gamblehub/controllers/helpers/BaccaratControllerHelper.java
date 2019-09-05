@@ -267,7 +267,7 @@ public class BaccaratControllerHelper {
 					sbHtml.append("<input type=\"button\" value=\"Create\" class=\"createButton\" onclick=\"createButton_onclick(event)\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
-					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateParamString() + "\" class=\"sessionInput\"/>");
+					sbHtml.append("<input type=\"text\" value=\"" + dateUtils.getDateTimeString() + "\" class=\"sessionInput\"/>");
 				sbHtml.append("</td>");
 				sbHtml.append("<td>");
 					sbHtml.append("<input type=\"text\" value=\"\" class=\"roundInput\" />");

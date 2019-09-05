@@ -33,7 +33,7 @@ import com.rabbitforever.gamblehub.services.BaccaratMgr;
 import com.rabbitforever.gamblehub.services.GambleMgr;
 import com.rabbitforever.gamblehub.services.GambleMgrImp;
 @Controller
-@RequestMapping("/baccarat")
+@RequestMapping("baccarat")
 public class BaccaratController {
 	private final Logger logger = LogManager.getLogger(getClassName());
 	private BaccaratControllerHelper helper;
