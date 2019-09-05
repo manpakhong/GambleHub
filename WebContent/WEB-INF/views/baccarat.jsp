@@ -24,7 +24,7 @@ BaccaratController controller = new BaccaratController();
 <body>
 	<div class="mainContentDiv">
 	<label for="date" class="dateLabel"><%= dateUtils.getTodayDisplayDateString() %></label>
-	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateParamString() %>" />
+	<input type="hidden" class="dateParamInput" value="<%= dateUtils.getDateTimeString() %>" />
 	
 	${vo.filterInputHtml}
 	${vo.tableHtml}
